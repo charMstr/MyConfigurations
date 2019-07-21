@@ -1,0 +1,135 @@
+"WELCOME USELESS MESSAGE, STAY IN TH EMESSAGE HISTORY
+echo '>^.^<'
+
+"KEEPS THE DEFAULTS.VIM SETTINGS
+" unlet! skip_defaults_vim
+" source $VIMRUNTIME/defaults.vim
+
+syntax on
+set mouse=a
+set number
+set cc=80
+set autoindent
+set smartindent
+
+"SET ERRORBELLS OFF , ESPECIALLY FLASHING SCREEN
+set noerrorbells visualbell t_vb=
+
+"HILIGHT MATCHING PARENTH..
+hi MatchParen ctermbg=green ctermfg=black
+
+"LEADER KEY
+let mapleader = 'fj'
+let maplocalleader = ']'
+
+"REMAP THE ESCAPE KEY
+map jk <esc>
+map! jk <esc>
+
+"EDITING MY .VIMRC FILE /  SOURCING MY .VIMRC FILE
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :so $MYVIMRC<cr>
+
+""""""""""""""""""""""""AUTO-COMMANDS""""""""""""""""""""""""""""""""""""""""""
+
+"CREAT A NEW FILE NO MATTER WHAT
+autocmd BufNewFile * :write
+
+"CREAT A .H FILE AUTOMATICALLY
+autocmd BufNewFile *.h :put =expand('%:r') | put =expand('%:e') | exe "normal I_" | exe "normal kJxVUVyI# define " | exe "normal kpI#ifndef " | exe "normal kyyjj$pppo#endif" | exe "normal kkI"
+
+""""""""""""""""""""""	HTML FILE TYPE
+"REARANGES A .HTML FILE BEFORE WRITING
+autocmd BufWritePre *.html :normal gg=G
+
+"PAIRING RED AND NEWFILE AUTOCOMMANDS FOR A .HTML
+autocmd BufNewFile,BufRead *.html setlocal nowrap
+
+""""""""""""""""""""""	C FILETYPE
+"SET cindent
+autocmd BufNewFile,BufRead *.c setlocal cindent
+
+"COMENT INLINE WITH 'c'
+autocmd FileType c nnoremap <buffer> <localleader>c I//<esc>
+
+"COMENT MULTIPLE LINES WITH 'C'
+autocmd FileType c nnoremap <buffer> <localleader>C o/*<cr>**<cr>*/<esc>o<esc>kkA<space>
+
+""""""""""""""""""""""	JAVASCRIPT FILETYPE
+autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
+
+"""""""""""""""""""""	PYTHON FILETYPE
+autocmd FileType python     nnoremap <buffer> <localleader>c I#<esc>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"MOVE A LINE DOWNWARD / UPWARD
+nnoremap <leader>- ddp
+nnoremap <leader>_ ddkP "be carefull with the upper line!
+
+"MOVE THE CURSOR / +restrictions on arrows
+nnoremap H ^
+nnoremap L $
+"noremap <left> <nop>
+"noremap <right> <nop>
+"noremap <down> <nop>
+"noremap <up> <nop>
+"inoremap <left> <nop>
+"inoremap <right> <nop>
+"inoremap <down> <nop>
+"inoremap <up> <nop>
+
+"DELETE UNTIL END / START OF LINE
+nnoremap <leader>L v$hda
+nnoremap <leader>H v^di
+
+"MATCHING IN NORMAL MODE : WORD / PARENTHESIS / BRACKETS / LEFT / RIGHT
+nnoremap <leader>w viw
+nnoremap <leader>9 vi(
+nnoremap <leader>[ vi{h
+nnoremap <leader>l v$h
+nnoremap <leader>h v^
+
+"UPPER CASE A WORD IN INSERT MODE / NORMAL MODE
+inoremap <leader>u <esc>viwUea
+inoremap <leader>U <esc>VUA
+nnoremap <leader>u viwU
+nnoremap <leader>U VU
+
+"FUNCTIONS FOR ABBREVIATIONS
+func! Eatchar(pat)
+	let c = nr2char(getchar(0))
+	return (c =~ a:pat) ? '' : c
+endfunc
+"exemple
+"iabbr <silent> if if ()<Left><C-R>=Eatchar('\s')<cr>
+
+"ABBREVIATIONS (INSERT MODE ONLY TODAY)
+iabbr cahr char
+iabbr whiel while
+iabbr fi if
+iabbr srt str
+iabbr @@ charmstr@student.42.fr
+iabbr <silent> if if ()<Left><C-R>=Eatchar('\s')<cr>
+iabbr <silent> while while ()<Left><C-R>=Eatchar('\s')<cr>
+iabbr <silent> for for ()<Left><C-R>=Eatchar('\s')<cr>
+iabbr <silent> main int<tab>main(int argc, char *argv[])<cr>{<cr>return(0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
+iabbrev <silent> { {<cr>}<esc>ko<C-R>=Eatchar('\s')<cr>
+iabbrev <silent> ( ()<esc>i<C-R>=Eatchar('\s')<cr>
+iabbrev #i #include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
+iabbrev #" #include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
+iabbr #d #define
+
+"SHORTCUTS FOR C
+
+"MAKES WORD A STRING
+nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
+vnoremap " <esc>a"<esc>`<i"<esc>`>ll
+
+"""""""""""""
+
+"to be kept - move between long wrapping lines
+noremap j gj
+noremap k gk
+
+nnoremap <leader>8 echo '<C-R>=%<cr>'

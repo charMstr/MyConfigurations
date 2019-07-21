@@ -1,0 +1,37 @@
+################### CONFIG TERMINAL
+export SHELL=/bin/zsh
+# COLORS/DISPLAY
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
+
+export PS1="[%t ] %d $ "
+#export PS1="$(echo "\033[1;32m[\033[%t \033[1;32m]\033[m \033[38;5;173m %d \033[m") $ "
+
+
+################### COMMANDS
+alias cd..='cd ..'
+alias cd-='cd -'
+alias la='ls -la'
+alias grep='grep --colour'
+alias so='source'
+alias gcl='git clone'
+
+################## SHORTCUTS
+# to projects
+alias LIB='cd /Users/orson/Projects/libft_git'
+alias ELE='cd /Users/orson/Projects/electronic/TP'
+alias SAN='cd /Users/orson/Projects/sandbox/'
+
+# to websites
+alias intra='`open https://profile.intra.42.fr`'
+alias github='`open https://github.com/`'
+alias stud='`open https://stud42.fr/clusters`':w
+alias youtube='`open https://www.youtube.com`'
+alias strelli='`open https://mail.google.com/mail/u/0/#inbox`'
+alias karlos='`open https://mail.google.com/mail/u/2/#inbox`'
+
+################## TURN OFF ALL BEEPS
+unsetopt BEEP
+# Turn off autocomplete beeps or history beeps
+# unsetopt LIST_BEEP
+# unsetopt HIST_BEEP
