@@ -30,39 +30,6 @@ map! jk <esc>
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :so $MYVIMRC<cr>
 
-""""""""""""""""""""""""AUTO-COMMANDS""""""""""""""""""""""""""""""""""""""""""
-
-"CREAT A NEW FILE NO MATTER WHAT
-autocmd BufNewFile * :write
-
-"CREAT A .H FILE AUTOMATICALLY
-autocmd BufNewFile *.h :put =expand('%:r') | put =expand('%:e') | exe "normal I_" | exe "normal kJxVUVyI# define " | exe "normal kpI#ifndef " | exe "normal kyyjj$pppo#endif" | exe "normal kkI"
-
-""""""""""""""""""""""	HTML FILE TYPE
-"REARANGES A .HTML FILE BEFORE WRITING
-autocmd BufWritePre *.html :normal gg=G
-
-"PAIRING RED AND NEWFILE AUTOCOMMANDS FOR A .HTML
-autocmd BufNewFile,BufRead *.html setlocal nowrap
-
-""""""""""""""""""""""	C FILETYPE
-"SET cindent
-autocmd BufNewFile,BufRead *.c setlocal cindent
-
-"COMENT INLINE WITH 'c'
-autocmd FileType c nnoremap <buffer> <localleader>c I//<esc>
-
-"COMENT MULTIPLE LINES WITH 'C'
-autocmd FileType c nnoremap <buffer> <localleader>C o/*<cr>**<cr>*/<esc>o<esc>kkA<space>
-
-""""""""""""""""""""""	JAVASCRIPT FILETYPE
-autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
-
-"""""""""""""""""""""	PYTHON FILETYPE
-autocmd FileType python     nnoremap <buffer> <localleader>c I#<esc>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 "MOVE A LINE DOWNWARD / UPWARD
 nnoremap <leader>- ddp
 nnoremap <leader>_ ddkP "be carefull with the upper line!
@@ -70,6 +37,9 @@ nnoremap <leader>_ ddkP "be carefull with the upper line!
 "MOVE THE CURSOR / +restrictions on arrows
 nnoremap H ^
 nnoremap L $
+"MOVE BETWEEN LONG WRAPPING LINES
+noremap j gj
+noremap k gk
 "noremap <left> <nop>
 "noremap <right> <nop>
 "noremap <down> <nop>
@@ -110,15 +80,6 @@ iabbr whiel while
 iabbr fi if
 iabbr srt str
 iabbr @@ charmstr@student.42.fr
-iabbr <silent> if if ()<Left><C-R>=Eatchar('\s')<cr>
-iabbr <silent> while while ()<Left><C-R>=Eatchar('\s')<cr>
-iabbr <silent> for for ()<Left><C-R>=Eatchar('\s')<cr>
-iabbr <silent> main int<tab>main(int argc, char *argv[])<cr>{<cr>return(0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
-iabbrev <silent> { {<cr>}<esc>ko<C-R>=Eatchar('\s')<cr>
-iabbrev <silent> ( ()<esc>i<C-R>=Eatchar('\s')<cr>
-iabbrev #i #include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
-iabbrev #" #include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
-iabbr #d #define
 
 "SHORTCUTS FOR C
 
@@ -126,10 +87,77 @@ iabbr #d #define
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 vnoremap " <esc>a"<esc>`<i"<esc>`>ll
 
-"""""""""""""
 
-"to be kept - move between long wrapping lines
-noremap j gj
-noremap k gk
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""AUTO-COMMANDS""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <leader>8 echo '<C-R>=%<cr>'
+"CREAT A NEW FILE NO MATTER WHAT
+autocmd BufNewFile * :write
+
+"CREAT A .H FILE AUTOMATICALLY
+autocmd BufNewFile *.h :put =expand('%:r') | put =expand('%:e') | exe "normal I_" | exe "normal kJxVUVyI# define " | exe "normal kpI#ifndef " | exe "normal kyyjj$pppo#endif" | exe "normal kkI"
+
+"""""""""""""""""""""""""HTML FILE TYPE""""""""""""""""""""""""""""""""""""""""
+
+"REARANGES A .HTML FILE BEFORE WRITING
+autocmd BufWritePre *.html :normal gg=G
+
+"PAIRING RED AND NEWFILE AUTOCOMMANDS FOR A .HTML
+autocmd BufNewFile,BufRead *.html setlocal nowrap
+
+"finds the matching tags and does
+augroup filetype_html
+    autocmd!
+    autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
+augroup END
+
+"""""""""""""""""""""""""C FILETYPE""""""""""""""""""""""""""""""""""""""""""""
+
+"SET cindent
+autocmd BufNewFile,BufRead *.c setlocal cindent
+
+augroup filetype_c
+autocmd!
+"COMENT INLINE WITH 'c'
+autocmd FileType c nnoremap <buffer> <localleader>c I//<esc>
+
+"COMENT MULTIPLE LINES WITH 'C'
+autocmd FileType c nnoremap <buffer> <localleader>C o/*<cr>**<cr>*/<esc>o<esc>kkA<space>
+
+"ABBREVIATIONS FOR C
+autocmd FileType c :ia <buffer> <silent> if if ()<Left><C-R>=Eatchar('\s')<cr>
+autocmd FileType c :ia <buffer> <silent> while while ()<Left><C-R>=Eatchar('\s')<cr>
+autocmd FileType c :ia <buffer> <silent> for for ()<Left><C-R>=Eatchar('\s')<cr>
+autocmd FileType c :ia <buffer> <silent> main int<tab>main(int argc, char *argv[])<cr>{<cr>return(0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
+autocmd FileType c :ia <buffer> <silent> { {<cr>}<esc>ko<C-R>=Eatchar('\s')<cr>
+"}
+autocmd FileType c :ia <buffer> <silent> ( ()<esc>i<C-R>=Eatchar('\s')<cr>
+")
+autocmd FileType c :ia <buffer> #i #include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
+autocmd FileType c :ia <buffer> #" #include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
+autocmd FileType c :ia <buffer> #d #define
+autocmd FileType c :ia <buffer> ret return();<esc>hi<C-R>=Eatchar('\s')<cr>
+
+"CHEATPROOF
+autocmd FileType c :ia <buffer> return NOPENOPENOPE
+
+augroup END
+
+"""""""""""""""""""""""""JAVASCRIPT FILETYPE"""""""""""""""""""""""""""""""""""
+
+augroup filetype_js
+	autocmd!
+	autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
+augroup END
+
+"""""""""""""""""""""""""PYTHON FILETYPE"""""""""""""""""""""""""""""""""""""""
+
+augroup filetype_py
+	autocmd!
+	autocmd FileType python     nnoremap <buffer> <localleader>c I#<esc>
+augroup END
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
