@@ -1,34 +1,135 @@
 "WELCOME USELESS MESSAGE, STAY IN TH EMESSAGE HISTORY
-echo '>^.^<'
+echo ">^.^<"
 
 "KEEPS THE DEFAULTS.VIM SETTINGS
 " unlet! skip_defaults_vim
 " source $VIMRUNTIME/defaults.vim
 
-syntax on
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""FROM OLD VIMRC
+""INDENT/FOLDING
+"set foldmethod=indent
+"set smartindent " hopefully better than the more basic option <autoindent 
+
+"set softtabstop=0 noexpandtab tabstop=4 
+
+" ASLAN  i changed it to nnoremap and it doesnt work...
+"nnoremap ; :
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""GENERAL/DISPLAY"""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax enable
 set mouse=a
-set number
-set cc=80
 set autoindent
 set smartindent
+set ruler
+set shiftwidth=4
+
+"HILIGHT MATCHING PARENTH..
+hi MatchParen ctermbg=green ctermfg=black
+
+"COLOR FOR COMMENTS
+highlight comment cterm=italic ctermbg=lightcyan ctermfg=0
+
+"NUMBERS-WISE / RELATIVENUMBER ON-OFF ...
+set number
+set numberwidth=4 
+noremap \ :set relativenumber!<CR>
+
+"APPLIES TO > AND >, ROUND THE INDENT TO A MULTIPLY OF SHIFTWIDTH
+set shiftround
+
+"MAX 80 CHAR PER LINE
+highlight ColorColumn ctermbg=lightred ctermfg=darkred
+set cc=80
 
 "SET ERRORBELLS OFF , ESPECIALLY FLASHING SCREEN
 set noerrorbells visualbell t_vb=
 
-"HILIGHT MATCHING PARENTH..
-hi MatchParen ctermbg=green ctermfg=black
+"STATUS LINE
+set statusline=\ 							"space
+set statusline+=%.25F						"path to file
+set statusline+=%=							"align to the right of the window
+set statusline+=Line:\ %l\ /\ %L\ \ \ 		"Line: number / total 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""OPERATOR-PENDING""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"WORD
+onoremap w iw
+
+"UNTIL END / START OF LINE
+onoremap L :<c-u>normal! vg_<cr>
+onoremap H :<c-u>normal! v^<cr>
+
+"INSIDE '('
+onoremap ( :<c-u>normal! vi(<cr>
+"NEXT '('
+onoremap in( :<c-u>exe "normal! /(\\{1}\r:nohlsearch\rvi("<cr>
+onoremap on( :<c-u>exe "normal! /(\\{1}\r:nohlsearch\rhv^"<cr>
+"LAST '('
+onoremap il( :<c-u>exe "normal! ?(\\{1}\r:nohlsearch\rvi("<cr>
+onoremap ol( :<c-u>exe "normal! ?(\\{1}\r:nohlsearch\rhv^"<cr>
+
+"INSIDE '"'
+onoremap " :<c-u>normal! vi"<cr>
+"NEXT '"'
+onoremap in" :<c-u>exe "normal! /\"\\{1}\r:nohlsearch\rvi\""<cr>
+onoremap on" :<c-u>exe "normal! /\"\\{1}\r:nohlsearch\rhv^"<cr>
+"LAST '"'
+onoremap il" :<c-u>exe "normal! 2?\"\\{1}\r:nohlsearch\rlvi\""<cr>
+onoremap ol" :<c-u>exe "normal! 2?\"\\{1}\r:nohlsearch\rhv^"<cr>
+
+"INSIDE '{'
+onoremap { :<c-u>normal! vi{h<cr>
+"NEXT '"'
+onoremap in{ :<c-u>exe "normal! /{\\{1}\r:nohlsearch\rvi{h"<cr>
+onoremap on{ :<c-u>exe "normal! /{\\{1}\r:nohlsearch\rkvg_"<cr>
+"LAST '"'
+onoremap il{ :<c-u>exe "normal! ?}\\{1}\r:nohlsearch\rvi{h"<cr>
+onoremap ol{ :<c-u>exe "normal! ?{\\{1}\r:nohlsearch\rkvg_"<cr>
+
+"RETURN
+onoremap inr :<c-u>exe "normal! /return (\\{1}\r:nohlsearch\rf(vi("<cr>
+onoremap ilr :<c-u>exe "normal! ?return (\\{1}\r:nohlsearch\rf(vi("<cr>
+
+"NEXT E-MAIL ADDRESS
+noremap in@ :<c-u>exe "normal! /@\\{1}\r:nohlsearch\rhvF "<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+   
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""MAPPINGS/ABBREVIATIONS"""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "LEADER KEY
 let mapleader = 'fj'
 let maplocalleader = ']'
 
 "REMAP THE ESCAPE KEY
-map jk <esc>
-map! jk <esc>
+noremap jk <esc>
+noremap! jk <esc>
 
 "EDITING MY .VIMRC FILE /  SOURCING MY .VIMRC FILE
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :so $MYVIMRC<cr>
+
+"SELECTING IN NORMAL MODE : WORD / PARENTHESIS / BRACKETS / LEFT / RIGHT
+nnoremap <leader>w viw
+nnoremap <leader>9 vi(
+nnoremap <leader>[ vi{h
+nnoremap <leader>L vg_
+nnoremap <leader>H v^
 
 "MOVE A LINE DOWNWARD / UPWARD
 nnoremap <leader>- ddp
@@ -49,16 +150,9 @@ noremap k gk
 "inoremap <down> <nop>
 "inoremap <up> <nop>
 
-"DELETE UNTIL END / START OF LINE
-nnoremap <leader>L v$hda
-nnoremap <leader>H v^di
-
-"MATCHING IN NORMAL MODE : WORD / PARENTHESIS / BRACKETS / LEFT / RIGHT
-nnoremap <leader>w viw
-nnoremap <leader>9 vi(
-nnoremap <leader>[ vi{h
-nnoremap <leader>l v$h
-nnoremap <leader>h v^
+"MAKES WORD A STRING
+nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
+vnoremap " <esc>a"<esc>`<i"<esc>`>ll
 
 "UPPER CASE A WORD IN INSERT MODE / NORMAL MODE
 inoremap <leader>u <esc>viwUea
@@ -81,11 +175,8 @@ iabbr fi if
 iabbr srt str
 iabbr @@ charmstr@student.42.fr
 
-"SHORTCUTS FOR C
-
-"MAKES WORD A STRING
-nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
-vnoremap " <esc>a"<esc>`<i"<esc>`>ll
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -93,10 +184,17 @@ vnoremap " <esc>a"<esc>`<i"<esc>`>ll
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "CREAT A NEW FILE NO MATTER WHAT
-autocmd BufNewFile * :write
+"autocmd BufNewFile * :write
 
 "CREAT A .H FILE AUTOMATICALLY
 autocmd BufNewFile *.h :put =expand('%:r') | put =expand('%:e') | exe "normal I_" | exe "normal kJxVUVyI# define " | exe "normal kpI#ifndef " | exe "normal kyyjj$pppo#endif" | exe "normal kkI"
+
+"""""""""""""""""""""""MARKDOWN/TXT FILE TYPE""""""""""""""""""""""""""""""""""
+augroup filetype_txt
+	autocmd!
+	autocmd BufRead *.txt onoremap <buffer> ih1 :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
+	autocmd BufRead *.txt onoremap <buffer> ih2 :<c-u>execute "normal! ?^--\\+$\r:nohlsearch\rkvg_"<cr>
+augroup END
 
 """""""""""""""""""""""""HTML FILE TYPE""""""""""""""""""""""""""""""""""""""""
 
@@ -119,29 +217,28 @@ autocmd BufNewFile,BufRead *.c setlocal cindent
 
 augroup filetype_c
 autocmd!
-"COMENT INLINE WITH 'c'
-autocmd FileType c nnoremap <buffer> <localleader>c I//<esc>
+	"COMENT INLINE WITH 'c'
+	autocmd FileType c nnoremap <buffer> <localleader>c I//<esc>
 
-"COMENT MULTIPLE LINES WITH 'C'
-autocmd FileType c nnoremap <buffer> <localleader>C o/*<cr>**<cr>*/<esc>o<esc>kkA<space>
+	"COMENT MULTIPLE LINES WITH 'C'
+	autocmd FileType c nnoremap <buffer> <localleader>C o/*<cr>**<cr>*/<esc>o<esc>kkA<space>
 
-"ABBREVIATIONS FOR C
-autocmd FileType c :ia <buffer> <silent> if if ()<Left><C-R>=Eatchar('\s')<cr>
-autocmd FileType c :ia <buffer> <silent> while while ()<Left><C-R>=Eatchar('\s')<cr>
-autocmd FileType c :ia <buffer> <silent> for for ()<Left><C-R>=Eatchar('\s')<cr>
-autocmd FileType c :ia <buffer> <silent> main int<tab>main(int argc, char *argv[])<cr>{<cr>return(0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
-autocmd FileType c :ia <buffer> <silent> { {<cr>}<esc>ko<C-R>=Eatchar('\s')<cr>
-"}
-autocmd FileType c :ia <buffer> <silent> ( ()<esc>i<C-R>=Eatchar('\s')<cr>
+	"ABBREVIATIONS FOR C
+	autocmd FileType c :ia <buffer> <silent> if if ()<Left><C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :ia <buffer> <silent> while while ()<Left><C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :ia <buffer> <silent> for for ()<Left><C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :ia <buffer> <silent> main int<tab>main(int argc, char *argv[])<cr>{<cr>return(0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :ia <buffer> <silent> { {<cr>}<esc>ko<C-R>=Eatchar('\s')<cr>
+	"}
+	autocmd FileType c :ia <buffer> <silent> ( ()<esc>i<C-R>=Eatchar('\s')<cr>
 ")
-autocmd FileType c :ia <buffer> #i #include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
-autocmd FileType c :ia <buffer> #" #include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
-autocmd FileType c :ia <buffer> #d #define
-autocmd FileType c :ia <buffer> ret return();<esc>hi<C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :ia <buffer> #i #include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :ia <buffer> #" #include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :ia <buffer> #d #define
+	autocmd FileType c :ia <buffer> ret return<space>();<esc>hi<C-R>=Eatchar('\s')<cr>
 
-"CHEATPROOF
-autocmd FileType c :ia <buffer> return NOPENOPENOPE
-
+	"CHEATPROOF
+	autocmd FileType c :ia <buffer> return NOPENOPENOPE
 augroup END
 
 """""""""""""""""""""""""JAVASCRIPT FILETYPE"""""""""""""""""""""""""""""""""""
@@ -160,4 +257,4 @@ augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+       
