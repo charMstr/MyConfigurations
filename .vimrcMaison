@@ -20,7 +20,7 @@ echo ">^.^<"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""GENERAL/DISPLAY"""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""GENERAL/DISPLAY""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
 set mouse=a
@@ -152,6 +152,7 @@ noremap k gk
 
 "MAKES WORD A STRING
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
+inoremap <leader>" <esc>viw<esc>a"<esc>bi"<esc>A
 vnoremap " <esc>a"<esc>`<i"<esc>`>ll
 
 "UPPER CASE A WORD IN INSERT MODE / NORMAL MODE
@@ -186,10 +187,19 @@ iabbr @@ charmstr@student.42.fr
 "CREAT A NEW FILE NO MATTER WHAT
 "autocmd BufNewFile * :write
 
+""""""""""""""""""""""""""""".H-FILETYPE"""""""""""""""""""""""""""""""""""""""
+
 "CREAT A .H FILE AUTOMATICALLY
-autocmd BufNewFile *.h :put =expand('%:r') | put =expand('%:e') | exe "normal I_" | exe "normal kJxVUVyI# define " | exe "normal kpI#ifndef " | exe "normal kyyjj$pppo#endif" | exe "normal kkI"
+augroup filetype_h
+	autocmd!
+	autocmd BufNewFile *.h :exe "normal \<f1>dd" | put =expand('%:r') | put =expand('%:e') | exe "normal! I_" | exe "normal! kJxVUVyI# define " | exe "normal! kpI#ifndef " | exe "normal! kyyjj$pppo#endif" | exe "normal! kkI"
+	autocmd BufNewFile,BufRead *.h :ia <buffer> #i # include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
+	autocmd BufNewFile,BufRead *.h :ia <buffer> #" # include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
+	autocmd BufNewFile,BufRead *.h :ia <buffer> #d # define
+augroup END
 
 """""""""""""""""""""""MARKDOWN/TXT FILE TYPE""""""""""""""""""""""""""""""""""
+
 augroup filetype_txt
 	autocmd!
 	autocmd BufRead *.txt onoremap <buffer> ih1 :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
@@ -221,7 +231,8 @@ autocmd!
 	autocmd FileType c nnoremap <buffer> <localleader>c I//<esc>
 
 	"COMENT MULTIPLE LINES WITH 'C'
-	autocmd FileType c nnoremap <buffer> <localleader>C o/*<cr>**<cr>*/<esc>o<esc>kkA<space>
+	autocmd FileType c nnoremap <buffer> <localleader>C o/*<cr>**<cr>*/<esc>
+	"o<esc>kkA<space>
 
 	"ABBREVIATIONS FOR C
 	autocmd FileType c :ia <buffer> <silent> if if ()<Left><C-R>=Eatchar('\s')<cr>
@@ -236,6 +247,7 @@ autocmd!
 	autocmd FileType c :ia <buffer> #" #include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
 	autocmd FileType c :ia <buffer> #d #define
 	autocmd FileType c :ia <buffer> ret return<space>();<esc>hi<C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :ia <buffer> printf printf("");<esc>hhi<C-R>=Eatchar('\s')<cr>
 
 	"CHEATPROOF
 	autocmd FileType c :ia <buffer> return NOPENOPENOPE
@@ -257,4 +269,11 @@ augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+
+
+
        
