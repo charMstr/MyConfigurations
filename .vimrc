@@ -122,9 +122,13 @@ let maplocalleader = ']'
 noremap dk <esc>
 noremap! dk <esc>
 
-"EDITING MY .VIMRC FILE /  SOURCING MY .VIMRC FILE
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+"EDITING ('e') .VIMRC FILE ('v') AT THE TOP OF THE WINDOW (30 LINES)
+"SOURCING ('s') .VIMRC FILE ('v')
+nnoremap <leader>ev :top 30 split $MYVIMRC<cr>
 nnoremap <leader>sv :so $MYVIMRC<cr>
+
+"OPENING LAST('l') BUFFER
+nnoremap <leader>l :execute "vsplit " . bufname("#")<cr>
 
 "SELECTING IN NORMAL MODE : WORD / PARENTHESIS / BRACKETS / LEFT / RIGHT
 nnoremap <leader>w viw
@@ -196,7 +200,7 @@ augroup filetype_h
 	"INSERT THE 42 HEADER AT THE TOP OF THE FILE
 	"INSERT THE ROOTNAME OF THE FILE '%:R' + '_' +
 	"THE EXTENSION OF THE FILE 'H' ==> ALL IN UPPER CASE
-	autocmd BufNewfile *.h :exe "normal \<f1>dd" | exe "normal! i" . toupper(join([expand('%:r'),'_',expand('%:e')], "")) | exe "normal! yyPI#ifndef " | exe "normal! jI# define " | exe "normal! 3o" |exe "normal! o#endif" | exe "normal! kki"
+	autocmd BufNewfile *.h :exe "normal \<f1>dd" | exe "normal! i" . toupper(join([expand('%:r'),'_',expand('%:e')], "")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
 	autocmd BufNewFile,BufRead *.h :ia <buffer> #i # include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
 	autocmd BufNewFile,BufRead *.h :ia <buffer> #" # include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
 	autocmd BufNewFile,BufRead *.h :ia <buffer> #d # define
