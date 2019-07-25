@@ -15,15 +15,15 @@ augroup END
 "------------------------------------------------------------------------------
 
 "------------------------------------------------------------------------------
-"- FROM OLD VIMRC --------------------------------------------------------- {{{
-"INDENT/FOLDING
-"set foldmethod=indent
-"set smartindent " hopefully better than the more basic option <autoindent 
+"- TOYS ------------------------------------------------------------------- {{{
 
-"set softtabstop=0 noexpandtab tabstop=4 
+"IF TEXTWIDTH IS MORE THAN 80
+function! TextWidthIsTooWide()
+	if &l:textwidth ># 80
+		return 1
+	endif
+endfunction
 
-" ASLAN  i changed it to nnoremap and it doesnt work...
-"nnoremap ; :
 " }}}
 "------------------------------------------------------------------------------
 
@@ -36,6 +36,15 @@ set smartindent
 set ruler
 set shiftwidth=4
 
+"HIGHLIGHT SEARCHES
+set hlsearch incsearch
+
+"MAKES SEARCHES WITH REGEX ACT MORE NORMALLY
+"SEARCHES/REGEX --> help pattern-overview
+set magic
+"STARTS A SEARCH WITH "VERY MAGIC" MODE SET UP
+nnoremap / :/\v
+
 "HILIGHT MATCHING PARENTH..
 hi MatchParen ctermbg=green ctermfg=black
 
@@ -44,7 +53,7 @@ highlight comment cterm=italic ctermbg=lightcyan ctermfg=0
 
 "NUMBERS-WISE / RELATIVENUMBER ON-OFF ...
 set number
-set numberwidth=4 
+set numberwidth=4
 noremap \ :set relativenumber!<CR>
 
 "APPLIES TO > AND >, ROUND THE INDENT TO A MULTIPLY OF SHIFTWIDTH
@@ -124,7 +133,7 @@ noremap! dk <esc>
 
 "EDITING ('e') .VIMRC FILE ('v') AT THE TOP OF THE WINDOW (30 LINES)
 "SOURCING ('s') .VIMRC FILE ('v')
-nnoremap <leader>ev :top 30 split $MYVIMRC<cr>
+nnoremap <leader>ev :rightbelow vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :so $MYVIMRC<cr>
 
 "OPENING LAST('l') BUFFER
@@ -166,6 +175,14 @@ inoremap <leader>u <esc>viwUea
 inoremap <leader>U <esc>VUA
 nnoremap <leader>u viwU
 nnoremap <leader>U VU
+
+"FINDS TRAILING WHITESPACES/TABS ('w') --> SUPPRESSES ONE, HIGHLIGHTS THE REST
+nnoremap <leader>w :match Error /\v( \|\t)+$/<cr>
+nnoremap <silent> <leader>W :call clearmatches()<cr> | :noh
+
+"INSERT A ';' AT THE END OF THE LINE. nb: IT COULD BE TRIGGERED ON AN EVENT...
+inoremap <leader>; <esc>mqA;<esc>`qa
+nnoremap <leader>; <esc>mqA;<esc>`q
 
 "FUNCTIONS FOR ABBREVIATIONS
 func! Eatchar(pat)
@@ -299,3 +316,18 @@ augroup END
 
 " }}}
 "------------------------------------------------------------------------------
+
+"------------------------------------------------------------------------------
+"- IMPORTANT DETAILS--------------------------------------------------------- {{{
+
+" }}}
+"------------------------------------------------------------------------------
+
+
+"INSERTING DATE AND TIME
+nnoremap <leader>D :call DateAndTime()<cr>
+inoremap <leader>D :call DateAndTime()<cr>
+function! DateAndTime()
+	:put =expand(strftime('%a %d/%m/%Y at %T'))
+endfunction
+
