@@ -129,9 +129,8 @@ nnoremap <leader>sv :so $MYVIMRC<cr>
 nnoremap <leader>l :execute "vsplit " . bufname("#")<cr>
 
 "SELECTING IN NORMAL MODE : WORD / PARENTHESIS / BRACKETS / LEFT / RIGHT
-nnoremap <leader>w viw
-nnoremap <leader>9 vi(
-nnoremap <leader>[ vi{h
+nnoremap <leader>( vi(
+nnoremap <leader>{ vi{h
 nnoremap <leader>L vg_
 nnoremap <leader>H v^
 
@@ -165,7 +164,7 @@ inoremap <leader>U <esc>VUA
 nnoremap <leader>u viwU
 nnoremap <leader>U VU
 
-"FINDS TRAILING WHITESPACES/TABS ('w') --> SUPPRESSES ONE, HIGHLIGHTS THE REST
+"FINDS TRAILING WHITESPACES/TABS ('W') --> SUPPRESSES ONE, HIGHLIGHTS THE REST
 nnoremap <leader>w :match Error /\v( \|\t)+$/<cr>
 nnoremap <silent> <leader>W :call clearmatches()<cr> | :noh
 
@@ -190,14 +189,15 @@ iabbr @@ charmstr@student.42.fr
 
 "GREP THE CURRENT FULL-WORD AND DOESNT JUMP TO THE FIRST OCCURENCE - FOLDER
 "SHELLESCAPE() USED TO PROTECT THE SINGLE QUOTES. QUICKFIX WINDOW OPENED
-nnoremap <leader>g<space> :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr><c-l>:botright 6 copen<cr>
+"nnoremap <leader>g<space> :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr><c-l>:botright 6 copen<cr>
+
 
 "CLOSE / GO TO CURENT - NEXT - PREVIOUS QUICKFIX WINDOW
 "GREP SWITCHBUF FOR THE SETTINGS OF THOSE COMMANDS
 nnoremap \| :botright cclose<cr>
-nnoremap <leader>qc :cc<cr>
-nnoremap <leader>qk :cprevious<cr>
-nnoremap <leader>qj :cnext<cr>
+nnoremap <leader>gc :cc<cr>
+nnoremap <leader>gk :cprevious<cr>
+nnoremap <leader>gj :cnext<cr>
 
 "CONTROLS THE BEHAVIOR WHEN SWITCHING BUFFERS, check by quickfix COMMANDS
 let &switchbuf = "useopen,usetab,newtab"
