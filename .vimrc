@@ -15,20 +15,12 @@ augroup END
 "------------------------------------------------------------------------------
 
 "------------------------------------------------------------------------------
-"- TOYS ------------------------------------------------------------------- {{{
-
-"IF TEXTWIDTH IS MORE THAN 80
-function! TextWidthIsTooWide()
-	if &l:textwidth ># 80
-		return 1
-	endif
-endfunction
-
-" }}}
-"------------------------------------------------------------------------------
-
-"------------------------------------------------------------------------------
 "- GENERAL/DISPLAY -------------------------------------------------------- {{{
+
+"LEADER KEY
+let mapleader = 'fj'
+let maplocalleader = ']'
+
 syntax enable
 set mouse=a
 set autoindent
@@ -71,6 +63,7 @@ set statusline=\ 							"space
 set statusline+=%.25F						"path to file
 set statusline+=%=							"align to the right of the window
 set statusline+=Line:\ %l\ /\ %L\ \ \ 		"Line: number / total 
+
 " }}}
 "------------------------------------------------------------------------------
 
@@ -103,10 +96,10 @@ onoremap ol" :<c-u>exe "normal! 2?\"\\{1}\r:nohlsearch\rhv^"<cr>
 
 "INSIDE '{'
 onoremap { :<c-u>normal! vi{h<cr>
-"NEXT '"'
+"NEXT '{'
 onoremap in{ :<c-u>exe "normal! /{\\{1}\r:nohlsearch\rvi{h"<cr>
 onoremap on{ :<c-u>exe "normal! /{\\{1}\r:nohlsearch\rkvg_"<cr>
-"LAST '"'
+"LAST '{'
 onoremap il{ :<c-u>exe "normal! ?}\\{1}\r:nohlsearch\rvi{h"<cr>
 onoremap ol{ :<c-u>exe "normal! ?{\\{1}\r:nohlsearch\rkvg_"<cr>
 
@@ -122,10 +115,6 @@ noremap in@ :<c-u>exe "normal! /@\\{1}\r:nohlsearch\rhviw"<cr>
 
 "------------------------------------------------------------------------------
 "- MAPPINGS/ABBREVIATION -------------------------------------------------- {{{
-
-"LEADER KEY
-let mapleader = 'fj'
-let maplocalleader = ']'
 
 "REMAP THE ESCAPE KEY
 noremap dk <esc>
@@ -199,6 +188,28 @@ iabbr fi if
 iabbr srt str
 iabbr @@ charmstr@student.42.fr
 
+"GREP THE CURRENT FULL-WORD AND DOESNT JUMP TO THE FIRST OCCURENCE - FOLDER
+"SHELLESCAPE() USED TO PROTECT THE SINGLE QUOTES. QUICKFIX WINDOW OPENED
+nnoremap <leader>g<space> :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr><c-l>:botright 6 copen<cr>
+
+"CLOSE / GO TO CURENT - NEXT - PREVIOUS QUICKFIX WINDOW
+"GREP SWITCHBUF FOR THE SETTINGS OF THOSE COMMANDS
+nnoremap \| :botright cclose<cr>
+nnoremap <leader>qc :cc<cr>
+nnoremap <leader>qk :cprevious<cr>
+nnoremap <leader>qj :cnext<cr>
+
+"CONTROLS THE BEHAVIOR WHEN SWITCHING BUFFERS, check by quickfix COMMANDS
+let &switchbuf = "useopen,usetab,newtab"
+
+"CONTROL OF TABULATIONS
+nnoremap <leader>tc :tabc<cr>
+nnoremap <leader>tj :tabp<cr>
+nnoremap <leader>tk :tabn<cr>
+"CLOSE ALL EXCEPT FOR THE CURRETN ONE
+nnoremap <leader>to :tabo<cr>
+
+"nnoremap
 " }}}
 "------------------------------------------------------------------------------
 
@@ -323,6 +334,8 @@ augroup END
 " }}}
 "------------------------------------------------------------------------------
 
+"------------------------------------------------------------------------------
+"- FUNCTIONS -------------------------------------------------------------- {{{
 
 "INSERTING DATE AND TIME
 nnoremap <leader>D :call DateAndTime()<cr>
@@ -330,4 +343,14 @@ inoremap <leader>D :call DateAndTime()<cr>
 function! DateAndTime()
 	:put =expand(strftime('%a %d/%m/%Y at %T'))
 endfunction
+
+"IF TEXTWIDTH IS MORE THAN 80
+function! TextWidthIsTooWide()
+	if &l:textwidth ># 80
+		return 1
+	endif
+endfunction
+
+" }}}
+"------------------------------------------------------------------------------
 
