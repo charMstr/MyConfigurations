@@ -128,13 +128,6 @@ nnoremap <leader>sv :so $MYVIMRC<cr>
 "OPENING LAST('l') BUFFER
 nnoremap <leader>l :execute "vsplit " . bufname("#")<cr>
 
-"SELECTING IN NORMAL MODE : WORD / PARENTHESIS / BRACKETS / LEFT / RIGHT
-nnoremap <leader>w viw
-nnoremap <leader>9 vi(
-nnoremap <leader>[ vi{h
-nnoremap <leader>L vg_
-nnoremap <leader>H v^
-
 "MOVE A LINE DOWNWARD / UPWARD
 nnoremap <leader>- ddp
 nnoremap <leader>_ ddkP "be carefull with the upper line!
@@ -142,17 +135,11 @@ nnoremap <leader>_ ddkP "be carefull with the upper line!
 "MOVE THE CURSOR / +restrictions on arrows
 nnoremap H ^
 nnoremap L $
+vnoremap H ^
+vnoremap L g_
 "MOVE BETWEEN LONG WRAPPING LINES
 noremap j gj
 noremap k gk
-"noremap <left> <nop>
-"noremap <right> <nop>
-"noremap <down> <nop>
-"noremap <up> <nop>
-"inoremap <left> <nop>
-"inoremap <right> <nop>
-"inoremap <down> <nop>
-"inoremap <up> <nop>
 
 "MAKES WORD A STRING
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
@@ -188,16 +175,17 @@ iabbr fi if
 iabbr srt str
 iabbr @@ charmstr@student.42.fr
 
-"GREP THE CURRENT FULL-WORD AND DOESNT JUMP TO THE FIRST OCCURENCE - FOLDER
-"SHELLESCAPE() USED TO PROTECT THE SINGLE QUOTES. QUICKFIX WINDOW OPENED
-nnoremap <leader>g<space> :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr><c-l>:botright 6 copen<cr>
+"see plugin folder in ~/.vim/ where the grep-operator plugin is found
+"grep the current full-word and doesnt jump to the first occurence - folder
+"shellescape() used to protect the single quotes. quickfix window opened
+"nnoremap <leader>g<space> :silent execute "grep! -r " . shellescape(expand("<cword>")) . " ."<cr><c-l>:botright 6 copen<cr>
 
-"CLOSE / GO TO CURENT - NEXT - PREVIOUS QUICKFIX WINDOW
-"GREP SWITCHBUF FOR THE SETTINGS OF THOSE COMMANDS
+"close / go to curent - next - previous quickfix window
+"grep switchbuf for the settings of those commands
 nnoremap \| :botright cclose<cr>
-nnoremap <leader>qc :cc<cr>
-nnoremap <leader>qk :cprevious<cr>
-nnoremap <leader>qj :cnext<cr>
+nnoremap <leader>gc :cc<cr>
+nnoremap <leader>gk :cprevious<cr>
+nnoremap <leader>gj :cnext<cr>
 
 "CONTROLS THE BEHAVIOR WHEN SWITCHING BUFFERS, check by quickfix COMMANDS
 let &switchbuf = "useopen,usetab,newtab"
