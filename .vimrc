@@ -213,10 +213,14 @@ nnoremap <leader>to :tabo<cr>
 "CREAT A .H FILE AUTOMATICALLY
 augroup filetype_h
 	autocmd!
+	"CLEAN FILE FROM TRAILING SPACES AND TABS BEFORE WRITING
+	autocmd BufWritePre *.h %s/\(\s\|\t\)\+$//ge
+
 	"INSERT THE 42 HEADER AT THE TOP OF THE FILE
 	"INSERT THE ROOTNAME OF THE FILE '%:R' + '_' +
 	"THE EXTENSION OF THE FILE 'H' ==> ALL IN UPPER CASE
 	autocmd BufNewfile *.h :exe "normal \<f1>dd" | exe "normal! i" . toupper(join([expand('%:r'),'_',expand('%:e')], "")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
+	
 	autocmd BufNewFile,BufRead *.h :ia <buffer> #i # include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
 	autocmd BufNewFile,BufRead *.h :ia <buffer> #" # include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
 	autocmd BufNewFile,BufRead *.h :ia <buffer> #d # define
@@ -262,6 +266,9 @@ augroup filetype_c
 
 	"SET cindent
 	autocmd BufNewFile,BufRead *.c setlocal cindent foldmethod=indent foldnestmax=3 foldlevelstart=0
+
+	"CLEAN FILE FROM TRAILING SPACES AND TABS BEFORE WRITING
+	autocmd BufWritePre *.c %s/\(\s\|\t\)\+$//ge
 
 	"COMENT INLINE WITH 'c'
 	autocmd FileType c nnoremap <buffer> <localleader>c I//<esc>
