@@ -18,9 +18,7 @@ function! s:GrepOperator(type)
 	endif
 
 	silent execute "grep! -R " . shellescape(substitute(expand(@"), "*", "[*]", "g")) . " ." 
-	execute "normal! \<c-l>"
-	botright 6 copen
+	call QuickFixToggle()
 
 	let @@ = saved_unnamed_register
 endfunction
-

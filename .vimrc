@@ -37,7 +37,7 @@ set magic
 "STARTS A SEARCH WITH "VERY MAGIC" MODE SET UP
 nnoremap / :/\v
 
-"HILIGHT MATCHING PARENTH..
+"HILIGHT MATCHING PARENTHESIS
 hi MatchParen ctermbg=green ctermfg=black
 
 "COLOR FOR COMMENTS
@@ -175,21 +175,6 @@ iabbr fi if
 iabbr srt str
 iabbr @@ charmstr@student.42.fr
 
-"see plugin folder in ~/.vim/ where the grep-operator plugin is found
-"grep the current full-word and doesnt jump to the first occurence - folder
-"shellescape() used to protect the single quotes. quickfix window opened
-"nnoremap <leader>g<space> :silent execute "grep! -r " . shellescape(expand("<cword>")) . " ."<cr><c-l>:botright 6 copen<cr>
-
-"close / go to curent - next - previous quickfix window
-"grep switchbuf for the settings of those commands
-nnoremap \| :botright cclose<cr>
-nnoremap <leader>gc :cc<cr>
-nnoremap <leader>gk :cprevious<cr>
-nnoremap <leader>gj :cnext<cr>
-
-"CONTROLS THE BEHAVIOR WHEN SWITCHING BUFFERS, check by quickfix COMMANDS
-let &switchbuf = "useopen,usetab,newtab"
-
 "CONTROL OF TABULATIONS
 nnoremap <leader>tc :tabc<cr>
 nnoremap <leader>tj :tabp<cr>
@@ -219,7 +204,7 @@ augroup filetype_h
 	"INSERT THE 42 HEADER AT THE TOP OF THE FILE
 	"INSERT THE ROOTNAME OF THE FILE '%:R' + '_' +
 	"THE EXTENSION OF THE FILE 'H' ==> ALL IN UPPER CASE
-	autocmd BufNewfile *.h :exe "normal \<f1>dd" | exe "normal! i" . toupper(join([expand('%:r'),'_',expand('%:e')], "")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
+	autocmd BufNewfile *.h :exe "normal \<f1>dd" | exe "normal! i" . toupper(join([expand('%:t:r'),'_',expand('%:e')], "")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
 	
 	autocmd BufNewFile,BufRead *.h :ia <buffer> #i # include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
 	autocmd BufNewFile,BufRead *.h :ia <buffer> #" # include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
