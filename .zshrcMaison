@@ -20,7 +20,7 @@ alias gcl='git clone'
 ################## SHORTCUTS
 # to projects
 alias LIB='cd /Users/orson/Projects/libft_git'
-alias ELE='cd /Users/orson/Projects/electronic/TP'
+alias ELE='cd /Users/orson/Projects/electronic/Ethernic_Project' 
 alias SAN='cd /Users/orson/Projects/sandbox/'
 
 # to websites
