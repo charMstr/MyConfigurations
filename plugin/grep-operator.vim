@@ -3,20 +3,22 @@
 " note2: '*' is replaced by the character group regex syntax: '[*]'
 " note3: GREP DOESNT SEARCH ON MULTIPLE LINES BY DEFAULT, SO WE WONT GREP USING 'V' OR 'line' 
 
-nnoremap <leader>g :set operatorfunc=GrepOperator<cr>g@
-vnoremap <leader>g :<c-u>call GrepOperator(visualmode())<cr>
+nnoremap <leader>g :set operatorfunc=<SID>GrepOperator<cr>g@
+vnoremap <leader>g :<c-u>call <SID>GrepOperator(visualmode())<cr>
 
-function! GrepOperator(type)
+function! s:GrepOperator(type)
+	let saved_unnamed_register = @@
+
 	if a:type ==# 'v'
 		execute "normal! `<v`>y"
 	elseif a:type ==# 'char'
-		execute "normal! `[v`]y"
+		execute "normal! `[y`]"
 	else
 		return
 	endif
 
 	silent execute "grep! -R " . shellescape(substitute(expand(@"), "*", "[*]", "g")) . " ." 
-	execute "normal! \<c-l>"
-	botright 6 copen
-endfunction
+	call QuickFixToggle()
 
+	let @@ = saved_unnamed_register
+endfunction
