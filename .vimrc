@@ -1,5 +1,6 @@
 "WELCOME USELESS MESSAGE, STAY IN TH EMESSAGE HISTORY
 echo ">^.^<"
+"silent echo ">^.^<"
 
 "KEEPS THE DEFAULTS.VIM SETTINGS
 " unlet! skip_defaults_vim
@@ -271,6 +272,12 @@ augroup filetype_sh
 	"HAVE THE CURRENT LINE HIGHLIGHTED
 	autocmd BufNewFile,BufRead *.sh setlocal cursorline cc=0
 
+	"INSERT THE SHEBANG AT TOP 
+	autocmd BufNewFile *.sh :exe "normal i#!/bin/sh" | :exe "normal 2o"
+	
+	"DO A CHMOD 755 ON FILE AFTER SAVING
+	autocmd BufWritePost *.sh :silent !{chmod 755 %}
+
 	"RESET THE INDENT FOR SHELL SCRIPTS
 	autocmd BufNewFile,BufRead *.sh  setlocal noautoindent
 	autocmd BufNewFile,BufRead *.sh  setlocal nosmartindent
@@ -280,6 +287,7 @@ augroup filetype_sh
 	autocmd FileType sh :iabbrev <buffer> <silent> while while [  ]<esc>odo<esc>o<tab><esc>odone<esc>kkkWlli<C-R>=Eatchar('\s')<cr>
 	"IF STATEMENT
 	autocmd FileType sh :iabbrev <buffer> <silent> if if [  ]<esc>othen<esc>o<tab><esc>ofi<esc>kkkWlli<C-R>=Eatchar('\s')<cr>
+	autocmd Filetype sh :iabbrev <buffer> <silent> echo echo ""<left><C-R>=Eatchar('\s')<cr>
 
 augroup END
 
