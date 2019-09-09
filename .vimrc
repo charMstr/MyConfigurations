@@ -103,6 +103,15 @@ onoremap on{ :<c-u>exe "normal! /{\\{1}\r:nohlsearch\rkvg_"<cr>
 onoremap il{ :<c-u>exe "normal! ?}\\{1}\r:nohlsearch\rvi{h"<cr>
 onoremap ol{ :<c-u>exe "normal! ?{\\{1}\r:nohlsearch\rkvg_"<cr>
 
+"INSIDE '['
+onoremap [ :<c-u>normal! vi[<cr>
+"NEXT '['
+onoremap in[ :<c-u>exe "normal! /[\\{1}\r:nohlsearch\rvi["<cr>
+onoremap on[ :<c-u>exe "normal! /[\\{1}\r:nohlsearch\rhv^"<cr>
+"LAST '['
+onoremap il[ :<c-u>exe "normal! ?]\\{1}\r:nohlsearch\rvi["<cr>
+onoremap ol[ :<c-u>exe "normal! ?[\\{1}\r:nohlsearch\rhv^"<cr>
+
 "RETURN
 onoremap inr :<c-u>exe "normal! /return (\\{1}\r:nohlsearch\rf(vi("<cr>
 onoremap ilr :<c-u>exe "normal! ?return (\\{1}\r:nohlsearch\rf(vi("<cr>
@@ -218,13 +227,12 @@ augroup END
 
 augroup filetype_elec
 	autocmd!
-	"HAVVE THE CURRENT LINE HIGHLIGHTED
+	"HAVE THE CURRENT LINE HIGHLIGHTED
 	autocmd BufNewFile,BufRead *.elec setlocal cursorline cc=0
 augroup END
 
 " }}}
 "------------------------------------------------------------------------------
-
 
 "------------------------------------------------------------------------------
 "- MARKDOWN/TXT FILETYPE--------------------------------------------------- {{{
@@ -251,6 +259,30 @@ augroup filetype_html
 	autocmd!
 	autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
 augroup END
+" }}}
+"------------------------------------------------------------------------------
+
+"------------------------------------------------------------------------------
+"- .SH FILETYPE------------------------------------------------------------ {{{
+
+augroup filetype_sh
+	autocmd!
+
+	"HAVE THE CURRENT LINE HIGHLIGHTED
+	autocmd BufNewFile,BufRead *.sh setlocal cursorline cc=0
+
+	"RESET THE INDENT FOR SHELL SCRIPTS
+	autocmd BufNewFile,BufRead *.sh  setlocal noautoindent
+	autocmd BufNewFile,BufRead *.sh  setlocal nosmartindent
+
+	"ABBREVIATIONS FOR SHELL
+	"WHILE LOOP
+	autocmd FileType sh :iabbrev <buffer> <silent> while while [  ]<esc>odo<esc>o<tab><esc>odone<esc>kkkWlli<C-R>=Eatchar('\s')<cr>
+	"IF STATEMENT
+	autocmd FileType sh :iabbrev <buffer> <silent> if if [  ]<esc>othen<esc>o<tab><esc>ofi<esc>kkkWlli<C-R>=Eatchar('\s')<cr>
+
+augroup END
+
 " }}}
 "------------------------------------------------------------------------------
 
