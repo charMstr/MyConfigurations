@@ -216,9 +216,18 @@ augroup filetype_h
 	"THE EXTENSION OF THE FILE 'H' ==> ALL IN UPPER CASE
 	autocmd BufNewfile *.h :exe "normal \<f1>dd" | exe "normal! i" . toupper(join([expand('%:t:r'),'_',expand('%:e')], "")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
 	
+	"ABBREVIATIONS
+	"INCLUDES <
 	autocmd BufNewFile,BufRead *.h :ia <buffer> #i # include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
+	"INCLUDES "
 	autocmd BufNewFile,BufRead *.h :ia <buffer> #" # include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
+	"DEFINE
 	autocmd BufNewFile,BufRead *.h :ia <buffer> #d # define
+	"IFNDEF
+    	autocmd BufNewFile,BufRead *.h :ia <buffer> ifndef # ifndef <esc>o# endif<esc>k3o<esc>3kA<C-R>=Eatchar('\s')<cr>
+	"IFDEF
+    	autocmd BufNewFile,BufRead *.h :ia <buffer> ifdef # ifdef <esc>o# endif<esc>k3o<esc>3kA<C-R>=Eatchar('\s')<cr>
+
 augroup END
 " }}}
 "------------------------------------------------------------------------------
