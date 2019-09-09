@@ -292,11 +292,16 @@ augroup filetype_sh
 	autocmd BufNewFile,BufRead *.sh  setlocal nosmartindent
 
 	"ABBREVIATIONS FOR SHELL
-	"WHILE LOOP
+	"WHILE 
 	autocmd FileType sh :iabbrev <buffer> <silent> while while [  ]<esc>odo<esc>o<tab><esc>odone<esc>kkkWlli<C-R>=Eatchar('\s')<cr>
-	"IF STATEMENT
+	"FOR
+	autocmd FileType sh :iabbrev <buffer> <silent> for for $ in<esc>odo<esc>o<tab><esc>odone<esc>kkkWli<C-R>=Eatchar('\s')<cr>
+	"IF 
 	autocmd FileType sh :iabbrev <buffer> <silent> if if [  ]<esc>othen<esc>o<tab><esc>ofi<esc>kkkWlli<C-R>=Eatchar('\s')<cr>
+	"ECHO
 	autocmd Filetype sh :iabbrev <buffer> <silent> echo echo ""<left><C-R>=Eatchar('\s')<cr>
+	"CASE
+	autocmd Filetype sh :iabbrev <buffer> <silent> case case $ in<esc>o<tab>*)<tab><tab><esc>o<tab><tab>;;<esc>oesac<esc>3kWa<C-R>=Eatchar('\s')<cr>
 
 augroup END
 
