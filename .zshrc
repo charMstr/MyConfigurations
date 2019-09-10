@@ -1,34 +1,67 @@
-##############################################################################
+###############################################################################
+##	CONFIG TERMINAL
+###############################################################################
+
+export SHELL=/bin/zsh
+
+# TURN OFF ALL BEEPS
+unsetopt BEEP
+# Turn off autocomplete beeps or history beeps
+# unsetopt LIST_BEEP
+# unsetopt HIST_BEEP
+
+# IF AT 42
+if [ `basename ${HOME}` = "charmstr" ]
+then
+	export PATH=/Users/charmstr/.brew/bin/:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/munki
+fi
+###############################################################################
+
+###############################################################################
 ##	GENERAL
 ###############################################################################
 
-export PATH=/Users/charmstr/.brew/bin/:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/munki
+#EDIT .ZSHRC
+alias vzsh='vim ~/.zshrc'
 
+# CHANGE DIRECTORY + LS
 alias cd..='CD_LS_COMBO ..'
 alias cd-='CD_LS_COMBO -'
 function CD_LS_COMBO()
 {
 	cd $1
-		ls
+	ls
 }
 
+# COMMON
 alias la='ls -la'
 alias grep='grep --colour'
 alias so='source'
 
-
-#EDIT .ZSHRC
-alias vzsh='vim ~/.zshrc'
-
-#NORMINETTE
-alias norm='norminette'
-
-#GIT
-alias gcl='git clone'
-alias gti='git'
+# IF AT 42
+if [ `basename ${HOME}` = "charmstr" ]
+then
+	#NORMINETTE
+	alias norm='norminette'
+fi
 
 #GCC FLAGS
 alias gcc-W='gcc -Wall -Wextra -Werror'
+###############################################################################
+
+
+###############################################################################
+#GIT
+###############################################################################
+
+alias gcl='git clone'
+alias gti='git'
+
+function gitm
+{
+	git commit -m "$1";
+}
+
 ###############################################################################
 
 
@@ -52,24 +85,44 @@ export LSCOLORS="ExHxcxdxbxegedabagacad"
 ###############################################################################
 ##	PROJECTS/PLACES/WEBSITES
 ###############################################################################
-#PROJECTS
-alias GNL='cd ~/Projects/get_next_line/GNL/;ls'
-alias LIB='cd ~/Projects/libft/libft_git/;ls'
-alias FIL='cd ~/Projects/fillit/;ls'
-alias INI='cd /Users/charmstr/Projects/init/init_git;ls'
-#PLACES
-alias TOO='cd /Users/charmstr/Toolbox;ls'
-alias ELE='cd /Users/charmstr/Toolbox/Electronique_repo/Ethernic_Project;ls'
-alias SAN='cd /Users/charmstr/Toolbox/Sandbox;ls'
-alias SGO='cd /sgoinfre/goinfre/Perso/charmstr;ls'
+
+# IF AT 42
+if [ `basename ${HOME}` = "charmstr" ]
+then
+	#PROJECTS
+	alias GNL='cd ~/Projects/get_next_line/GNL/;ls'
+	alias LIB='cd ~/Projects/libft/libft_git/;ls'
+	alias FIL='cd ~/Projects/fillit/;ls'
+	alias INI='cd /Users/charmstr/Projects/init/init_git;ls'
+	
+	#PLACES
+	alias TOO='cd /Users/charmstr/Toolbox;ls'
+	alias ELE='cd /Users/charmstr/Toolbox/Electronique_repo/Ethernic_Project;ls'
+	alias SAN='cd /Users/charmstr/Toolbox/Sandbox;ls'
+	alias SGO='cd /sgoinfre/goinfre/Perso/charmstr;ls'
+fi
+
+# IF AT HOME
+if [ `basename ${HOME}` = "marmout" ]				####### double check <- HERE
+then
+	# TO PROJECTS
+	alias LIB='cd /Users/orson/Projects/libft_git'
+	alias ELE='cd /Users/orson/Projects/electronic/Ethernic_Project' 
+
+	# TO PLACES
+	alias SAN='cd /Users/orson/Projects/sandbox/'
+fi
+
+
 #OPEN WEBSITES
 alias intra='open https://profile.intra.42.fr/'
 alias miam='open https://steakoverflow.42.fr/'
 alias github='open https://github.com/'
-alias stud='`open https://stud42.fr/clusters`':w
+alias stud='`open https://stud42.fr/clusters`'
 alias youtube='`open https://www.youtube.com`'
-alias strelli='`open https://mail.google.com/mail/u/0/#inbox`'
+alias charlie='`open https://mail.google.com/mail/u/0/#inbox`'
 alias karlos='`open https://mail.google.com/mail/u/2/#inbox`'
+
 #PLUGINS-VIM
 	alias plu='PLU'
 function PLU()
@@ -84,30 +137,30 @@ function PLU()
 ###############################################################################
 #FUNCTIONS
 ###############################################################################
+
 function see
 {
 # echo  ''
-	for i in `seq 3 0`
-		do
-			echo "\e[1A\e[38;5;10m$i\e[m"
-				sleep 0.5
-				done
-				echo "  ===>  $1 "
-				sleep 0.5
-				printf "\e[2A\e[38;5;195m%s\n\t\t\t\t\t--------\n\e[m" "$(cat ~/Projects/libft/libft_git/ft_$1.c)";
+for i in `seq 3 0`
+do
+	echo "\e[1A\e[38;5;10m$i\e[m"
+	sleep 0.5
+done
+echo "  ===>  $1 "
+sleep 0.5
+printf "\e[2A\e[38;5;195m%s\n\t\t\t\t\t--------\n\e[m" "$(cat ~/Projects/libft/libft_git/ft_$1.c)";
 }
 
-function gitm
-{
-	git commit -m "$1";
-}
-
-function here
-{
-	printf  " -->  $HOST" | cut -d . -f 1 ;
-	printf " -->  \e[38;5;133mDo ctrl + V anywhere ...\e[m\n";
-	echo "Im here 🤠 : $HOST" | cut -d . -f 1 | tr -d '\n' | pbcopy;
-}
+# IF AT 42
+if [ `basename ${HOME}` = "charmstr" ]
+then
+	function here
+	{
+		printf  " -->  $HOST" | cut -d . -f 1 ;
+		printf " -->  \e[38;5;133mDo ctrl + V anywhere ...\e[m\n";
+		echo "Im here 🤠 : $HOST" | cut -d . -f 1 | tr -d '\n' | pbcopy;
+	}
+fi
 
 function spy
 {
