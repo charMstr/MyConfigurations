@@ -9,7 +9,7 @@ alias cd-='CD_LS_COMBO -'
 function CD_LS_COMBO()
 {
 	cd $1
-	ls
+		ls
 }
 
 alias la='ls -la'
@@ -71,11 +71,11 @@ alias youtube='`open https://www.youtube.com`'
 alias strelli='`open https://mail.google.com/mail/u/0/#inbox`'
 alias karlos='`open https://mail.google.com/mail/u/2/#inbox`'
 #PLUGINS-VIM
-alias plu='PLU'
+	alias plu='PLU'
 function PLU()
 {
 	cd ~/.vim/plugin/
-	ls
+		ls
 }
 
 ###############################################################################
@@ -86,15 +86,15 @@ function PLU()
 ###############################################################################
 function see
 {
-	# echo  ''
+# echo  ''
 	for i in `seq 3 0`
-	do
-		echo "\e[1A\e[38;5;10m$i\e[m"
-		sleep 0.5
-	done
-	echo "  ===>  $1 "
-	sleep 0.5
-	printf "\e[2A\e[38;5;195m%s\n\t\t\t\t\t--------\n\e[m" "$(cat ~/Projects/libft/libft_git/ft_$1.c)";
+		do
+			echo "\e[1A\e[38;5;10m$i\e[m"
+				sleep 0.5
+				done
+				echo "  ===>  $1 "
+				sleep 0.5
+				printf "\e[2A\e[38;5;195m%s\n\t\t\t\t\t--------\n\e[m" "$(cat ~/Projects/libft/libft_git/ft_$1.c)";
 }
 
 function gitm
@@ -117,7 +117,7 @@ function spy
 function stud
 {
 	floor=$(echo $HOST | cut -c2)
-	open https://stud42.fr/clusters/$floor
+		open https://stud42.fr/clusters/$floor
 }
 
 function count.extension

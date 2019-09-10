@@ -290,6 +290,12 @@ augroup filetype_sh
 	"RESET THE INDENT FOR SHELL SCRIPTS
 	autocmd BufNewFile,BufRead *.sh  setlocal noautoindent
 	autocmd BufNewFile,BufRead *.sh  setlocal nosmartindent
+	
+	"COMENT INLINE WITH ]c  adds "#"
+	autocmd FileType sh nnoremap <buffer> <localleader>c I#<esc>
+
+	"UNCOMENT INLINE WITH ]u removes "#"
+	autocmd FileType sh nnoremap <buffer> <localleader>u ^x
 
 	"ABBREVIATIONS FOR SHELL
 	"WHILE 
@@ -297,7 +303,7 @@ augroup filetype_sh
 	"FOR
 	autocmd FileType sh :iabbrev <buffer> <silent> for for $ in<esc>odo<esc>o<tab><esc>odone<esc>kkkWli<C-R>=Eatchar('\s')<cr>
 	"IF 
-	autocmd FileType sh :iabbrev <buffer> <silent> if if [  ]<esc>othen<esc>o<tab><esc>ofi<esc>kkkWlli<C-R>=Eatchar('\s')<cr>
+	autocmd FileType sh :iabbrev <buffer> <silent> if if [  ]<esc>othen<esc>o<tab><esc>o#elif [  ]; then<esc>o#else<esc>ofi<esc>kkkkkWlli<C-R>=Eatchar('\s')<cr>
 	"ECHO
 	autocmd Filetype sh :iabbrev <buffer> <silent> echo echo ""<left><C-R>=Eatchar('\s')<cr>
 	"CASE
@@ -322,8 +328,11 @@ augroup filetype_c
 	"CLEAN FILE FROM TRAILING SPACES AND TABS BEFORE WRITING
 	autocmd BufWritePre *.c %s/\(\s\|\t\)\+$//ge
 
-	"COMENT INLINE WITH 'c'
+	"COMENT INLINE WITH ]c  adds "//"
 	autocmd FileType c nnoremap <buffer> <localleader>c I//<esc>
+
+	"UNCOMENT INLINE WITH ]u removes "//"
+	autocmd FileType c nnoremap <buffer> <localleader>u ^2x
 
 	"COMENT MULTIPLE LINES WITH 'C'
 	autocmd FileType c nnoremap <buffer> <localleader>C o/*<cr>**<cr>*/<esc>
