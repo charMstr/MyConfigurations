@@ -24,10 +24,11 @@ fi
 #EDIT .ZSHRC
 alias vzsh='vim ~/.zshrc'
 
-# CHANGE DIRECTORY + LS
-alias cd..='CD_LS_COMBO ..'
-alias cd-='CD_LS_COMBO -'
-function CD_LS_COMBO()
+# CDS = CD + LS
+alias cd..='CDLS ..'
+alias cd-='CDLS -'
+
+function CDLS
 {
 	cd $1
 	ls
@@ -35,7 +36,7 @@ function CD_LS_COMBO()
 
 # COMMON
 alias la='ls -la'
-alias grep='grep --colour'
+alias grep='grep -n --colour'
 alias so='source'
 
 # IF AT 42
@@ -176,5 +177,17 @@ function stud
 function count.extension
 {
 	for j in *;do echo ${j##*.}; done | uniq -c
+}
+
+changeExtension()
+{
+	FROM=$1
+	TO=$2
+	echo "renaming file(s) *${FROM} into file(s) *${TO}"
+	for i in *$FROM
+	do
+		j=`basename ${i} ${FROM}`
+		mv ${j}${FROM} ${j}${TO}
+	done
 }
 ###############################################################################
