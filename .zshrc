@@ -97,21 +97,21 @@ then
 	alias INI='cd /Users/charmstr/Projects/init/init_git;ls'
 	
 	#PLACES
-	alias TOO='cd /Users/charmstr/Toolbox;ls'
-	alias ELE='cd /Users/charmstr/Toolbox/Electronique_repo/Ethernic_Project;ls'
-	alias SAN='cd /Users/charmstr/Toolbox/Sandbox;ls'
+	alias TOO='cd ~/Toolbox;ls'
+	alias ELE='cd ~/Toolbox/Electronique_repo/Ethernic_Project;ls'
+	alias SAN='cd ~/Toolbox/Sandbox;ls'
 	alias SGO='cd /sgoinfre/goinfre/Perso/charmstr;ls'
 fi
 
 # IF AT HOME
-if [ `basename ${HOME}` = "marmout" ]				####### double check <- HERE
+if [ `basename ${HOME}` = "orson" ]
 then
 	# TO PROJECTS
-	alias LIB='cd /Users/orson/Projects/libft_git'
-	alias ELE='cd /Users/orson/Projects/electronic/Ethernic_Project' 
+	alias LIB='cd ~/Projects/libft_git;ls'
+	alias ELE='cd ~/Projects/electronic/Ethernic_Project;ls' 
 
 	# TO PLACES
-	alias SAN='cd /Users/orson/Projects/sandbox/'
+	alias SAN='cd ~/Projects/sandbox;ls'
 fi
 
 
