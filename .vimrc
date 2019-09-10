@@ -307,7 +307,7 @@ augroup filetype_sh
 	"ECHO
 	autocmd Filetype sh :iabbrev <buffer> <silent> echo echo ""<left><C-R>=Eatchar('\s')<cr>
 	"CASE
-	autocmd Filetype sh :iabbrev <buffer> <silent> case case $ in<esc>o<tab>*)<tab><tab><esc>o<tab><tab>;;<esc>oesac<esc>3kWa<C-R>=Eatchar('\s')<cr>
+	autocmd Filetype sh :iabbrev <buffer> <silent> case case $ in<esc>o*)<esc>o;;<esc>oesac<esc>3kWa<C-R>=Eatchar('\s')<cr>
 
 augroup END
 
