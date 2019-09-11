@@ -96,27 +96,27 @@ export LSCOLORS="ExHxcxdxbxegedabagacad"
 if [ `basename ${HOME}` = "charmstr" ]
 then
 	#PROJECTS
-	alias GNL='cd ~/Projects/get_next_line/GNL/;ls'
-	alias LIB='cd ~/Projects/libft/libft_git/;ls'
-	alias FIL='cd ~/Projects/fillit/;ls'
-	alias INI='cd /Users/charmstr/Projects/init/init_git;ls'
+	alias GNL='cd ~/Projects/get_next_line/GNL/'
+	alias LIB='cd ~/Projects/libft/libft_git/'
+	alias FIL='cd ~/Projects/fillit/'
+	alias INI='cd /Users/charmstr/Projects/init/init_git'
 	
 	#PLACES
-	alias TOO='cd ~/Toolbox;ls'
-	alias ELE='cd ~/Toolbox/Electronique_repo/Ethernic_Project;ls'
-	alias SAN='cd ~/Toolbox/Sandbox;ls'
-	alias SGO='cd /sgoinfre/goinfre/Perso/charmstr;ls'
+	alias TOO='cd ~/Toolbox'
+	alias ELE='cd ~/Toolbox/Electronique_repo/Ethernic_Project'
+	alias SAN='cd ~/Toolbox/Sandbox'
+	alias SGO='cd /sgoinfre/goinfre/Perso/charmstr'
 fi
 
 # IF AT HOME
 if [ `basename ${HOME}` = "orson" ]
 then
 	# TO PROJECTS
-	alias LIB='cd ~/Projects/libft_git;ls'
-	alias ELE='cd ~/Projects/electronic/Ethernic_Project;ls' 
+	alias LIB='cd ~/Projects/libft_git'
+	alias ELE='cd ~/Projects/electronic/Ethernic_Project'
 
 	# TO PLACES
-	alias SAN='cd ~/Projects/sandbox;ls'
+	alias SAN='cd ~/Projects/sandbox'
 fi
 
 
