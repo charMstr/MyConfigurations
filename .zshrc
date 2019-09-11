@@ -70,8 +70,14 @@ function gitm
 ##	DISPLAY
 ###############################################################################
 
+_GREEN="\033[38;5;76m"
+_RESET_COLOR="\033[m"
+
 #PROMPT
-export PS1=$'🕓 %t   🗂 -->%d  ⃤☁  '
+PROMPT=" 🕓 %t  %{$_GREEN%}DIR%{$_RESET_COLOR%} --> %{$_GREEN%}%d  %{$_RESET_COLOR%}"
+export PS1=`echo ${PROMPT}`
+
+
 #export PS1=$'\n\e[48;5;237m\e[38;5;242m%t \e[m\e[m\e[38;5;159m • \e[m %d\e[38;5;159m -->\e[m'
 # %n myname %x la version du terminal. %$4 --> 4 %$f --> f
 # %d le path %w le jour de la semaine et du calendrier %t ou T forme du temps 
