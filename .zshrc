@@ -27,17 +27,16 @@ alias vzsh='vim ~/.zshrc'
 # CDS = CD + LS
 alias cd..='CDLS ..'
 alias cd-='CDLS -'
-
+alias cd=CDLS
 function CDLS
 {
-	cd $1
+	\cd $1
 	ls
 }
 
 # COMMON
 alias la='ls -la'
 alias grep='grep -n --colour'
-alias so='source'
 
 # IF AT 42
 if [ `basename ${HOME}` = "charmstr" ]
