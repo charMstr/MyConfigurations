@@ -151,6 +151,9 @@ function PLU()
 #FUNCTIONS
 ###############################################################################
 
+#LIB IN .SHELL_LIB
+source ~/.shell_lib/display_colors.lib
+
 function see
 {
 # echo  ''
@@ -212,11 +215,5 @@ change_extension()
 		j=`basename ${i} ${FROM}`
 		mv ${j}${FROM} ${j}${TO}
 	done
-}
-
-color_decide()
-{
-    source ~/.shell_lib/display_colors.lib
-    display_colors
 }
 ###############################################################################

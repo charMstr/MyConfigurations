@@ -1,19 +1,20 @@
-display_colors()
+#THIS FUNCTION WILL DISPLAY THE PANEL OF COLORS
+
+colors_displayer()
 {
     NUM=0
-    _RESET_COLOR="\033[m"
 
     #DISPLAY THE FIRST 16 COLORS
     echo "\n\tfirst 16 colors [0:15]"
     while [ $NUM -lt "16" ]
     do
-	    echo  "\033[38;5;${NUM}m❤︎ ${_RESET_COLOR}\c"
+	    echo  "\033[48;5;${NUM}m \c"
 	    NUM=`expr $NUM + 1`
     done
 
 
     #DISPPLAY THE REMAINING COLORS UNTIL VALUE 255
-    echo "\n\n\tother colors [16:255]\n"
+    echo "\033[m\n\n\tother colors [16:255]\n"
     OFFSET=1
     while [ ${NUM} -le "256" ]
     do
@@ -22,14 +23,14 @@ display_colors()
 		    INDEX=6
 		    while [ $INDEX -gt "0" ]
 		    do
-			    echo " [`expr ${NUM} - ${INDEX}`] \c"
+			    echo " \033[m[`expr ${NUM} - ${INDEX}`] \c"
 			    INDEX=`expr ${INDEX} - 1`
 		    done
 		    echo ""
 	    fi
 	    if [ $NUM != 256 ]
 	    then
-		echo  "\033[38;5;${NUM}m❤︎ ${_RESET_COLOR}\c"
+		echo  "\033[48;5;${NUM}m \c"
 	    fi
 	    NUM=`expr $NUM + 1`
 	    OFFSET=`expr $OFFSET + 1`

@@ -185,6 +185,10 @@ iabbr fi if
 iabbr srt str
 iabbr @@ charmstr@student.42.fr
 
+"PREPARE THE STRING WITH THE TERMCAP COLOR
+inoremap <buffer> <leader>fg  \033[38;5;\033[m<esc>6ha
+inoremap <buffer> <leader>bg  \033[48;5;\033[m<esc>6ha
+
 "CONTROL OF TABULATIONS
 nnoremap <leader>tc :tabc<cr>
 nnoremap <leader>tj :tabp<cr>
@@ -273,7 +277,7 @@ augroup END
 "------------------------------------------------------------------------------
 
 "------------------------------------------------------------------------------
-"- .SH FILETYPE------------------------------------------------------------ {{{
+"- .SH FILETYPE------------------------------------------------------------ 
 
 augroup filetype_sh
 	autocmd!
@@ -308,10 +312,12 @@ augroup filetype_sh
 	autocmd Filetype sh :iabbrev <buffer> <silent> echo echo ""<left><C-R>=Eatchar('\s')<cr>
 	"CASE
 	autocmd Filetype sh :iabbrev <buffer> <silent> case case $ in<esc>o*)<esc>o;;<esc>oesac<esc>3kWa<C-R>=Eatchar('\s')<cr>
-
+	
+	"BUILD A VARIABLE  <leader>v  -->  ${cursor}
+	autocmd Filetype sh inoremap <buffer> <leader>v ${}<esc>i
 augroup END
 
-" }}}
+" 
 "------------------------------------------------------------------------------
 
 "------------------------------------------------------------------------------
@@ -351,7 +357,7 @@ augroup filetype_c
 	autocmd FileType c :iabbrev <buffer> #" #include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
 	autocmd FileType c :iabbrev <buffer> #d #define
 	autocmd FileType c :iabbrev <buffer> ret return<space>();<esc>hi<C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :iabbrev <buffer> printf printf("");<esc>hhi<C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :iabbrev <buffer> printf printf("\n");<esc>4hi<C-R>=Eatchar('\s')<cr>
 
 	"CHEATPROOF
 	autocmd FileType c :iabbrev <buffer> return NOPENOPENOPE
