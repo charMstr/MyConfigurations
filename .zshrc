@@ -132,7 +132,6 @@ fi
 alias intra='open https://profile.intra.42.fr/'
 alias miam='open https://steakoverflow.42.fr/'
 alias github='open https://github.com/'
-alias stud='`open https://stud42.fr/clusters`'
 alias youtube='`open https://www.youtube.com`'
 alias charlie='`open https://mail.google.com/mail/u/0/#inbox`'
 alias karlos='`open https://mail.google.com/mail/u/2/#inbox`'
@@ -183,8 +182,19 @@ function spy
 
 function stud
 {
-	floor=$(echo $HOST | cut -c2)
-		open https://stud42.fr/clusters/$floor
+    	if [ $# -eq "0" ]
+	then
+		FLOOR=$(echo $HOST | cut -c2)
+	else
+	    	if [ $1 -le 3 ] && [ $1 -ge 1 ]
+		then
+	    		FLOOR=$1
+		else
+		    	echo "Error: you must enter a number between 1 and 3 for the floor"
+			return 1
+		fi
+	fi
+	open https://stud42.fr/clusters/${FLOOR}
 }
 
 function count_extensions
