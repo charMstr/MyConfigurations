@@ -24,6 +24,9 @@ fi
 #EDIT .ZSHRC
 alias vzsh='vim ~/.zshrc'
 
+#SOURCE
+alias so='source'
+
 # CDS = CD + LS
 alias cd..='CDLS ..'
 alias cd-='CDLS -'
@@ -31,7 +34,10 @@ alias cd=CDLS
 function CDLS
 {
 	\cd $1
-	ls
+	if [ $? -eq "0" ]
+	then
+	    ls
+	fi
 }
 
 # COMMON
@@ -70,10 +76,12 @@ function gitm
 ###############################################################################
 
 _GREEN="\033[38;5;76m"
+_GREY="\033[38;5;250m"
 _RESET_COLOR="\033[m"
 
+
 #PROMPT
-PROMPT=" 🕓 %t  %{$_GREEN%}DIR%{$_RESET_COLOR%} --> %{$_GREEN%}%d  %{$_RESET_COLOR%}"
+PROMPT="%{$_GREY%} 🕓 %t  %{$_GREEN%}DIR% --> %d  %{$_RESET_COLOR%}"
 export PS1=`echo ${PROMPT}`
 
 
@@ -179,12 +187,12 @@ function stud
 		open https://stud42.fr/clusters/$floor
 }
 
-function count.extension
+function count_extensions
 {
 	for j in *;do echo ${j##*.}; done | uniq -c
 }
 
-changeExtension()
+change_extension()
 {
 	FROM=$1
 	TO=$2
@@ -194,5 +202,11 @@ changeExtension()
 		j=`basename ${i} ${FROM}`
 		mv ${j}${FROM} ${j}${TO}
 	done
+}
+
+color_decide()
+{
+    source ~/.shell_lib/display_colors.lib
+    display_colors
 }
 ###############################################################################
