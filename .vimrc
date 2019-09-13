@@ -59,6 +59,9 @@ set colorcolumn=80
 "SET ERRORBELLS OFF , ESPECIALLY FLASHING SCREEN
 set noerrorbells visualbell t_vb=
 
+"SPOT CURRENT LINE
+nnoremap <leader><space> :call Flash()<cr>
+
 "STATUS LINE
 set statusline=\ 							"space
 set statusline+=%.25F						"path to file
@@ -262,22 +265,22 @@ augroup END
 "------------------------------------------------------------------------------
 "- HTML FILETYPE----------------------------------------------------------- {{{
 
-"REARANGES A .HTML FILE BEFORE WRITING
-autocmd BufWritePre *.html :normal gg=G
-
-"PAIRING RED AND NEWFILE AUTOCOMMANDS FOR A .HTML
-autocmd BufNewFile,BufRead *.html setlocal nowrap
-
-"finds the matching tags and does
 augroup filetype_html
 	autocmd!
+	"REARANGES A .HTML FILE BEFORE WRITING
+	autocmd BufWritePre *.html :normal gg=G
+
+	"PAIRING RED AND NEWFILE AUTOCOMMANDS FOR A .HTML
+	autocmd BufNewFile,BufRead *.html setlocal nowrap
+
+	"FINDS THE MATCHING TAGS AND DOES
 	autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
 augroup END
 " }}}
 "------------------------------------------------------------------------------
 
 "------------------------------------------------------------------------------
-"- .SH FILETYPE------------------------------------------------------------ 
+"- .SH FILETYPE------------------------------------------------------------ {{{
 
 augroup filetype_sh
 	autocmd!
@@ -316,8 +319,7 @@ augroup filetype_sh
 	"BUILD A VARIABLE  <leader>v  -->  ${cursor}
 	autocmd Filetype sh inoremap <buffer> <leader>v ${}<esc>i
 augroup END
-
-" 
+" }}}
 "------------------------------------------------------------------------------
 
 "------------------------------------------------------------------------------
@@ -391,12 +393,6 @@ augroup END
 "------------------------------------------------------------------------------
 
 "------------------------------------------------------------------------------
-"- IMPORTANT DETAILS--------------------------------------------------------- {{{
-
-" }}}
-"------------------------------------------------------------------------------
-
-"------------------------------------------------------------------------------
 "- FUNCTIONS -------------------------------------------------------------- {{{
 
 "INSERTING DATE AND TIME
@@ -413,6 +409,25 @@ function! TextWidthIsTooWide()
 	endif
 endfunction
 
+"THIS FUNCTION WILL FLASH THE CURRENT LINE FOR A TENTH OF A SEC
+function! Flash()
+    set cursorline
+    redraw
+    sleep 100m
+    set nocursorline
+endfunction
+
 " }}}
 "------------------------------------------------------------------------------
 
+"TO BE FIMISHED
+"EXEC A SCRIPT FILE AFTER SAVING WITHIN THE VIM COMSOL USING F5
+nnoremap <F5> <esc>:w<cr>:!%:p<cr>
+inoremap <F5> <esc>:w<cr>:!%:p<cr>
+
+"OPEN THE COLOR DISPLAYER --trying
+"set the interactive shell flag -i
+set shellcmdflag=-ic
+"this opens the window but still opens the commande outside the window (background)...
+nnoremap <leader>color :vsplit<cr> <esc>:!color2<cr>
+"make sure the functions in plugin are indexed with the SID THINGY

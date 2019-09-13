@@ -23,14 +23,14 @@ colors_displayer()
 		    INDEX=6
 		    while [ $INDEX -gt "0" ]
 		    do
-			    echo " \033[m[`expr ${NUM} - ${INDEX}`] \c"
+			    echo "\033[m [`expr ${NUM} - ${INDEX}`] \c"
 			    INDEX=`expr ${INDEX} - 1`
 		    done
 		    echo ""
 	    fi
 	    if [ $NUM != 256 ]
 	    then
-		echo  "\033[48;5;${NUM}m \c"
+		echo  "\033[48;5;${NUM}m x \c"
 	    fi
 	    NUM=`expr $NUM + 1`
 	    OFFSET=`expr $OFFSET + 1`

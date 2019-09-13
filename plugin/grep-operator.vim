@@ -18,7 +18,9 @@ function! s:GrepOperator(type)
 	endif
 
 	silent execute "grep! -R " . shellescape(substitute(expand(@"), "*", "[*]", "g")) . " ." 
-	call QuickFixToggle()
-
+	"THIS WILL REFRESH THE SCRENN IF MESSED UP
+	execute "normal! \<c-l>"
+	call Quickfix_start()
+	
 	let @@ = saved_unnamed_register
 endfunction
