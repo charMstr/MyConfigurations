@@ -42,13 +42,13 @@ endfunction
 "THIS FUNCTION WILL ACT ON DIFFERENT MODES:
 "ENTER AND EDIT |OR| PREVIEW OCCURENCE  -->  QUIT AT ALL TIME USING <LEADER>q
 "NOTE: USEFULL FEATURE: PRESS <SPACE> TO SPOT THE LINE
-"NOTE2: IF FIRST CLOSES THE PREVISOUSLY OPENED WINDOW  BY QUICKFIX IF EXISTING
+"NOTE2: IF EXISTING, CLOSES THE PREVISOUSLY OPENED WINDOW BY QUICKFIX.
+"	EXECPT IF IT IS THE VERY FIRST WINDOW WE WERE WORKING ON
 function! Preview_quickfix(mode)
 
-	if win_id2win(g:quickfix_target_window) > 0
+	if ((g:quickfix_target_window != g:window_before_quickfix) && (win_id2win(g:quickfix_target_window) > 0))
 		execute win_id2win(g:quickfix_target_window) . 'wincmd c'
 	endif
-
 	if a:mode ==# 'enter'
 		"CONTROLS THE BEHAVIOR WHEN SWITCHING BUFFERS, checked by quickfix COMMANDS copen
 		set switchbuf=useopen,usetab,newtab
