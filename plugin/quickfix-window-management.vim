@@ -35,6 +35,8 @@ function! Quickfix_end()
 		let g:quickfix_window_id = 0
 		cclose
 		execute win_id2win(g:window_before_quickfix) . "wincmd w"
+		sleep 500m
+		:call Flash()
 	endif
 endfunction
 
