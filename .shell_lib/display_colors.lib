@@ -5,10 +5,10 @@ colors_displayer()
     NUM=0
 
     #DISPLAY THE FIRST 16 COLORS
-    echo "\n\tfirst 16 colors [0:15]"
+    echo "\n\tfirst 16 colors [0:15]\n"
     while [ $NUM -lt "16" ]
     do
-	    echo  "\033[48;5;${NUM}m \c"
+	    echo  "\033[48;5;${NUM}m\033[38;5;0m ${NUM} \033[m\c"
 	    NUM=`expr $NUM + 1`
     done
 
@@ -16,23 +16,15 @@ colors_displayer()
     #DISPPLAY THE REMAINING COLORS UNTIL VALUE 255
     echo "\033[m\n\n\tother colors [16:255]\n"
     OFFSET=1
-    while [ ${NUM} -le "256" ]
+    while [ ${NUM} -lt "256" ]
     do
 	    if [ `expr ${OFFSET} % 6` -eq "1" ] && [ ${OFFSET} -gt "1" ]
 	    then
-		    INDEX=6
-		    while [ $INDEX -gt "0" ]
-		    do
-			    echo "\033[m [`expr ${NUM} - ${INDEX}`] \c"
-			    INDEX=`expr ${INDEX} - 1`
-		    done
 		    echo ""
 	    fi
-	    if [ $NUM != 256 ]
-	    then
-		echo  "\033[48;5;${NUM}m x \c"
-	    fi
+	    echo  "\033[48;5;${NUM}m\033[38;5;0m ${NUM} \033[m\c"
 	    NUM=`expr $NUM + 1`
 	    OFFSET=`expr $OFFSET + 1`
     done
+    echo ""
 }
