@@ -417,6 +417,68 @@ function! Flash()
     set nocursorline
 endfunction
 
+"THIS CUSTOMED FUNCTION ORIGINALLY COMES FROM THE CURSORHOLD-EXAMPLE IN VIM HELP
+"IT WILL OPEN A PREVIEW WINDOW ON A TAGGED NAME AND HIGHLIGHT THAT WORD
+"USAGE: HIT SPACE WHILE OVERING A NAME
+"IF WE CALL THE FUNCTION ON THE EXACT SAME NAME IT WILL CLOSE THE PREVIEW WINDOW
+nnoremap <space> :call PreviewWord()<cr>
+
+"DECLARATION OF A VARIABLE FOR THE WHOLE TAB:
+"SO THAT WE CAN KNOW IF WE NEED TO CLOSE THE PREVIEW WINDOW (SAME WORD AGAIN)
+let t:ptag_window_word = ""
+
+func! PreviewWord()
+	if &previewwindow			" don't do this in the preview window
+		return
+	endif
+    "MAKE SURE THE WORD WE FOUND WILL BE CENTERED UPWISE IN WINDOW
+	let saved_scrolloff=&scrolloff
+	set scrolloff=6
+	let word_to_be_ptaged = expand("<cword>")		" get the word under cursor
+	if word_to_be_ptaged =~ '\a'			" if the word contains a letter
+		if word_to_be_ptaged ==# t:ptag_window_word
+			wincmd p 	"GOING BACK TO THE PREVIOUS WINDOW
+			pclose	"CLOSING THE PREVIEW WINDOW
+			let t:ptag_window_word = ""
+			let scrolloff=saved_scrolloff
+			return
+		endif
+
+    "DELETE ANY EXISTING HIGHLIGHT BEFORE SHOWING ANOTHER TAG
+    "AND WILL CLOSE THE EXISTING WINDOW AND RETURN 
+		silent! wincmd P			" jump to preview window
+		if &previewwindow			" if we really get there...
+			match none			" delete existing highlight
+			wincmd p			" back to old window
+		endif
+
+    "TRY DISPLAYING A MATCHING TAG FOR THE WORD UNDER THE CURSOR
+    "OPENS THE WINDOW AT THE VERY TOP
+		try
+			exe "topleft ptag " . word_to_be_ptaged
+		catch
+			return
+		endtry
+
+		silent wincmd P			" jump to preview window
+		if &previewwindow		" if we really get there...
+		    if has("folding")		" first we don't want a closed fold
+			    :silent execute "normal zR"
+		    endif
+		    call search("$", "b")		" to end of previous line
+		    let t:ptag_window_word = substitute(word_to_be_ptaged, '\\', '\\\\', "")
+    "CHECK THAT TEH PREVIOUS TIME WE CALLED THE FUNCTION IT WAS NOT THE EXACT SAME WORD
+    "IF YES THEN CLOSE
+		    call search('\<\V' . t:ptag_window_word . '\>') "position cursor on match
+	    				" Add a match highlight to the word at this position
+		    hi previewWord term=bold ctermbg=green ctermfg=black guibg=green
+		    exe 'match previewWord "\%' . line(".") . 'l\%' . col(".") . 'c\k*"'
+		    wincmd p			" back to old window
+		endif
+	endif
+	"let scrolloff=&saved_scrolloff
+endfun
+
 " }}}
 "------------------------------------------------------------------------------
 
@@ -431,44 +493,3 @@ set shellcmdflag=-ic
 "this opens the window but still opens the commande outside the window (background)...
 nnoremap <leader>color :vsplit<cr> <esc>:!color2<cr>
 "make sure the functions in plugin are indexed with the SID THINGY
-
-
-set updatetime=1000
-
-:au! CursorHold *.[ch] nested call PreviewWord()
-:func PreviewWord()
-:  if &previewwindow			" don't do this in the preview window
-:    return
-:  endif
-:  let w = expand("<cword>")		" get the word under cursor
-:  if w =~ '\a'			" if the word contains a letter
-:
-:    " Delete any existing highlight before showing another tag
-:    silent! wincmd P			" jump to preview window
-:    if &previewwindow			" if we really get there...
-:      match none			" delete existing highlight
-:      wincmd p			" back to old window
-:    endif
-:
-:    " Try displaying a matching tag for the word under the cursor
-:    try
-:       exe "ptag " . w
-:    catch
-:      return
-:    endtry
-:
-:    silent! wincmd P			" jump to preview window
-:    if &previewwindow		" if we really get there...
-:	 if has("folding")
-:	   silent! .foldopen		" don't want a closed fold
-:	 endif
-:	 call search("$", "b")		" to end of previous line
-:	 let w = substitute(w, '\\', '\\\\', "")
-:	 call search('\<\V' . w . '\>')	" position cursor on match
-:	 " Add a match highlight to the word at this position
-:      hi previewWord term=bold ctermbg=green guibg=green
-:	 exe 'match previewWord "\%' . line(".") . 'l\%' . col(".") . 'c\k*"'
-:      wincmd p			" back to old window
-:    endif
-:  endif
-:endfun
