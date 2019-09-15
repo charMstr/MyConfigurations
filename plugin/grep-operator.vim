@@ -1,7 +1,9 @@
 "THIS CHANGES THE <LEADER>G COMBINAISON INTO THRE GREP OPERATOR
-" note: it searches into the current foler ( " .")
-" note2: '*' is replaced by the character group regex syntax: '[*]'
-" note3: GREP DOESNT SEARCH ON MULTIPLE LINES BY DEFAULT, SO WE WONT GREP USING 'V' OR 'line' 
+"USAGE: IF SOME TEXT IS SELECTED VISUALLY: IT SEARCHES IT
+"USAGE: IF IN NORMAL MODE, IT IS OPERATOR PENDING --> EXAMPLE: <LEADER>Giw --> searches in word
+" NOTE: IT SEARCHES INTO THE CURRENT FOLER ( " .") AND GOEA DOWN RECURCIVELY
+" NOTE2: '*' IS REPLACED BY THE CHARACTER GROUP REGEX SYNTAX: '[*]'
+" NOTE3: GREP DOESNT SEARCH ON MULTIPLE LINES BY DEFAULT, SO WE WONT GREP USING 'V' OR 'LINE' 
 
 nnoremap <leader>g :set operatorfunc=<SID>GrepOperator<cr>g@
 vnoremap <leader>g :<c-u>call <SID>GrepOperator(visualmode())<cr>

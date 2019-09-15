@@ -77,6 +77,8 @@ function! Open_quickfix_target_window(target)
 	execute a:target
 	let g:quickfix_target_window = win_getid()
 	"UNFOLD if folded
-	:silent execute "normal zR"
+	if has("folding")
+		:silent! .foldopen
+	endif
 	:call Flash()
 endfunction
