@@ -74,11 +74,17 @@ endfunction
 "THIS FUNCTION WILL OPEN THE WINDOW IT SAVES THE WINDOW'S INDEX FOR NEXT RUN,
 "OPENS FOLDS, THEN BLINKS THE LINE
 function! Open_quickfix_target_window(target)
-	execute a:target
+	"MAKING SURE WE DON'T GET OUT OF THE BOUNDARY SO THAT WE DONT GET A NASTY MESSAGE
+	try
+		execute "topleft " .  a:target
+	catch
+		echom "\/!\\ REACHED END OF QUICKLIST \/!\\"
+		return
+	endtry
 	let g:quickfix_target_window = win_getid()
 	"UNFOLD if folded
 	if has("folding")
-		:silent! .foldopen
+		:silent execute "normal zR"
 	endif
 	:call Flash()
 endfunction
