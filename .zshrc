@@ -143,12 +143,7 @@ alias charlie='`open https://mail.google.com/mail/u/0/#inbox`'
 alias karlos='`open https://mail.google.com/mail/u/2/#inbox`'
 
 #PLUGINS-VIM
-	alias plugin='PLU'
-function PLU()
-{
-	cd ~/.vim/plugin/
-		ls
-}
+alias plugin='cd ~/.vim/plugin/'
 
 ###############################################################################
 
@@ -176,6 +171,7 @@ printf "\e[2A\e[38;5;195m%s\n\t\t\t\t\t--------\n\e[m" "$(cat ~/Projects/libft/l
 # IF AT 42
 if [ `basename ${HOME}` = "charmstr" ]
 then
+	#IT SAVES IN THE PASTEBIN MY CURRETN POSITION
 	function here
 	{
 		printf  " -->  $HOST" | cut -d . -f 1 ;
@@ -222,11 +218,5 @@ change_extension()
 		j=`basename ${i} ${FROM}`
 		mv ${j}${FROM} ${j}${TO}
 	done
-}
-
-color2()
-{
-    echo "\033[38;5;22mthe test is:\033[m"
-    echo "\033[38;5;12mvalidated\033[m"
 }
 ###############################################################################

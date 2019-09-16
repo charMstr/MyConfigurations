@@ -485,14 +485,14 @@ endfun
 " }}}
 "------------------------------------------------------------------------------
 
-"TO BE FIMISHED
+"TO BE FINISHED
 "EXEC A SCRIPT FILE AFTER SAVING WITHIN THE VIM COMSOL USING F5
-nnoremap <F5> <esc>:w<cr>:!%:p<cr>
-inoremap <F5> <esc>:w<cr>:!%:p<cr>
+"nnoremap <F5> <esc>:w<cr>:!%:p<cr>
+"inoremap <F5> <esc>:w<cr>:!%:p<cr>
 
 "OPEN THE COLOR DISPLAYER --trying
 "set the interactive shell flag -i
-set shellcmdflag=-ic
+"set shellcmdflag=-ic
 "this opens the window but still opens the commande outside the window (background)...
-nnoremap <leader>color :vsplit<cr> <esc>:!color2<cr>
+"nnoremap <leader>color :vsplit<cr> <esc>:!color2<cr>
 "make sure the functions in plugin are indexed with the SID THINGY

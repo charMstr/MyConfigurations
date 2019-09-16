@@ -1,28 +1,48 @@
 #THIS FUNCTION WILL DISPLAY THE PANEL OF COLORS
-
 colors_displayer()
 {
-    NUM=0
+	#USAGE:
+	echo "\033[38;4;12mforeground:\033[m"
+	echo '\\033[38;5;[value]m[text]\\033[m\n'
+	echo "\033[38;4;12mbackground:\033[m"
+	echo '\\033[48;5;[value]m[text]\\033[m\n'
+	NUM=1
+	OFFSET=2
+    	#DISPLAY THE FIRST 16 COLORS
+	#FIRST DISPLAY THE ZERO
+	echo "\033[48;5;0m\033[38;5;7m  0  \033[m\033[m\c"
+	while [ $NUM -lt "16" ]
+	do
+		if [ `expr ${OFFSET} % 6` -eq 1 ]
+		then
+			echo ""
+		fi
+		if [ ${NUM} -gt 9 ]
+		then
+			echo "\033[48;5;${NUM}m\033[38;5;0m ${NUM}  \033[m\033[m\c"
+		else
+			echo "\033[48;5;${NUM}m\033[38;5;0m  ${NUM}  \033[m\033[m\c"
+		fi
+		NUM=`expr $NUM + 1`
+	    	OFFSET=`expr $OFFSET + 1`
+	done
 
-    #DISPLAY THE FIRST 16 COLORS
-    echo "\n\tfirst 16 colors [0:15]\n"
-    while [ $NUM -lt "16" ]
-    do
-	    echo  "\033[48;5;${NUM}m\033[38;5;0m ${NUM} \033[m\c"
-	    NUM=`expr $NUM + 1`
-    done
+	echo " - - - - -"
+	#DISPPLAY THE REMAINING COLORS FROM VALUE 16 UNTIL VALUE 255
+	OFFSET=1
 
-
-    #DISPPLAY THE REMAINING COLORS UNTIL VALUE 255
-    echo "\033[m\n\n\tother colors [16:255]\n"
-    OFFSET=1
     while [ ${NUM} -lt "256" ]
     do
 	    if [ `expr ${OFFSET} % 6` -eq "1" ] && [ ${OFFSET} -gt "1" ]
 	    then
 		    echo ""
 	    fi
-	    echo  "\033[48;5;${NUM}m\033[38;5;0m ${NUM} \033[m\c"
+	    if [ ${NUM} -lt 100 ]
+	    then
+		echo  "\033[48;5;${NUM}m\033[38;5;0m ${NUM}  \033[m\c"
+	    else
+	    	echo  "\033[48;5;${NUM}m\033[38;5;0m ${NUM} \033[m\c"
+	    fi
 	    NUM=`expr $NUM + 1`
 	    OFFSET=`expr $OFFSET + 1`
     done
