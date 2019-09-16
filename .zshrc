@@ -21,6 +21,7 @@ if [ `basename ${HOME}` = "charmstr" ]
 then
 	export PATH=/Users/charmstr/.brew/bin/:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/munki
 fi
+
 ###############################################################################
 
 ###############################################################################

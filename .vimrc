@@ -291,12 +291,19 @@ augroup filetype_sh
 	"HAVE THE CURRENT LINE HIGHLIGHTED
 	autocmd BufNewFile,BufRead *.sh setlocal cursorline cc=0
 
+	"THIS AUTOCOMMAND IS ESSENTIAL BECAUSE IT CREATES THE FILE FOR TEH COLOR PANEL IN THE CURRENT DIR
+	"NOTE: IMPOSSIBLE TO USE A RELATIVE PATH WITH CAT INSIDE THE TERMINAL EMULATION
+	autocmd BufNewFile,BufRead *.sh silent! !cp ~/Myconfigurations/color_panel_cat_me color_panel_cat_me
+	autocmd VimLeave *.sh silent! !rm color_panel_cat_me
+
 	"INSERT THE SHEBANG AT TOP 
 	autocmd BufNewFile *.sh :exe "normal i#!/bin/sh" | :exe "normal 2o"
 	
 	"DO A CHMOD 755 ON FILE AFTER SAVING
 	autocmd BufWritePost *.sh :silent !{chmod 755 %}
-
+	
+	"CAT THE COLOR_PANEL ON THE FAR RIGHT/VERT SPLIT
+	autocmd FileType sh nnoremap <buffer> <leader>col :call Display_panel_colors()<cr>
 	"RESET THE INDENT FOR SHELL SCRIPTS
 	autocmd BufNewFile,BufRead *.sh  setlocal noautoindent
 	autocmd BufNewFile,BufRead *.sh  setlocal nosmartindent
@@ -482,6 +489,24 @@ func! PreviewWord()
 	"let scrolloff=&saved_scrolloff
 endfun
 
+"FUNCTION USED WHILE EDITING A .SH FILE --> SEE AUTOCMANDS FOR .SH FILES
+let t:panel_colors_opened_id = 0
+function! Display_panel_colors()
+
+	if t:panel_colors_opened_id > "0"
+		execute win_id2win(t:panel_colors_opened_id) . 'wincmd c'
+		let t:panel_colors_opened_id = 0
+		return
+	endif
+	"essential to tell the command it is the end : ++eof= (and a <CR> is appended!)
+	vertical botright terminal ++cols=30 ++eof= cat color_panel_cat_me
+	setlocal nonumber
+	let t:panel_colors_opened_id = win_getid()
+	wincmd p
+
+endfunction
+
+
 " }}}
 "------------------------------------------------------------------------------
 
@@ -490,9 +515,4 @@ endfun
 "nnoremap <F5> <esc>:w<cr>:!%:p<cr>
 "inoremap <F5> <esc>:w<cr>:!%:p<cr>
 
-"OPEN THE COLOR DISPLAYER --trying
-"set the interactive shell flag -i
-"set shellcmdflag=-ic
-"this opens the window but still opens the commande outside the window (background)...
-"nnoremap <leader>color :vsplit<cr> <esc>:!color2<cr>
 "make sure the functions in plugin are indexed with the SID THINGY
