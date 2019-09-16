@@ -4,6 +4,12 @@
 
 export SHELL=/bin/zsh
 
+# NEW VIM INSTALLED IN /USR/LOCAL/BIN/VIM WITH HOMEBREW -> GOOD LANGUAGE
+if [ `basename ${HOME}` = "orson" ]
+then
+	export LC_ALL="en_US.UTF-8"
+fi
+
 # TURN OFF ALL BEEPS
 unsetopt BEEP
 # Turn off autocomplete beeps or history beeps
@@ -137,7 +143,7 @@ alias charlie='`open https://mail.google.com/mail/u/0/#inbox`'
 alias karlos='`open https://mail.google.com/mail/u/2/#inbox`'
 
 #PLUGINS-VIM
-	alias plu='PLU'
+	alias plugin='PLU'
 function PLU()
 {
 	cd ~/.vim/plugin/
@@ -205,6 +211,7 @@ function count_extensions
 	for j in *;do echo ${j##*.}; done | uniq -c
 }
 
+# USAGE:example -->  change_extension .c .cpp
 change_extension()
 {
 	FROM=$1

@@ -22,6 +22,9 @@ augroup END
 let mapleader = 'fj'
 let maplocalleader = ']'
 
+"MAKE SURE WE CAN USE THE DEL KEY IN ALL OF THOSE SITUATIONS IN INSERT MODE
+set backspace=indent,eol,start
+
 syntax enable
 set mouse=a
 set autoindent
