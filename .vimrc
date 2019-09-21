@@ -234,7 +234,7 @@ augroup filetype_h
 	"INSERT THE 42 HEADER AT THE TOP OF THE FILE
 	"INSERT THE ROOTNAME OF THE FILE '%:R' + '_' +
 	"THE EXTENSION OF THE FILE 'H' ==> ALL IN UPPER CASE
-	autocmd BufNewfile *.h :exe "normal \<f1>dd" | exe "normal! i" . toupper(join([expand('%:t:r'),'_',expand('%:e')], "")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
+	"autocmd BufNewfile *.h :exe "normal \<f1>dd" | exe "normal! i" . toupper(join([expand('%:t:r'),'_',expand('%:e')], "")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
 	
 	"ABBREVIATIONS
 	"INCLUDES <
@@ -380,6 +380,8 @@ augroup filetype_c
 	autocmd FileType c :iabbrev <buffer> ret return<space>();<esc>hi<C-R>=Eatchar('\s')<cr>
 	autocmd FileType c :iabbrev <buffer> printf printf("\n");<esc>4hi<C-R>=Eatchar('\s')<cr>
 
+	autocmd FileType c nnoremap <buffer> <localleader>d :call InsertDebugIfStatement()<cr>
+	
 	"CHEATPROOF
 	autocmd FileType c :iabbrev <buffer> return NOPENOPENOPE
 augroup END
@@ -525,3 +527,10 @@ endfunction
 "inoremap <F5> <esc>:w<cr>:!%:p<cr>
 
 "make sure the functions in plugin are indexed with the SID THINGY
+
+function! InsertDebugIfStatement()
+	exe "normal! oif (DEBUG)\<esc>o{\<esc>oprintf(\"\\033[38;5;%dm[%d] \\033[38;5;%dm we are in a if (statement) \\033[m\\n\", GLOBAL_DEBUG_COLOR, GLOBAL_DEBUG_VAR++, IF_DEBUG_COLOR);\<esc>o}"
+	exe "normal! kk=i{"
+endfunction
+"search :h pattern-atoms in vim 
+"search https://stackoverflow.com/questions/18636310/add-debug-print-code-in-every-function-using-vim in google
