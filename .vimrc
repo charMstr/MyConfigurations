@@ -27,10 +27,20 @@ set backspace=indent,eol,start
 
 syntax enable
 set mouse=a
+set ruler
+
+"RESPECTING THE NORME AT 42:
+"SET BY DEFAULT. IT PREVENTS INSERTING SPACES IN PLACE OF TABS
+set softtabstop=0 noexpandtab
+" SHOW EXISTING TAB WITH 4 SPACES WIDTH
+set tabstop=4
+" WHEN INDENTING WITH '>', USE 4 SPACES WIDTH
+set shiftwidth=4
+
+"NOTE: WHEN USING smartindent, autoindent SHOULD BE ON
+"NOTE2: WHEN cindent IS ON IT WILL OVERRULE SMARTINDENT
 set autoindent
 set smartindent
-set ruler
-set shiftwidth=4
 
 "HIGHLIGHT SEARCHES
 set hlsearch incsearch
@@ -291,40 +301,39 @@ augroup filetype_sh
 	"HAVE THE CURRENT LINE HIGHLIGHTED
 	autocmd BufNewFile,BufRead *.sh setlocal cursorline cc=0
 
-	"THIS AUTOCOMMAND IS ESSENTIAL BECAUSE IT CREATES THE FILE FOR TEH COLOR PANEL IN THE CURRENT DIR
+	"THIS AUTOCOMMAND IS ESSENTIAL BECAUSE IT CREATES THE FILE FOR THE COLOR PANEL IN THE CURRENT DIR
 	"NOTE: IMPOSSIBLE TO USE A RELATIVE PATH WITH CAT INSIDE THE TERMINAL EMULATION
 	autocmd BufNewFile,BufRead *.sh silent! !cp ~/Myconfigurations/color_panel_cat_me color_panel_cat_me
 	autocmd VimLeave *.sh silent! !rm color_panel_cat_me
+	"CAT THE COLOR_PANEL ON THE FAR RIGHT/VERT SPLIT
+	autocmd FileType sh nnoremap <buffer> <leader>col :call Display_panel_colors()<cr>
 
 	"INSERT THE SHEBANG AT TOP 
 	autocmd BufNewFile *.sh :exe "normal i#!/bin/sh" | :exe "normal 2o"
 	
 	"DO A CHMOD 755 ON FILE AFTER SAVING
 	autocmd BufWritePost *.sh :silent !{chmod 755 %}
-	
-	"CAT THE COLOR_PANEL ON THE FAR RIGHT/VERT SPLIT
-	autocmd FileType sh nnoremap <buffer> <leader>col :call Display_panel_colors()<cr>
-	"RESET THE INDENT FOR SHELL SCRIPTS
-	autocmd BufNewFile,BufRead *.sh  setlocal noautoindent
-	autocmd BufNewFile,BufRead *.sh  setlocal nosmartindent
-	
+		
 	"COMENT INLINE WITH ]c  adds "#"
 	autocmd FileType sh nnoremap <buffer> <localleader>c I#<esc>
 
 	"UNCOMENT INLINE WITH ]u removes "#"
 	autocmd FileType sh nnoremap <buffer> <localleader>u ^x
 
+	"WE JUST WANT TO KEEP THE INDENTATION FROM THE PREVIOUS LINE FROM AUTOINDENT
+	set nosmartindent
+
 	"ABBREVIATIONS FOR SHELL
 	"WHILE 
-	autocmd FileType sh :iabbrev <buffer> <silent> while while [  ]<esc>odo<esc>o<tab><esc>odone<esc>kkkWlli<C-R>=Eatchar('\s')<cr>
+	autocmd FileType sh :iabbrev <buffer> <silent> while while [  ]<esc>odo<esc>o<tab><esc>o<BS>done<esc>kkkWlli<C-R>=Eatchar('\s')<cr>
 	"FOR
-	autocmd FileType sh :iabbrev <buffer> <silent> for for $ in<esc>odo<esc>o<tab><esc>odone<esc>kkkWli<C-R>=Eatchar('\s')<cr>
+	autocmd FileType sh :iabbrev <buffer> <silent> for for $ in #VARIABLE<esc>odo<esc>o<tab><esc>o<BS>done<esc>kkkWli<C-R>=Eatchar('\s')<cr>
 	"IF 
-	autocmd FileType sh :iabbrev <buffer> <silent> if if [  ]<esc>othen<esc>o<tab><esc>o#elif [  ]; then<esc>o#else<esc>ofi<esc>kkkkkWlli<C-R>=Eatchar('\s')<cr>
+	autocmd FileType sh :iabbrev <buffer> <silent> if if [  ]<esc>othen<esc>o<tab><esc>o#elif [  ]; then<esc>o#else<esc>o<BS>fi<esc>kkkkkWlli<C-R>=Eatchar('\s')<cr>
 	"ECHO
 	autocmd Filetype sh :iabbrev <buffer> <silent> echo echo ""<left><C-R>=Eatchar('\s')<cr>
 	"CASE
-	autocmd Filetype sh :iabbrev <buffer> <silent> case case $ in<esc>o*)<esc>o;;<esc>oesac<esc>3kWa<C-R>=Eatchar('\s')<cr>
+	autocmd Filetype sh :iabbrev <buffer> <silent> case case $ in #VARIABLE<esc>o<tab>*)#LAST CASE<esc>o<tab>;;<esc>o<BS><BS>esac<esc>3kWa<C-R>=Eatchar('\s')<cr>
 	
 	"BUILD A VARIABLE  <leader>v  -->  ${cursor}
 	autocmd Filetype sh inoremap <buffer> <leader>v ${}<esc>i
@@ -338,7 +347,7 @@ augroup END
 augroup filetype_c
 	autocmd!
 	"PUT THE 42HEADING
-	autocmd BufNewFile *.c :exe "normal \<f1>"
+	"autocmd BufNewFile *.c :exe "normal \<f1>"
 
 	"SET cindent
 	autocmd BufNewFile,BufRead *.c setlocal cindent foldmethod=indent foldnestmax=3 foldlevelstart=0

@@ -88,7 +88,7 @@ _RESET_COLOR="\033[m"
 
 
 #PROMPT
-PROMPT="%{$_GREY%} 🕓 %t  %{$_GREEN%}DIR% --> %d  %{$_RESET_COLOR%}"
+PROMPT="%{$_GREY%} 🕓  %t  %{$_GREEN%}DIR% --> %d  %{$_RESET_COLOR%}"
 export PS1=`echo ${PROMPT}`
 
 
