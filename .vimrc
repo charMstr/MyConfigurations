@@ -50,6 +50,8 @@ set hlsearch incsearch
 set magic
 "STARTS A SEARCH WITH "VERY MAGIC" MODE SET UP
 nnoremap / :/\v
+"VERY USEFULL TO MOVE AROUND TO THE NEXT WORD THATS UNDER THE CURSOR
+nnoremap * * :nohlsearch<cr>
 
 "HILIGHT MATCHING PARENTHESIS
 hi MatchParen ctermbg=green ctermfg=black
@@ -253,29 +255,6 @@ augroup END
 "------------------------------------------------------------------------------
 
 "------------------------------------------------------------------------------
-"- .ELEC FILETYPE---------------------------------------------------------- {{{
-
-augroup filetype_elec
-	autocmd!
-	"HAVE THE CURRENT LINE HIGHLIGHTED
-	autocmd BufNewFile,BufRead *.elec setlocal cursorline cc=0
-augroup END
-
-" }}}
-"------------------------------------------------------------------------------
-
-"------------------------------------------------------------------------------
-"- MARKDOWN/TXT FILETYPE--------------------------------------------------- {{{
-
-augroup filetype_txt
-	autocmd!
-	autocmd BufRead *.txt onoremap <buffer> ih1 :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
-	autocmd BufRead *.txt onoremap <buffer> ih2 :<c-u>execute "normal! ?^--\\+$\r:nohlsearch\rkvg_"<cr>
-augroup END
-" }}}
-"------------------------------------------------------------------------------
-
-"------------------------------------------------------------------------------
 "- HTML FILETYPE----------------------------------------------------------- {{{
 
 augroup filetype_html
@@ -380,7 +359,7 @@ augroup filetype_c
 	autocmd FileType c :iabbrev <buffer> ret return<space>();<esc>hi<C-R>=Eatchar('\s')<cr>
 	autocmd FileType c :iabbrev <buffer> printf printf("\n");<esc>4hi<C-R>=Eatchar('\s')<cr>
 
-	autocmd FileType c nnoremap <buffer> <localleader>d :call InsertDebugIfStatement()<cr>
+	autocmd FileType c nnoremap <buffer> <localleader>d :call InsertDebugPrintf()<cr>
 	
 	"CHEATPROOF
 	autocmd FileType c :iabbrev <buffer> return NOPENOPENOPE
@@ -527,10 +506,38 @@ endfunction
 "inoremap <F5> <esc>:w<cr>:!%:p<cr>
 
 "make sure the functions in plugin are indexed with the SID THINGY
+function! InsertDebugPrintf()
 
-function! InsertDebugIfStatement()
-	exe "normal! oif (DEBUG)\<esc>o{\<esc>oprintf(\"\\033[38;5;%dm[%d] \\033[38;5;%dm we are in a if (statement) \\033[m\\n\", GLOBAL_DEBUG_COLOR, GLOBAL_DEBUG_VAR++, IF_DEBUG_COLOR);\<esc>o}"
+	"MARKSTHE CURRENT POSITION IN THE C letter
+	:exe "normal! mc"
+
+	"CREATE A DEBUG DICTIONNARY
+	let dic_debug_key_words = {'while': 1, 'if': 2, 'for': 3, 'void': 4, 'int': 5, 'char': 6, 'long': 7}
+
+	let key_word_for_debug = ""	"check for this word in dictionnary
+
+	:while !has_key(dic_debug_key_words, key_word_for_debug)
+		?(
+		:let key_word_for_debug = expand("<cword>")		" get the word under cursor
+	:endwhile
+
+	"GET THE NUMBER MATCHING THE KEYWORD IN DICTIONNARY FOR COLOR_CODE IN THE PRINTF
+	let choosen_color = get(dic_debug_key_words, key_word_for_debug)
+
+	"SAVE THE CURRENT LINE WITHOUT THE TRAILING NEW LINE
+	:exe "normal! v$hy"	
+
+	"GO BACK TO INITIAL POSITION
+	:exe "normal! `c"
+	"INSERT THE PRINTF
+	exe "normal! oif (DEBUG)\<esc>o{\<esc>oprintf(\"\\033[38;5;%dm[%d] --> \\033[38;5;%dm"
+	exe "normal! p"
+	exe "normal! a\\033[m\\n\", GLOBAL_DEBUG_COLOR, GLOBAL_DEBUG_VAR++, "
+	"INSERT THE COLOR CODE DEPENDING ON THE KEY WORD
+	:put =choosen_color
+	"MERGE THE CHOOSEN_COLOR WITH THE PREVIOUS LINE
+	exe "normal! kJ"
+	exe "normal!a);\<esc>o}"
 	exe "normal! kk=i{"
 endfunction
 "search :h pattern-atoms in vim 
-"search https://stackoverflow.com/questions/18636310/add-debug-print-code-in-every-function-using-vim in google
