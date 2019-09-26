@@ -6,10 +6,7 @@
 
 # include <stdio.h>
 # define DEBUG 1
-# define IF_DEBUG_COLOR 33
-# define WHILE_DEBUG_COLOR 34
-# define FUNC_DEBUG_COLOR 35
-# define GLOBAL_DEBUG_COLOR 140
+# define GLOBAL_DEBUG_COLOR 160
 # define GLOBAL_DEBUG_VAR global_debug_var
 
 int GLOBAL_DEBUG_VAR = 0;

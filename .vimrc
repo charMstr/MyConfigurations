@@ -359,8 +359,9 @@ augroup filetype_c
 	autocmd FileType c :iabbrev <buffer> ret return<space>();<esc>hi<C-R>=Eatchar('\s')<cr>
 	autocmd FileType c :iabbrev <buffer> printf printf("\n");<esc>4hi<C-R>=Eatchar('\s')<cr>
 
+	"SEE PLUGIN SEGFAULT_HUNTER.VIM
 	autocmd FileType c nnoremap <buffer> <localleader>d :call InsertDebugPrintf()<cr>
-	
+
 	"CHEATPROOF
 	autocmd FileType c :iabbrev <buffer> return NOPENOPENOPE
 augroup END
@@ -506,70 +507,3 @@ endfunction
 "inoremap <F5> <esc>:w<cr>:!%:p<cr>
 
 "make sure the functions in plugin are indexed with the SID THINGY
-function! InsertDebugPrintf()
-
-	"MARKS THE CURRENT POSITION IN THE C letter
-	:exe "normal! mc"
-	let line_start=line('.')
-
-	"CREATE A DEBUG DICTIONNARY
-	let dic_debug_key_words = {'while': 1, 'if': 2, 'for': 3, 'void': 4, 'int': 5, 'char': 6, 'long': 9, 't_list': 10}
-
-	let key_word_for_debug = ""	"check for this word in dictionnary
-	let braces_closing = 0
-	let braces_opening = 0
-	:while !has_key(dic_debug_key_words, key_word_for_debug)
-		?(
-		:let key_word_for_debug = expand("<cword>")		" get the word under cursor
-	:endwhile
-
-	"GET THE NUMBER MATCHING THE KEYWORD IN DICTIONNARY FOR COLOR_CODE IN THE PRINTF
-	let choosen_color = get(dic_debug_key_words, key_word_for_debug)
-
-	"SAVE THE CURRENT LINE WITHOUT THE TRAILING NEW LINE
-	:exe "normal! v$hy"	
-
-	let line_target=line('.')
-	"GO BACK TO INITIAL POSITION
-	:exe "normal! `c"
-	"focntionnne !!! execute expandcmd('let u = 0 | ') . c . ',' . t . expandcmd('g/\{/ let u = u + 1')
-	"il faut juste que c et t soient les index des lignes !!!	
-	let braces_closing = 0 | line_start,line_target g/\}/ let braces_closing = braces_closing + 1
-	let braces_opening = 0 | g/\}/ let braces_opening = braces_opening + 1
-
-	"INSERT THE PRINTF
-	"exe "normal! oif (DEBUG)\<esc>o{\<esc>oprintf(\"\\033[38;5;%dm[%d] --> \\033[38;5;%dm"
-	"exe "normal! p"
-	"exe "normal! a\\033[m\\n\", GLOBAL_DEBUG_COLOR, GLOBAL_DEBUG_VAR++, "
-	"INSERT THE COLOR CODE DEPENDING ON THE KEY WORD
-	":put =choosen_color
-	"MERGE THE CHOOSEN_COLOR WITH THE PREVIOUS LINE
-	"exe "normal! kJ"
-	"exe "normal!a);\<esc>o}"
-	"exe "normal! kk=i{"
-endfunction
-
-nnoremap <localleader>{ :call Brackets()<cr>
-
-function! Brackets()
-	let line_start=line('.')
-	let braces_closing = 0
-	let braces_opening = 0
-	?}
-	let line_number_braces_closing = line('.')
-	
-	:while braces_opening <= braces_closing
-		
-	:endwhile
-
-endfunction
-" ecrire after si en remontant en arriere on tombe sur un nombre debrackets paire
-" ecrire in si en remontant on tombe sur un nombre de +1 de brackets OUVRANTE
-"algo:
-" find occurence of one of the key words: mark the line number
-" go back to initial mark
-" until line check for brackets and keep count
-" if the closing brackets number is bigger than oppening
-" restart the search backwards staring form this previsou occurence
-" then have a variable that says after or in:
-"search :h pattern-atoms in vim 
