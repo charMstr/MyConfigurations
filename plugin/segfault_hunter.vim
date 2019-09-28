@@ -21,11 +21,27 @@
 	"autocmd BufNewFile,BufRead *.c silent! !cp ~/Myconfigurations/segfault_hunter.h ./
 	"autocmd VimLeave *.c silent! !rm segfault_hunter.h
 	
+"this global will be set the very first time we call InsertDebugPrintf()
+"--> include the .h and copies .h in cur. dir.
+" then it will be unset when we use the function RemoveDebugPrintf()
+let g:debug_hunter_activated = 0
+
 function! InsertDebugPrintf()
 
 	"SAVES THE CURRENT POSITION
 	let save_cursor = getcurpos()	
 	let debug_line_start=line('.')
+
+	"ENTER THIS IF THE VERY FIRST TIME WE IMSERT A DEBUGGING PRINTF
+	if !g:debug_hunter_activated
+		"INSERT INCLUDE AT THE FIRST EMPTY LINE OF FILE
+		execute "normal! gg" | exe "normal! /^$" | exe "normal! O#include \"segfault_hunter.h\""
+		"COPY SEGFAULT_HUNTER.H FILE IN CURRENT LOCAION
+		silent! !cp ~/MyConfigurations/segfault_hunter.h ./
+		"REFRESH SCREEN AFTER EXTERNAL TERMINAL COMMAND
+		execute "normal! \<c-l>"
+		let g:debug_hunter_activated = 1
+	endif
 
 	"CREATE A DEBUG DICTIONNARY
 	let dic_debug_key_words = {'while': 182, 'if': 40, 'for': 21, 'void': 75, 'int': 39, 'char': 14, 'long': 208, 't_list': 198}
@@ -63,20 +79,19 @@ function! InsertDebugPrintf()
 	call setpos('.', save_cursor)
 
 	"INSERT THE PRINTF
-	exe "normal! oif (DEBUG)\<esc>o{\<esc>oprintf(\"\\033[38;5;%dm\\t[DEBUG %d] --> "
+	exe "normal! oif (SEGFAULT_HUNTER)\<esc>oprintf(\"\\033[38;5;%dm\\t[%d] --> "
 	"PASTE THE LINE WE YANKED HERE SO WE KNOW WHERE WE ARE
 	exe "normal! a\\033[m\\033[38;5;%dm \<esc>pA\\033[38;5;%dm"
 	"INSERT THE WORD INSIDE OR AFTER DEPENDING OF THE MATCHING CURLY BRACES
 	:put =inside_or_after "this prints the word itself
 	"MERGE THE INSIDE_OR_AFTER WITH THE PREVIOUS LINE
 	exe "normal! kJ$"
-	exe "normal! a\\033[m\\n\", GLOBAL_DEBUG_COLOR, GLOBAL_DEBUG_VAR++, "
+	exe "normal! a\\033[m\\n\", SEGF_HUNTER_COLOR, SEGFAULT_HUNTER_G++, "
 	"INSERT THE COLOR CODE DEPENDING ON THE KEY WORD
 	:put =choosen_color
 	"MERGE THE CHOOSEN_COLOR WITH THE PREVIOUS LINE
 	exe "normal! kJ$"
-	exe "normal! a, GLOBAL_DEBUG_COLOR);\<esc>o}"
-	exe "normal! kk=i{"
+	exe "normal! a, SEGF_HUNTER_COLOR);"
 
 	"RESTORE CURSOR TO INITIAL POSITION
 	call setpos('.', save_cursor)
@@ -102,4 +117,19 @@ function! Inside_or_after_brackets(initial_line,target_line)
 		return 0 	"means we are past something that was further out/up. keep searching
 					"the closing curly braces number was bigger than the openings's one
 	endif
+endfunction
+
+"THIS FUNTCION WILL REMOVE EVERYTHING AT ONCE AND EVEN REMOVE THE INCLUDE AND
+" THE .H FILE ITSELF
+function! RemoveDebugPrintf()
+	exe "normal! gg"
+	"OPEN ALL THE FOLDS BEFORE SEARCH AND DELETE ACTIONS (WAS ACTING WEIRD)
+	exe "normal! zR"
+	g/segfault_hunter/ exe "normal! dd"
+	g/SEGFAULT_HUNTER/ exe "normal! dd"
+	silent! !rm segfault_hunter.h
+	"REFRESH SCREEN AFTER EXTERAL COMMAND
+	execute "normal! \<c-l>"
+	"SET BACK THE GLOBAL VARIABLE AFTER REMOVING THE INCLUDES AND THE .H
+	let g:debug_hunter_activated = 0
 endfunction

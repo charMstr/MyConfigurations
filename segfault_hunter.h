@@ -5,10 +5,10 @@
 # define SEGFAULT_HUNTER_H
 
 # include <stdio.h>
-# define DEBUG 1
-# define GLOBAL_DEBUG_COLOR 160
-# define GLOBAL_DEBUG_VAR global_debug_var
+# define SEGFAULT_HUNTER 1
+# define SEGF_HUNTER_COLOR 160
+# define SEGFAULT_HUNTER_G segfault_hunter_g
 
-int GLOBAL_DEBUG_VAR = 0;
+int SEGFAULT_HUNTER_G = 0;
 
 #endif

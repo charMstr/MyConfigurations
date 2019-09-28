@@ -361,6 +361,7 @@ augroup filetype_c
 
 	"SEE PLUGIN SEGFAULT_HUNTER.VIM
 	autocmd FileType c nnoremap <buffer> <localleader>d :call InsertDebugPrintf()<cr>
+	autocmd FileType c nnoremap <buffer> <localleader>D :call RemoveDebugPrintf()<cr>
 
 	"CHEATPROOF
 	autocmd FileType c :iabbrev <buffer> return NOPENOPENOPE
