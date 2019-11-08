@@ -236,7 +236,7 @@ augroup filetype_h
 	"INSERT THE 42 HEADER AT THE TOP OF THE FILE
 	"INSERT THE ROOTNAME OF THE FILE '%:R' + '_' +
 	"THE EXTENSION OF THE FILE 'H' ==> ALL IN UPPER CASE
-	"autocmd BufNewfile *.h :exe "normal \<f1>dd" | exe "normal! i" . toupper(join([expand('%:t:r'),'_',expand('%:e')], "")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
+	autocmd BufNewfile *.h :exe "normal \<f1>" | exe "normal! i" . toupper(join([expand('%:t:r'),'_',expand('%:e')], "")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
 	
 	"ABBREVIATIONS
 	"INCLUDES <
@@ -326,7 +326,7 @@ augroup END
 augroup filetype_c
 	autocmd!
 	"PUT THE 42HEADING
-	"autocmd BufNewFile *.c :exe "normal \<f1>"
+	autocmd BufNewFile *.c :exe "normal \<f1>"
 
 	"SET cindent
 	autocmd BufNewFile,BufRead *.c setlocal cindent foldmethod=indent foldnestmax=3 foldlevelstart=0

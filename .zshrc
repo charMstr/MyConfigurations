@@ -112,7 +112,7 @@ if [ `basename ${HOME}` = "charmstr" ]
 then
 	#PROJECTS
 	alias GNL='cd ~/Projects/get_next_line/GNL/'
-	alias LIB='cd ~/Projects/libft/libft_git/'
+	alias LIB='cd ~/Projects/libft_git'
 	alias FIL='cd ~/Projects/fillit/'
 	alias INI='cd /Users/charmstr/Projects/init/init_git'
 	
@@ -158,15 +158,16 @@ source ~/.shell_lib/display_colors.lib
 
 function see
 {
-# echo  ''
+echo  ''
 for i in `seq 3 0`
 do
 	echo "\e[1A\e[38;5;10m$i\e[m"
-	sleep 0.5
+	sleep 0.2
 done
+echo "\e[1A "
 echo "  ===>  $1 "
 sleep 0.5
-printf "\e[2A\e[38;5;195m%s\n\t\t\t\t\t--------\n\e[m" "$(cat ~/Projects/libft/libft_git/ft_$1.c)";
+printf "\e[2A\e[38;5;195m%s\n\t\t\t\t\t--------\n\e[m" "$(cat ~/Projects/old_libft/libft_git/ft_$1.c)";
 }
 
 # IF AT 42
