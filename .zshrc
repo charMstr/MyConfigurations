@@ -131,7 +131,8 @@ then
 	alias ELE='cd ~/Projects/electronic/Ethernic_Project'
 
 	# TO PLACES
-	alias SAN='cd ~/Projects/sandbox'
+	alias TOO='cd ~/Toolbox'
+	alias SAN='cd ~/Toolbox/Sandbox'
 fi
 
 
@@ -167,7 +168,7 @@ done
 echo "\e[1A "
 echo "  ===>  $1 "
 sleep 0.5
-printf "\e[2A\e[38;5;195m%s\n\t\t\t\t\t--------\n\e[m" "$(cat ~/Projects/old_libft/libft_git/ft_$1.c)";
+printf "\e[2A\e[38;5;195m%s\n\t\t\t\t\t--------\n\e[m" "$(cat ~/Projects/libft_git/libft/ft_$1.c)";
 }
 
 # IF AT 42
