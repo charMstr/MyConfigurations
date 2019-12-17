@@ -233,11 +233,15 @@ augroup filetype_h
 	"CLEAN FILE FROM TRAILING SPACES AND TABS BEFORE WRITING
 	autocmd BufWritePre *.h %s/\(\s\|\t\)\+$//ge
 
-	"INSERT THE 42 HEADER AT THE TOP OF THE FILE
+	"INSERT THE 42 HEADER AT THE TOP OF THE FILE if at school
 	"INSERT THE ROOTNAME OF THE FILE '%:R' + '_' +
 	"THE EXTENSION OF THE FILE 'H' ==> ALL IN UPPER CASE
+	if ( $USER == "charmstr")
 	autocmd BufNewfile *.h :exe "normal \<f1>" | exe "normal! i" . toupper(join([expand('%:t:r'),'_',expand('%:e')], "")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
-	
+	else
+	autocmd BufNewfile *.h :exe "normal! i" . toupper(join([expand('%:t:r'),'_',expand('%:e')], "")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
+	endif
+
 	"ABBREVIATIONS
 	"INCLUDES <
 	autocmd BufNewFile,BufRead *.h :ia <buffer> #i # include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
@@ -306,6 +310,7 @@ augroup filetype_sh
 	"WHILE 
 	autocmd FileType sh :iabbrev <buffer> <silent> while while [  ]<esc>odo<esc>o<tab><esc>o<BS>done<esc>kkkWlli<C-R>=Eatchar('\s')<cr>
 	"FOR
+
 	autocmd FileType sh :iabbrev <buffer> <silent> for for $ in #VARIABLE<esc>odo<esc>o<tab><esc>o<BS>done<esc>kkkWli<C-R>=Eatchar('\s')<cr>
 	"IF 
 	autocmd FileType sh :iabbrev <buffer> <silent> if if [  ]<esc>othen<esc>o<tab><esc>o#elif [  ]; then<esc>o#else<esc>o<BS>fi<esc>kkkkkWlli<C-R>=Eatchar('\s')<cr>
@@ -325,8 +330,10 @@ augroup END
 
 augroup filetype_c
 	autocmd!
-	"PUT THE 42HEADING
+	"PUT THE 42HEADING if at school
+	if ( $USER == "charmstr" )
 	autocmd BufNewFile *.c :exe "normal \<f1>"
+	endif
 
 	"SET cindent
 	autocmd BufNewFile,BufRead *.c setlocal cindent foldmethod=indent foldnestmax=3 foldlevelstart=0
@@ -347,7 +354,8 @@ augroup filetype_c
 	"ABBREVIATIONS FOR C
 	autocmd FileType c :iabbrev <buffer> <silent> if if ()<Left><C-R>=Eatchar('\s')<cr>
 	autocmd FileType c :iabbrev <buffer> <silent> while while ()<Left><C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :iabbrev <buffer> <silent> for for ()<Left><C-R>=Eatchar('\s')<cr>
+	"for --> you can shut the fuck up
+	"autocmd FileType c :iabbrev <buffer> <silent> for for ()<Left><C-R>=Eatchar('\s')<cr>
 	autocmd FileType c :iabbrev <buffer> <silent> main int<tab>main(int argc, char *argv[])<cr>{<cr>return (0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
 	autocmd FileType c :iabbrev <buffer> <silent> { {<cr>}<esc>ko<C-R>=Eatchar('\s')<cr>
 	"}

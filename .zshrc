@@ -135,7 +135,8 @@ then
 	alias ELE='cd ~/Projects/electronic/Ethernic_Project'
 
 	# TO PLACES
-	alias SAN='cd ~/Projects/sandbox'
+	alias TOO='cd ~/Toolbox'
+	alias SAN='cd ~/Toolbox/Sandbox'
 fi
 
 
