@@ -358,7 +358,8 @@ augroup filetype_c
 	autocmd FileType c :iabbrev <buffer> #d #define
 	autocmd FileType c :iabbrev <buffer> ret return<space>();<esc>hi<C-R>=Eatchar('\s')<cr>
 	autocmd FileType c :iabbrev <buffer> printf printf("\n");<esc>4hi<C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :iabbrev <buffer> open if((fd = open("", O_CREAT \| O_RDWR \| O_TRUNC, 0644)) == -1)<esc>10Bbviw<C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :iabbrev <buffer> open if((fd1 = open("", O_CREAT \| O_RDWR \| O_TRUNC, 0644)) == -1)<esc>10Bbe<C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :iabbrev <buffer> read read(fd1, BUFFER_PTR, BUFFER_SIZE)<esc>5be<C-R>=Eatchar('\s')<cr>
 
 	"SEE PLUGIN SEGFAULT_HUNTER.VIM
 	autocmd FileType c nnoremap <buffer> <localleader>d :call InsertDebugPrintf()<cr>

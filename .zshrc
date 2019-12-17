@@ -60,6 +60,9 @@ fi
 
 #GCC FLAGS
 alias gcc-W='gcc -Wall -Wextra -Werror'
+
+#ENV VARIABLE
+export MAIL=$USER'@student.42.fr'
 ###############################################################################
 
 
@@ -111,10 +114,11 @@ export LSCOLORS="ExHxcxdxbxegedabagacad"
 if [ `basename ${HOME}` = "charmstr" ]
 then
 	#PROJECTS
-	alias GNL='cd ~/Projects/get_next_line/GNL/'
+	alias GNL='cd ~/Projects/get_next_line_git/get_next_line_binary'
 	alias LIB='cd ~/Projects/libft_git'
-	alias FIL='cd ~/Projects/fillit/'
-	alias INI='cd /Users/charmstr/Projects/init/init_git'
+	alias PRF='cd ~/Projects/ft_printf_42cursus'
+
+
 	
 	#PLACES
 	alias TOO='cd ~/Toolbox'
@@ -167,7 +171,7 @@ done
 echo "\e[1A "
 echo "  ===>  $1 "
 sleep 0.5
-printf "\e[2A\e[38;5;195m%s\n\t\t\t\t\t--------\n\e[m" "$(cat ~/Projects/old_libft/libft_git/ft_$1.c)";
+printf "\e[2A\e[38;5;195m%s\n\t\t\t\t\t--------\n\e[m" "$(cat ~/Projects/libft_git/libft/ft_$1.c)";
 }
 
 # IF AT 42
