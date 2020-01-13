@@ -3,7 +3,7 @@
 function set_conda
 {
     HOME=$(echo ~)
-    INSTALL_PATH="~"
+    INSTALL_PATH="/goinfre"
     MINICONDA_PATH=$INSTALL_PATH"/miniconda3/bin"
     PYTHON_PATH=$(which python)
     SCRIPT="Miniconda3-latest-MacOSX-x86_64.sh"
