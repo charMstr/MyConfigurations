@@ -7,7 +7,7 @@ function set_conda
     MINICONDA_PATH=$INSTALL_PATH"/miniconda3/bin"
     PYTHON_PATH=$(which python)
     SCRIPT="Miniconda3-latest-MacOSX-x86_64.sh"
-    REQUIREMENTS="jupyter numpy pandas"
+    REQUIREMENTS="jupyter numpy pandas matplotlib"
     DL_LINK='https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh'
     if echo $PYTHON_PATH | grep -q $INSTALL_PATH; then
         echo "good python version :)"

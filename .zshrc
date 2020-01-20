@@ -121,6 +121,7 @@ then
 
 	
 	#PLACES
+	alias AI='cd ~/42AI/Bootcamp_ai'
 	alias TOO='cd ~/Toolbox'
 	alias ELE='cd ~/Toolbox/Electronique_repo/Ethernic_Project'
 	alias SAN='cd ~/Toolbox/Sandbox'
