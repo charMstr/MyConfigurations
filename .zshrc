@@ -162,7 +162,7 @@ alias plugin='cd ~/.vim/plugin/'
 #LIB IN .SHELL_LIB
 source ~/.shell_lib/display_colors.lib
 source ~/.shell_lib/install_python_42ai.lib
-export PATH=/goinfre/miniconda3/bin:/Users/charmstr/.brew/bin/:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/munki
+export PATH=~/goinfre/miniconda3/bin:/Users/charmstr/.brew/bin/:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/munki
 
 function see
 {
