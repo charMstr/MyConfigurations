@@ -117,9 +117,8 @@ then
 	alias GNL='cd ~/Projects/get_next_line_git/get_next_line_binary'
 	alias LIB='cd ~/Projects/libft_git'
 	alias PRF='cd ~/Projects/ft_printf_42cursus'
+	alias RT='cd ~/Projects/rt_git'
 
-
-	
 	#PLACES
 	alias AI='cd ~/42AI/Bootcamp_ai'
 	alias TOO='cd ~/Toolbox'

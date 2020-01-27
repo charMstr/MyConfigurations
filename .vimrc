@@ -356,7 +356,7 @@ augroup filetype_c
 	autocmd FileType c :iabbrev <buffer> <silent> while while ()<Left><C-R>=Eatchar('\s')<cr>
 	"for --> you can shut the fuck up
 	"autocmd FileType c :iabbrev <buffer> <silent> for for ()<Left><C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :iabbrev <buffer> <silent> main int<tab>main(int argc, char *argv[])<cr>{<cr>return (0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :iabbrev <buffer> <silent> main int<tab>main(int argc __attribute__((unused)), char *argv[] __attribute__((unused)))<cr>{<cr>return (0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
 	autocmd FileType c :iabbrev <buffer> <silent> { {<cr>}<esc>ko<C-R>=Eatchar('\s')<cr>
 	"}
 	autocmd FileType c :iabbrev <buffer> <silent> ( ()<esc>i<C-R>=Eatchar('\s')<cr>
