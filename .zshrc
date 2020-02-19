@@ -25,10 +25,7 @@ then
 	source ~/.shell_lib/display_colors.lib
 	source ~/.shell_lib/install_python_42ai.lib
 	#SOURCES SHELL SCRIPTS IN .SHELL_SCRIPT
-	source ~/.shell_scripts/*
-	#source ~/.shell_scripts/move_docker_to_goinfre.sh
-	#add miniconda script...
-	export PATH=~/goinfre/miniconda3/bin:/Users/charmstr/.brew/bin/:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/munki
+	#source ~/.shell_scripts/*
 fi
 
 ###############################################################################
@@ -170,6 +167,9 @@ alias plugin='cd ~/.vim/plugin/'
 #FUNCTIONS
 ###############################################################################
 
+#add miniconda script...
+export PATH=~/goinfre/miniconda3/bin:/Users/charmstr/.brew/bin/:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/munki
+
 function see
 {
 echo  ''
@@ -234,5 +234,10 @@ change_extension()
 		j=`basename ${i} ${FROM}`
 		mv ${j}${FROM} ${j}${TO}
 	done
+}
+
+set_docker()
+{
+	sh  ~/.shell_scripts/move_docker_to_goinfre.sh
 }
 ###############################################################################
