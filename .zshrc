@@ -118,6 +118,9 @@ then
 	alias LIB='cd ~/Projects/libft_git'
 	alias PRF='cd ~/Projects/ft_printf_42cursus'
 	alias RT='cd ~/Projects/rt_git'
+	alias C3D='cd ~/Projects/cube3d_git'
+	alias FTS='cd ~/Projects/ft_server_git'
+
 
 	#PLACES
 	alias AI='cd ~/42AI/Bootcamp_ai'
