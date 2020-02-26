@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    .zshrc                                             :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
+#    Updated: 2020/02/26 19:27:09 by charmstr         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 ###############################################################################
 ##	CONFIG TERMINAL
 ###############################################################################
@@ -19,13 +31,13 @@ unsetopt BEEP
 # IF AT 42
 if [ `basename ${HOME}` = "charmstr" ]
 then
-	export PATH=/Users/charmstr/.brew/bin/:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/munki
+	export PATH=$HOME/.brew/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/munk
 
 	#SOURCES SHELL FUNCTIONS IN .SHELL_LIB
 	source ~/.shell_lib/display_colors.lib
 	source ~/.shell_lib/install_python_42ai.lib
 	#SOURCES SHELL SCRIPTS IN .SHELL_SCRIPT
-	#source ~/.shell_scripts/*
+	source ~/.shell_scripts/keep_lock_files_in_tmp_for_brew.sh
 fi
 
 ###############################################################################
@@ -126,6 +138,7 @@ then
 	alias RT='cd ~/Projects/rt_git'
 	alias C3D='cd ~/Projects/cube3d_git'
 	alias FTS='cd ~/Projects/ft_server_git'
+	alias FTSS='cd ~/Projects/ft_services_git'
 
 
 	#PLACES
@@ -182,7 +195,7 @@ function clean_caches
 ###############################################################################
 
 #add miniconda script...
-export PATH=~/goinfre/miniconda3/bin:/Users/charmstr/.brew/bin/:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/munki
+export PATH=~/goinfre/miniconda3/bin:$PATH
 
 function see
 {
@@ -248,6 +261,20 @@ change_extension()
 		j=`basename ${i} ${FROM}`
 		mv ${j}${FROM} ${j}${TO}
 	done
+}
+
+set_minikube()
+{
+	if [ -d $HOME/.minikube ]
+	then
+		rm -rf $HOME/.minikube
+	fi
+	MINIKUBE_FOLDER="/Volumes/Storage/goinfre/charmstr/.minikube"
+	if [ ! -d $MINIKUBE_FOLDER ]
+	then
+		mkdir -p $MINIKUBE_FOLDER
+	fi
+	ln -s $MINIKUBE_FOLDER $HOME/.minikube
 }
 
 set_docker()
