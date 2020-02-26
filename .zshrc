@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2020/02/26 19:27:09 by charmstr         ###   ########.fr        #
+#    Updated: 2020/02/26 19:37:34 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -263,13 +263,14 @@ change_extension()
 	done
 }
 
+#MOVE MINIKUBE TO GOINFRE
 set_minikube()
 {
 	if [ -d $HOME/.minikube ]
 	then
 		rm -rf $HOME/.minikube
 	fi
-	MINIKUBE_FOLDER="/Volumes/Storage/goinfre/charmstr/.minikube"
+	MINIKUBE_FOLDER="/Volumes/Storage/goinfre/$USER/.minikube"
 	if [ ! -d $MINIKUBE_FOLDER ]
 	then
 		mkdir -p $MINIKUBE_FOLDER
