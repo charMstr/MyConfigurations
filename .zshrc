@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2020/02/26 19:37:34 by charmstr         ###   ########.fr        #
+#    Updated: 2020/02/27 17:07:18 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -219,7 +219,7 @@ then
 	{
 		printf  " -->  $HOST" | cut -d . -f 1 ;
 		printf " -->  \e[38;5;133mDo ctrl + V anywhere ...\e[m\n";
-		echo "Im here 🤠 : $HOST" | cut -d . -f 1 | tr -d '\n' | pbcopy;
+		echo "Im here ✌️ : $HOST" | cut -d . -f 1 | tr -d '\n' | pbcopy;
 	}
 fi
 
@@ -276,6 +276,8 @@ set_minikube()
 		mkdir -p $MINIKUBE_FOLDER
 	fi
 	ln -s $MINIKUBE_FOLDER $HOME/.minikube
+	echo "\033[38;5;46msetting the vm-driver to virtualbox\033[0m"
+	minikube config set vm-driver virtualbox
 }
 
 set_docker()
