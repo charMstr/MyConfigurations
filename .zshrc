@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2020/02/27 17:07:18 by charmstr         ###   ########.fr        #
+#    Updated: 2020/03/03 13:12:35 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,15 +53,16 @@ alias vzsh='vim ~/.zshrc'
 alias so='source'
 
 # CDS = CD + LS
-alias cd..='CDLS ..'
-alias cd-='CDLS -'
 alias cd=CDLS
+alias cd..='cd ..'
+alias cd-='cd  -'
+
 function CDLS
 {
 	\cd $1
 	if [ $? -eq "0" ]
 	then
-	    ls
+	    /bin/ls
 	fi
 }
 
@@ -74,6 +75,7 @@ if [ `basename ${HOME}` = "charmstr" ]
 then
 	#NORMINETTE
 	alias norm='norminette'
+	alias kc='kubectl'
 fi
 
 #GCC FLAGS
@@ -219,7 +221,8 @@ then
 	{
 		printf  " -->  $HOST" | cut -d . -f 1 ;
 		printf " -->  \e[38;5;133mDo ctrl + V anywhere ...\e[m\n";
-		echo "Im here ✌️ : $HOST" | cut -d . -f 1 | tr -d '\n' | pbcopy;
+		echo "Im here ✌️: $HOST" | cut -d . -f 1 | tr -d '\n' | pbcopy;
+		open -a slack
 	}
 fi
 
