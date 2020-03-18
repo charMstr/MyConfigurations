@@ -137,11 +137,9 @@ then
 	alias GNL='cd ~/Projects/get_next_line_git/get_next_line_binary'
 	alias LIB='cd ~/Projects/libft_git'
 	alias PRF='cd ~/Projects/ft_printf_42cursus'
-	alias RT='cd ~/Projects/rt_git'
 	alias C3D='cd ~/Projects/cube3d_git'
 	alias FTS='cd ~/Projects/ft_server_git'
 	alias FTSS='cd ~/Projects/ft_services_git'
-
 
 	#PLACES
 	alias AI='cd ~/42AI/Bootcamp_ai'
@@ -156,7 +154,10 @@ if [ `basename ${HOME}` = "orson" ]
 then
 	# TO PROJECTS
 	alias LIB='cd ~/Projects/libft_git'
-	alias ELE='cd ~/Projects/electronic/Ethernic_Project'
+	alias GNL='cd ~/Projects/get_next_line_git/get_next_line_binary'
+	alias PRF='cd ~/Projects/ft_printf_42cursus'
+	alias C3D='cd ~/Projects/cube3d_git'
+	alias MINI='cd ~/Projects/minishell'
 
 	# TO PLACES
 	alias TOO='cd ~/Toolbox'
