@@ -68,7 +68,7 @@ function CDLS
 
 # COMMON
 alias la='ls -la'
-alias grep='grep -n --colour'
+alias grep='grep -n --colour=auto'
 
 # IF AT 42
 if [ `basename ${HOME}` = "charmstr" ]
@@ -113,6 +113,7 @@ _RESET_COLOR="\033[m"
 #PROMPT
 PROMPT="%{$_GREY%} 🕓  %t  %{$_GREEN%}DIR% --> %d  %{$_RESET_COLOR%}"
 export PS1=`echo ${PROMPT}`
+#export PS1='%d $ '
 
 
 #export PS1=$'\n\e[48;5;237m\e[38;5;242m%t \e[m\e[m\e[38;5;159m • \e[m %d\e[38;5;159m -->\e[m'
@@ -158,6 +159,8 @@ then
 	alias PRF='cd ~/Projects/ft_printf_42cursus'
 	alias C3D='cd ~/Projects/cube3d_git'
 	alias MINI='cd ~/Projects/minishell'
+	alias TERM='cd ~/Projects/terminfo_for_minishell'
+	alias ASM='cd ~/Projects/libasm'
 
 	# TO PLACES
 	alias TOO='cd ~/Toolbox'
