@@ -186,7 +186,9 @@ nnoremap <silent> <leader>W :call clearmatches()<cr> | :noh
 
 "INSERT A ';' AT THE END OF THE LINE. nb: IT COULD BE TRIGGERED ON AN EVENT...
 inoremap <leader>; <esc>mqA;<esc>`qa
+inoremap <leader>;; <esc>mq$x<esc>`qa
 nnoremap <leader>; <esc>mqA;<esc>`q
+nnoremap <leader>;; <esc>mq$x<esc>`q
 
 "FUNCTIONS FOR ABBREVIATIONS
 func! Eatchar(pat)
@@ -197,11 +199,11 @@ endfunc
 "iabbr <silent> if if ()<Left><C-R>=Eatchar('\s')<cr>
 
 "ABBREVIATIONS (INSERT MODE ONLY TODAY)
-iabbr cahr char
-iabbr whiel while
-iabbr fi if
-iabbr srt str
-iabbr @@ charmstr@student.42.fr
+inoreabbr cahr char
+inoreabbr whiel while
+inoreabbr fi if
+inoreabbr srt str
+inoreabbr @@ charmstr@student.42.fr
 
 "PREPARE THE STRING WITH THE TERMCAP COLOR
 inoremap <buffer> <leader>fg  \033[38;5;\033[m<esc>6ha
@@ -219,7 +221,7 @@ nnoremap <leader>to :tabo<cr>
 "------------------------------------------------------------------------------
 
 "------------------------------------------------------------------------------
-"- AUTO-COMMANDS ---------------------------------------------------------- {{{
+"- AUTO-COMMANDS --------------------------------------------------------- {{{
 
 "CREAT A NEW FILE NO MATTER WHAT
 "autocmd BufNewFile * :write
@@ -352,29 +354,41 @@ augroup filetype_c
 	"o<esc>kkA<space>
 
 	"ABBREVIATIONS FOR C
-	autocmd FileType c :iabbrev <buffer> <silent> if if ()<Left><C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :iabbrev <buffer> <silent> while while ()<Left><C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :inoreabbrev <buffer> <silent> if if ()<Left><C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :inoreabbrev <buffer> <silent> while while ()<Left><C-R>=Eatchar('\s')<cr>
 	"for --> you can shut the fuck up
-	"autocmd FileType c :iabbrev <buffer> <silent> for for ()<Left><C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :iabbrev <buffer> <silent> main int<tab>main(int argc __attribute__((unused)), char *argv[] __attribute__((unused)))<cr>{<cr>return (0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :iabbrev <buffer> <silent> { {<cr>}<esc>ko<C-R>=Eatchar('\s')<cr>
+	"autocmd FileType c :inoreabbrev <buffer> <silent> for for ()<Left><C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :inoreabbrev <buffer> <silent> main int<tab>main(int argc __attribute__((unused)), char **argv __attribute__((unused)))<cr>{<cr>return (0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
+	
+	autocmd Filetype c :inoremap {<CR> {<CR>}<Esc>ko
 	"}
-	autocmd FileType c :iabbrev <buffer> <silent> ( ()<esc>i<C-R>=Eatchar('\s')<cr>
+	autocmd Filetype c :inoremap { {<CR>}<Esc>ko<C-R>=Eatchar('\s')<cr>
+	"}
+	autocmd Filetype c :inoremap {[ {
+	"}}
+	autocmd Filetype c :inoremap ( ()<Esc>i
 	")
-	autocmd FileType c :iabbrev <buffer> #i #include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :iabbrev <buffer> #" #include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :iabbrev <buffer> #d #define
-	autocmd FileType c :iabbrev <buffer> ret return<space>();<esc>hi<C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :iabbrev <buffer> printf printf("\n");<esc>4hi<C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :iabbrev <buffer> open if((fd1 = open("", O_CREAT \| O_RDWR \| O_TRUNC, 0644)) == -1)<esc>10Bbe<C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :iabbrev <buffer> read read(fd1, BUFFER_PTR, BUFFER_SIZE)<esc>5be<C-R>=Eatchar('\s')<cr>
+	autocmd Filetype c :inoremap (9 (
+	"))
+	autocmd Filetype c :inoreabbrev void* void *<C-R>=Eatchar('\s')<cr>
+	autocmd Filetype c :inoreabbrev char* char *<C-R>=Eatchar('\s')<cr>
+	autocmd Filetype c :inoreabbrev int* int *<C-R>=Eatchar('\s')<cr>
+	autocmd Filetype c :inoreabbrev t_list* t_list *<C-R>=Eatchar('\s')<cr>
+
+	autocmd FileType c :inoreabbrev <buffer> #i #include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :inoreabbrev <buffer> #" #include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :inoreabbrev <buffer> #d #define
+	autocmd FileType c :inoreabbrev <buffer> ret return<space>();<esc>hi<C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :inoreabbrev <buffer> printf printf("\n");<esc>4hi<C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :inoreabbrev <buffer> open if ((fd1 = open("", O_CREAT \| O_RDWR \| O_TRUNC, 0644)) == -1)<esc>10Bbe<C-R>=Eatchar('\s')<cr>
+	autocmd FileType c :inoreabbrev <buffer> read read(fd1, BUFFER_PTR, BUFFER_SIZE)<esc>5be<C-R>=Eatchar('\s')<cr>
 
 	"SEE PLUGIN SEGFAULT_HUNTER.VIM
 	autocmd FileType c nnoremap <buffer> <localleader>d :call InsertDebugPrintf()<cr>
 	autocmd FileType c nnoremap <buffer> <localleader>D :call RemoveDebugPrintf()<cr>
 
 	"CHEATPROOF
-	autocmd FileType c :iabbrev <buffer> return NOPENOPENOPE
+	autocmd FileType c :inoreabbrev <buffer> return NOPENOPENOPE
 augroup END
 " }}}
 "------------------------------------------------------------------------------
