@@ -136,32 +136,22 @@ if [ `basename ${HOME}` = "charmstr" ]
 then
 	#PROJECTS
 	alias GNL='cd ~/Projects/get_next_line_git/get_next_line_binary'
-	alias LIB='cd ~/Projects/libft_git'
+	alias LIB='cd ~/Projects/libft_git/libft'
 	alias PRF='cd ~/Projects/ft_printf_42cursus'
 	alias C3D='cd ~/Projects/cube3d_git'
 	alias FTS='cd ~/Projects/ft_server_git'
 	alias FTSS='cd ~/Projects/ft_services_git'
+	alias ASM='cd ~/Projects/libasm'
+	alias MINI='cd ~/Projects/minishell'
+	alias PHIL='cd ~/Projects/philosophers'
 
 	#PLACES
-	alias AI='cd ~/42AI/Bootcamp_ai'
-	alias TOO='cd ~/Toolbox'
-	alias ELE='cd ~/Toolbox/Electronique_repo/Ethernic_Project'
-	alias SAN='cd ~/Toolbox/Sandbox'
-	alias SGO='cd /sgoinfre/goinfre/Perso/charmstr'
+	alias SAN='cd ~/Sandbox'
 fi
 
 # IF AT HOME
 if [ `basename ${HOME}` = "orson" ]
 then
-	# TO PROJECTS
-	alias LIB='cd ~/Projects/libft_git'
-	alias GNL='cd ~/Projects/get_next_line_git/get_next_line_binary'
-	alias PRF='cd ~/Projects/ft_printf_42cursus'
-	alias C3D='cd ~/Projects/cube3d_git'
-	alias MINI='cd ~/Projects/minishell'
-	alias TERM='cd ~/Projects/terminfo_for_minishell'
-	alias ASM='cd ~/Projects/libasm'
-
 	# TO PLACES
 	alias TOO='cd ~/Toolbox'
 	alias SAN='cd ~/Toolbox/Sandbox'
