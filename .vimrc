@@ -405,6 +405,24 @@ augroup END
 "------------------------------------------------------------------------------
 
 "------------------------------------------------------------------------------
+"- YAML FILETYPE----------------------------------------------------------- {{{
+
+"COMMENT IN LINE
+augroup filetype_yaml
+	autocmd!
+	"SET TWO NICE TABS WHEN I PRESS ENTER
+	autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+	"COMENT INLINE WITH ]c  adds "#"
+	autocmd FileType yaml nnoremap <buffer> <localleader>c I//<esc>
+
+	"UNCOMENT INLINE WITH ]u removes "#"
+	autocmd FileType yaml nnoremap <buffer> <localleader>u ^2x
+augroup END
+" }}}
+"------------------------------------------------------------------------------
+
+"------------------------------------------------------------------------------
 "- PYTHON FILETYPE--------------------------------------------------------- {{{
 
 "COMMENT INLINE
