@@ -131,40 +131,30 @@ export LSCOLORS="ExHxcxdxbxegedabagacad"
 ##	PROJECTS/PLACES/WEBSITES
 ###############################################################################
 
-# IF AT 42
-if [ `basename ${HOME}` = "charmstr" ]
-then
-	#PROJECTS
-	alias GNL='cd ~/Projects/get_next_line_git/get_next_line_binary'
-	alias LIB='cd ~/Projects/libft_git/libft'
-	alias PRF='cd ~/Projects/ft_printf_42cursus'
-	alias C3D='cd ~/Projects/cube3d_git'
-	alias FTS='cd ~/Projects/ft_server_git'
-	alias FTSS='cd ~/Projects/ft_services_git'
-	alias ASM='cd ~/Projects/libasm'
-	alias MINI='cd ~/Projects/minishell'
-	alias PHIL='cd ~/Projects/philosophers'
-
-	#PLACES
-	alias SAN='cd ~/Sandbox'
-fi
+alias GNL='cd ~/Projects/get_next_line_git/get_next_line_binary'
+alias LIB='cd ~/Projects/libft_git/libft'
+alias PRF='cd ~/Projects/ft_printf_42cursus'
+alias C3D='cd ~/Projects/cube3d'
+alias FTS='cd ~/Projects/ft_server'
+alias FTSS='cd ~/Projects/ft_services'
+alias ASM='cd ~/Projects/libasm'
+alias MINI='cd ~/Projects/minishell'
+alias PHIL='cd ~/Projects/philosophers'
+alias SAN='cd ~/Sandbox'
 
 # IF AT HOME
-if [ `basename ${HOME}` = "orson" ]
+if [ `basename ${HOME}` = "user42" ]
 then
-	# TO PLACES
-	alias TOO='cd ~/Toolbox'
-	alias SAN='cd ~/Toolbox/Sandbox'
+	XDG_PREFIX="xdg-"
 fi
 
-
 #OPEN WEBSITES
-alias intra='open https://profile.intra.42.fr/'
-alias miam='open https://steakoverflow.42.fr/'
-alias github='open https://github.com/'
-alias youtube='`open https://www.youtube.com`'
-alias charlie='`open https://mail.google.com/mail/u/0/#inbox`'
-alias karlos='`open https://mail.google.com/mail/u/2/#inbox`'
+alias intra='${XDG_PREFIX}open https://profile.intra.42.fr/'
+alias miam='${XDG_PREFIX}open https://steakoverflow.42.fr/'
+alias github='${XDG_PREFIX}open https://github.com/'
+alias youtube='`${XDG_PREFIX}open https://www.youtube.com`'
+alias charlie='`${XDG_PREFIX}open https://mail.google.com/mail/u/0/#inbox`'
+alias karlos='`${XDG_PREFIX}open https://mail.google.com/mail/u/2/#inbox`'
 
 #PLUGINS-VIM
 alias plugin='cd ~/.vim/plugin/'
@@ -173,25 +163,8 @@ alias plugin='cd ~/.vim/plugin/'
 
 
 ###############################################################################
-#MAKE SPACE 
-###############################################################################
-
-function clean_caches
-{
-	rm -rf ~/Library/**.42_cache_bak_**
-	rm -rf ~/**.42_cache_bak_**
-	brew cleanup
-}
-
-###############################################################################
-
-
-###############################################################################
 #FUNCTIONS
 ###############################################################################
-
-#add miniconda script...
-export PATH=~/goinfre/miniconda3/bin:$PATH
 
 function see
 {
@@ -207,39 +180,10 @@ sleep 0.5
 printf "\e[2A\e[38;5;195m%s\n\t\t\t\t\t--------\n\e[m" "$(cat ~/Projects/libft_git/libft/ft_$1.c)";
 }
 
-# IF AT 42
-if [ `basename ${HOME}` = "charmstr" ]
-then
-	#IT SAVES IN THE PASTEBIN MY CURRETN POSITION
-	function here
-	{
-		printf  " -->  $HOST" | cut -d . -f 1 ;
-		printf " -->  \e[38;5;133mDo ctrl + V anywhere ...\e[m\n";
-		echo "Im here ✌️: $HOST" | cut -d . -f 1 | tr -d '\n' | pbcopy;
-		open -a slack
-	}
-fi
 
 function spy
 {
-	open https://profile.intra.42.fr/users/$1
-}
-
-function stud
-{
-    	if [ $# -eq "0" ]
-	then
-		FLOOR=$(echo $HOST | cut -c2)
-	else
-	    	if [ $1 -le 3 ] && [ $1 -ge 1 ]
-		then
-	    		FLOOR=$1
-		else
-		    	echo "Error: you must enter a number between 1 and 3 for the floor"
-			return 1
-		fi
-	fi
-	open https://stud42.fr/clusters/${FLOOR}
+	${XDG_PREFIX}open https://profile.intra.42.fr/users/$1
 }
 
 function count_extensions
@@ -260,25 +204,66 @@ change_extension()
 	done
 }
 
-#MOVE MINIKUBE TO GOINFRE
-set_minikube()
-{
-	if [ -d $HOME/.minikube ]
-	then
-		rm -rf $HOME/.minikube
-	fi
-	MINIKUBE_FOLDER="/Volumes/Storage/goinfre/$USER/.minikube"
-	if [ ! -d $MINIKUBE_FOLDER ]
-	then
-		mkdir -p $MINIKUBE_FOLDER
-	fi
-	ln -s $MINIKUBE_FOLDER $HOME/.minikube
-	echo "\033[38;5;46msetting the vm-driver to virtualbox\033[0m"
-	minikube config set vm-driver virtualbox
-}
+# IF AT 42
+if [ `basename ${HOME}` = "charmstr" ]
+then
+	#add miniconda script...
+	export PATH=~/goinfre/miniconda3/bin:$PATH
 
-set_docker()
-{
-	sh  ~/.shell_scripts/move_docker_to_goinfre.sh
-}
+	#IT SAVES IN THE PASTEBIN MY CURRETN POSITION
+	function here
+	{
+		printf  " -->  $HOST" | cut -d . -f 1 ;
+		printf " -->  \e[38;5;133mDo ctrl + V anywhere ...\e[m\n";
+		echo "Im here ✌️: $HOST" | cut -d . -f 1 | tr -d '\n' | pbcopy;
+		open -a slack
+	}
+
+	function stud
+	{
+		if [ $# -eq "0" ]
+		then
+			FLOOR=$(echo $HOST | cut -c2)
+		else
+			if [ $1 -le 3 ] && [ $1 -ge 1 ]
+			then
+				FLOOR=$1
+			else
+				echo "Error: you must enter a number between 1 and 3 for the floor"
+				return 1
+			fi
+		fi
+		${XDG_PREFIX}open https://stud42.fr/clusters/${FLOOR}
+	}
+
+	#MOVE MINIKUBE TO GOINFRE
+	set_minikube()
+	{
+		if [ -d $HOME/.minikube ]
+		then
+			rm -rf $HOME/.minikube
+		fi
+		MINIKUBE_FOLDER="/Volumes/Storage/goinfre/$USER/.minikube"
+		if [ ! -d $MINIKUBE_FOLDER ]
+		then
+			mkdir -p $MINIKUBE_FOLDER
+		fi
+		ln -s $MINIKUBE_FOLDER $HOME/.minikube
+		echo "\033[38;5;46msetting the vm-driver to virtualbox\033[0m"
+		minikube config set vm-driver virtualbox
+	}
+
+	set_docker()
+	{
+		sh  ~/.shell_scripts/move_docker_to_goinfre.sh
+	}
+
+	#MAKE SPACE
+	function clean_caches
+	{
+		rm -rf ~/Library/**.42_cache_bak_**
+		rm -rf ~/**.42_cache_bak_**
+		brew cleanup
+	}
+if 
 ###############################################################################
