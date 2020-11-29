@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2020/03/03 13:12:35 by charmstr         ###   ########.fr        #
+#    Updated: 2020/11/29 01:56:22 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 export SHELL=/bin/zsh
 
 # NEW VIM INSTALLED IN /USR/LOCAL/BIN/VIM WITH HOMEBREW -> GOOD LANGUAGE
-if [ `basename ${HOME}` = "orson" ]
+if [ `basename ${HOME}` = "charmstr" ]
 then
 	export LC_ALL="en_US.UTF-8"
 fi
