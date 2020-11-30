@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2020/11/29 01:56:22 by charmstr         ###   ########.fr        #
+#    Updated: 2020/11/30 21:52:48 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,16 +70,15 @@ function CDLS
 alias la='ls -la'
 alias grep='grep -n --colour=auto'
 
-# IF AT 42
-if [ `basename ${HOME}` = "charmstr" ]
-then
-	#NORMINETTE
-	alias norm='norminette'
-	alias kc='kubectl'
-fi
+
+alias norm='norminette'
+alias kc='kubectl'
 
 #GCC FLAGS
 alias gcc-W='gcc -Wall -Wextra -Werror'
+
+#Leaks
+alias leaks='leaks -atExit --'
 
 #ENV VARIABLE
 export MAIL=$USER'@student.42.fr'
@@ -168,16 +167,24 @@ alias plugin='cd ~/.vim/plugin/'
 
 function see
 {
-echo  ''
-for i in `seq 3 0`
-do
-	echo "\e[1A\e[38;5;10m$i\e[m"
-	sleep 0.2
-done
-echo "\e[1A "
-echo "  ===>  $1 "
-sleep 0.5
-printf "\e[2A\e[38;5;195m%s\n\t\t\t\t\t--------\n\e[m" "$(cat ~/Projects/libft_git/libft/ft_$1.c)";
+	if [ ! -f $(echo ~/Projects/libft_git/libft/ft_$1.c) ]
+	then	
+		clear
+		printf "\033[31mERROR:\033[38;5;255m ft_$1.c\033[0m does not exist\n"
+		ls ~/Projects/libft_git/libft/
+		return
+	fi
+	echo  ''
+	for i in `seq 3 0`
+	do
+		echo "\e[1A\e[38;5;10m$i\e[m"
+		sleep 0.2
+	done
+	echo "\e[1A "
+	clear
+	echo "  ===>  ft_$1.c "
+	#sleep 0.5
+	printf "\e[38;5;195m%s\n\t\t\t\t\t--------\n\e[m" "$(cat ~/Projects/libft_git/libft/ft_$1.c)";
 }
 
 
