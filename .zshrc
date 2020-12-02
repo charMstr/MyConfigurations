@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2020/11/30 21:52:48 by charmstr         ###   ########.fr        #
+#    Updated: 2020/12/02 08:21:44 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,8 +70,7 @@ function CDLS
 alias la='ls -la'
 alias grep='grep -n --colour=auto'
 
-
-alias norm='norminette'
+#kbernetes
 alias kc='kubectl'
 
 #GCC FLAGS
@@ -82,6 +81,16 @@ alias leaks='leaks -atExit --'
 
 #ENV VARIABLE
 export MAIL=$USER'@student.42.fr'
+###############################################################################
+
+###############################################################################
+#NORMINETTE NORM
+###############################################################################
+# usefull so that we can use the correct version of ruby, something like that.
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+alias norminette="~/.norminette/norminette.rb"
+alias norm='norminette'
 ###############################################################################
 
 
