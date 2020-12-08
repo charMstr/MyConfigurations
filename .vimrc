@@ -239,9 +239,9 @@ augroup filetype_h
 	"INSERT THE ROOTNAME OF THE FILE '%:R' + '_' +
 	"THE EXTENSION OF THE FILE 'H' ==> ALL IN UPPER CASE
 	if ( $USER == "charmstr")
-	autocmd BufNewfile *.h :exe "normal \<f1>" | exe "normal! i" . toupper(join([expand('%:t:r'),'_',expand('%:e')], "")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
+	autocmd BufNewfile *.h :exe "normal \<f1>" | exe "normal! i" . toupper(substitute(expand('%:t'), "\\.", "_", "g")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
 	else
-	autocmd BufNewfile *.h :exe "normal! i" . toupper(join([expand('%:t:r'),'_',expand('%:e')], "")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
+	autocmd BufNewfile *.h :exe "normal! i" . toupper(substitute(expand('%:t'), "\\.", "_", "g")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
 	endif
 
 	"ABBREVIATIONS
@@ -255,6 +255,12 @@ augroup filetype_h
     	autocmd BufNewFile,BufRead *.h :ia <buffer> ifndef # ifndef <esc>o# endif<esc>k3o<esc>3kA<C-R>=Eatchar('\s')<cr>
 	"IFDEF
     	autocmd BufNewFile,BufRead *.h :ia <buffer> ifdef # ifdef <esc>o# endif<esc>k3o<esc>3kA<C-R>=Eatchar('\s')<cr>
+
+	"TYPEDEF: typedefs -> typedef struct ... etc.
+	autocmd BufNewFile,BufRead *.h :inoreabbrev <buffer> <silent> typedefs typedef struct<tab>s_<cr>{<cr>}<tab><tab><tab><tab>t_;<esc>2kA<C-R>=Eatchar('\s')<cr>
+
+	"TYPEDEF: typedefe -> typedef enum ... etc.
+	autocmd BufNewFile,BufRead *.h :inoreabbrev <buffer> <silent> typedefe typedef enum<tab>e_<cr>{<cr>//<tab>coma, separated, without, trailing, semicolumn<cr>}<tab><tab><tab><tab>t_;<esc>3kA<C-R>=Eatchar('\s')<cr>
 
 augroup END
 " }}}
@@ -350,7 +356,7 @@ augroup filetype_c
 	autocmd FileType c nnoremap <buffer> <localleader>u ^2x
 
 	"COMENT MULTIPLE LINES WITH 'C'
-	autocmd FileType c nnoremap <buffer> <localleader>C o/*<cr>**<cr>*/<esc>
+	autocmd FileType c nnoremap <buffer> <localleader>C o/*<cr><esc>i**<cr>*/<esc>kA<space>
 	"o<esc>kkA<space>
 
 	"ABBREVIATIONS FOR C
@@ -389,6 +395,110 @@ augroup filetype_c
 
 	"CHEATPROOF
 	autocmd FileType c :inoreabbrev <buffer> return NOPENOPENOPE
+augroup END
+" }}}
+"------------------------------------------------------------------------------
+
+"------------------------------------------------------------------------------
+"- CPP FILETYPE------------------------------------------------------------ {{{
+
+augroup filetype_cpp
+	autocmd!
+	"PUT THE 42HEADING if at school
+	if ( $USER == "charmstr" )
+	autocmd BufNewFile *.cpp :exe "normal \<f1>"
+	endif
+
+	"SET cindent
+	autocmd BufNewFile,BufRead *.cpp setlocal cindent foldmethod=indent foldnestmax=3 foldlevelstart=0
+
+	"CLEAN FILE FROM TRAILING SPACES AND TABS BEFORE WRITING
+	autocmd BufWritePre *.cpp %s/\(\s\|\t\)\+$//ge
+
+	"COMENT INLINE WITH ]c  adds "//"
+	autocmd FileType cpp nnoremap <buffer> <localleader>c I//<esc>
+
+	"UNCOMENT INLINE WITH ]u removes "//"
+	autocmd FileType cpp nnoremap <buffer> <localleader>u ^2x
+
+	"COMENT MULTIPLE LINES WITH 'C'
+	autocmd FileType cpp nnoremap <buffer> <localleader>C o/*<cr><esc>i**<cr>*/<esc>kA<space>
+
+	"ABBREVIATIONS FOR C
+	autocmd FileType cpp :inoreabbrev <buffer> <silent> if if ()<Left><C-R>=Eatchar('\s')<cr>
+	autocmd FileType cpp :inoreabbrev <buffer> <silent> while while ()<Left><C-R>=Eatchar('\s')<cr>
+	"for --> you can shut the fuck up
+	"autocmd FileType c :inoreabbrev <buffer> <silent> for for ()<Left><C-R>=Eatchar('\s')<cr>
+	autocmd FileType cpp :inoreabbrev <buffer> <silent> main int<tab>main(int argc __attribute__((unused)), char **argv __attribute__((unused)))<cr>{<cr>return (0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
+	
+	autocmd Filetype cpp :inoremap {<CR> {<CR>}<Esc>ko
+	"}
+	autocmd Filetype cpp :inoremap { {<CR>}<Esc>ko<C-R>=Eatchar('\s')<cr>
+	"}
+	autocmd Filetype cpp :inoremap {[ {
+	"}}
+	autocmd Filetype cpp :inoremap ( ()<Esc>i
+	")
+	autocmd Filetype cpp :inoremap (9 (
+	"))
+	autocmd Filetype cpp :inoreabbrev void* void *<C-R>=Eatchar('\s')<cr>
+	autocmd Filetype cpp :inoreabbrev char* char *<C-R>=Eatchar('\s')<cr>
+	autocmd Filetype cpp :inoreabbrev int* int *<C-R>=Eatchar('\s')<cr>
+
+	autocmd FileType cpp :inoreabbrev <buffer> #i #include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
+	autocmd FileType cpp :inoreabbrev <buffer> #" #include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
+	autocmd FileType cpp :inoreabbrev <buffer> #d #define
+	autocmd FileType cpp :inoreabbrev <buffer> ret return<space>();<esc>hi<C-R>=Eatchar('\s')<cr>
+	autocmd FileType cpp :inoreabbrev <buffer> printf printf("\n");<esc>4hi<C-R>=Eatchar('\s')<cr>
+
+	"CHEATPROOF
+	autocmd FileType cpp :inoreabbrev <buffer> return NOPENOPENOPE
+augroup END
+" }}}
+"------------------------------------------------------------------------------
+
+"------------------------------------------------------------------------------
+"- .HPP FILETYPE----------------------------------------------------------- {{{
+
+"CREAT A .HPP FILE AUTOMATICALLY
+augroup filetype_hpp
+	autocmd!
+
+	"CLEAN FILE FROM TRAILING SPACES AND TABS BEFORE WRITING
+	autocmd BufWritePre *.hpp %s/\(\s\|\t\)\+$//ge
+
+	"INSERT THE 42 HEADER AT THE TOP OF THE FILE if at school
+	"INSERT THE ROOTNAME OF THE FILE '%:R' + '_' +
+	"THE EXTENSION OF THE FILE 'H' ==> ALL IN UPPER CASE
+	if ( $USER == "charmstr")
+	autocmd BufNewfile *.hpp :exe "normal \<f1>" | exe "normal! i" . toupper(substitute(expand('%:t'), "\\.", "_", "g")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
+	else
+	autocmd BufNewfile *.hpp :exe "normal! i" . toupper(substitute(expand('%:t'), "\\.", "_", "g")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
+	endif
+
+	"SET cindent
+	autocmd BufNewFile,BufRead *.hpp setlocal cindent foldmethod=indent foldnestmax=3 foldlevelstart=0
+
+	"ABBREVIATIONS
+	"INCLUDES <
+	autocmd BufNewFile,BufRead *.hpp :ia <buffer> #i # include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
+	"INCLUDES "
+	autocmd BufNewFile,BufRead *.hpp :ia <buffer> #" # include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
+	"DEFINE
+	autocmd BufNewFile,BufRead *.hpp :ia <buffer> #d # define
+	"IFNDEF
+    	autocmd BufNewFile,BufRead *.hpp :ia <buffer> ifndef # ifndef <esc>o# endif<esc>k3o<esc>3kA<C-R>=Eatchar('\s')<cr>
+	"IFDEF
+    	autocmd BufNewFile,BufRead *.hpp :ia <buffer> ifdef # ifdef <esc>o# endif<esc>k3o<esc>3kA<C-R>=Eatchar('\s')<cr>
+	"CLASS
+	autocmd BufNewFile,BufRead *.hpp :inoreabbrev <buffer> <silent> class class<cr>{<cr>public:<cr>private:<cr>};<esc>4kA<space><C-R>=Eatchar('\s')<cr>
+
+	"TYPEDEF: typedefs -> typedef struct ... etc.
+	autocmd BufNewFile,BufRead *.hpp :inoreabbrev <buffer> <silent> typedefs typedef struct<tab>s_<cr>{<cr>}<tab><tab><tab><tab>t_;<esc>2kA<C-R>=Eatchar('\s')<cr>
+
+	"TYPEDEF: typedefe -> typedef enum ... etc.
+	autocmd BufNewFile,BufRead *.hpp :inoreabbrev <buffer> <silent> typedefe typedef enum<tab>e_<cr>{<cr>//<tab>coma, separated, without, trailing, semicolumn<cr>}<tab><tab><tab><tab>t_;<esc>3kA<C-R>=Eatchar('\s')<cr>
+
 augroup END
 " }}}
 "------------------------------------------------------------------------------

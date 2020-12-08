@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2020/12/02 08:21:44 by charmstr         ###   ########.fr        #
+#    Updated: 2020/12/07 20:04:57 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -149,6 +149,8 @@ alias ASM='cd ~/Projects/libasm'
 alias MINI='cd ~/Projects/minishell'
 alias PHIL='cd ~/Projects/philosophers'
 alias SAN='cd ~/Sandbox'
+alias CPP0='cd ~/Projects/piscine_cpp42/cpp00'
+
 
 # IF AT HOME
 if [ `basename ${HOME}` = "user42" ]
