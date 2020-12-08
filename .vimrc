@@ -29,6 +29,10 @@ syntax enable
 set mouse=a
 set ruler
 
+"MAKE SURE THE FILETYPE DETECTION IS ONE, AND THE PLUGINS ARE LOADED
+filetype on
+filetype plugin on
+
 "RESPECTING THE NORME AT 42:
 "SET BY DEFAULT. IT PREVENTS INSERTING SPACES IN PLACE OF TABS
 set softtabstop=0 noexpandtab
@@ -222,49 +226,11 @@ nnoremap <leader>to :tabo<cr>
 
 "------------------------------------------------------------------------------
 "- AUTO-COMMANDS --------------------------------------------------------- {{{
+" NOTE: these should be remove and placed inside the ftdetected/ and ftplugin/
+" folders
 
 "CREAT A NEW FILE NO MATTER WHAT
 "autocmd BufNewFile * :write
-
-"------------------------------------------------------------------------------
-"- .H FILETYPE------------------------------------------------------------- {{{
-
-"CREAT A .H FILE AUTOMATICALLY
-augroup filetype_h
-	autocmd!
-	"CLEAN FILE FROM TRAILING SPACES AND TABS BEFORE WRITING
-	autocmd BufWritePre *.h %s/\(\s\|\t\)\+$//ge
-
-	"INSERT THE 42 HEADER AT THE TOP OF THE FILE if at school
-	"INSERT THE ROOTNAME OF THE FILE '%:R' + '_' +
-	"THE EXTENSION OF THE FILE 'H' ==> ALL IN UPPER CASE
-	if ( $USER == "charmstr")
-	autocmd BufNewfile *.h :exe "normal \<f1>" | exe "normal! i" . toupper(substitute(expand('%:t'), "\\.", "_", "g")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
-	else
-	autocmd BufNewfile *.h :exe "normal! i" . toupper(substitute(expand('%:t'), "\\.", "_", "g")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
-	endif
-
-	"ABBREVIATIONS
-	"INCLUDES <
-	autocmd BufNewFile,BufRead *.h :ia <buffer> #i # include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
-	"INCLUDES "
-	autocmd BufNewFile,BufRead *.h :ia <buffer> #" # include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
-	"DEFINE
-	autocmd BufNewFile,BufRead *.h :ia <buffer> #d # define
-	"IFNDEF
-    	autocmd BufNewFile,BufRead *.h :ia <buffer> ifndef # ifndef <esc>o# endif<esc>k3o<esc>3kA<C-R>=Eatchar('\s')<cr>
-	"IFDEF
-    	autocmd BufNewFile,BufRead *.h :ia <buffer> ifdef # ifdef <esc>o# endif<esc>k3o<esc>3kA<C-R>=Eatchar('\s')<cr>
-
-	"TYPEDEF: typedefs -> typedef struct ... etc.
-	autocmd BufNewFile,BufRead *.h :inoreabbrev <buffer> <silent> typedefs typedef struct<tab>s_<cr>{<cr>}<tab><tab><tab><tab>t_;<esc>2kA<C-R>=Eatchar('\s')<cr>
-
-	"TYPEDEF: typedefe -> typedef enum ... etc.
-	autocmd BufNewFile,BufRead *.h :inoreabbrev <buffer> <silent> typedefe typedef enum<tab>e_<cr>{<cr>//<tab>coma, separated, without, trailing, semicolumn<cr>}<tab><tab><tab><tab>t_;<esc>3kA<C-R>=Eatchar('\s')<cr>
-
-augroup END
-" }}}
-"------------------------------------------------------------------------------
 
 "------------------------------------------------------------------------------
 "- HTML FILETYPE----------------------------------------------------------- {{{
@@ -284,250 +250,12 @@ augroup END
 "------------------------------------------------------------------------------
 
 "------------------------------------------------------------------------------
-"- .SH FILETYPE------------------------------------------------------------ {{{
-
-augroup filetype_sh
-	autocmd!
-
-	"HAVE THE CURRENT LINE HIGHLIGHTED
-	autocmd BufNewFile,BufRead *.sh setlocal cursorline cc=0
-
-	"THIS AUTOCOMMAND IS ESSENTIAL BECAUSE IT CREATES THE FILE FOR THE COLOR PANEL IN THE CURRENT DIR
-	"NOTE: IMPOSSIBLE TO USE A RELATIVE PATH WITH CAT INSIDE THE TERMINAL EMULATION
-	autocmd BufNewFile,BufRead *.sh silent! !cp ~/Myconfigurations/color_panel_cat_me color_panel_cat_me
-	autocmd VimLeave *.sh silent! !rm color_panel_cat_me
-	"CAT THE COLOR_PANEL ON THE FAR RIGHT/VERT SPLIT
-	autocmd FileType sh nnoremap <buffer> <leader>col :call Display_panel_colors()<cr>
-
-	"INSERT THE SHEBANG AT TOP 
-	autocmd BufNewFile *.sh :exe "normal i#!/bin/sh" | :exe "normal 2o"
-	
-	"DO A CHMOD 755 ON FILE AFTER SAVING
-	autocmd BufWritePost *.sh :silent !{chmod 755 %}
-		
-	"COMENT INLINE WITH ]c  adds "#"
-	autocmd FileType sh nnoremap <buffer> <localleader>c I#<esc>
-
-	"UNCOMENT INLINE WITH ]u removes "#"
-	autocmd FileType sh nnoremap <buffer> <localleader>u ^x
-
-	"WE JUST WANT TO KEEP THE INDENTATION FROM THE PREVIOUS LINE FROM AUTOINDENT
-	set nosmartindent
-
-	"ABBREVIATIONS FOR SHELL
-	"WHILE 
-	autocmd FileType sh :iabbrev <buffer> <silent> while while [  ]<esc>odo<esc>o<tab><esc>o<BS>done<esc>kkkWlli<C-R>=Eatchar('\s')<cr>
-	"FOR
-
-	autocmd FileType sh :iabbrev <buffer> <silent> for for $ in #VARIABLE<esc>odo<esc>o<tab><esc>o<BS>done<esc>kkkWli<C-R>=Eatchar('\s')<cr>
-	"IF 
-	autocmd FileType sh :iabbrev <buffer> <silent> if if [  ]<esc>othen<esc>o<tab><esc>o#elif [  ]; then<esc>o#else<esc>o<BS>fi<esc>kkkkkWlli<C-R>=Eatchar('\s')<cr>
-	"ECHO
-	autocmd Filetype sh :iabbrev <buffer> <silent> echo echo ""<left><C-R>=Eatchar('\s')<cr>
-	"CASE
-	autocmd Filetype sh :iabbrev <buffer> <silent> case case $ in #VARIABLE<esc>o<tab>*)#LAST CASE<esc>o<tab>;;<esc>o<BS><BS>esac<esc>3kWa<C-R>=Eatchar('\s')<cr>
-	
-	"BUILD A VARIABLE  <leader>v  -->  ${cursor}
-	autocmd Filetype sh inoremap <buffer> <leader>v ${}<esc>i
-augroup END
-" }}}
-"------------------------------------------------------------------------------
-
-"------------------------------------------------------------------------------
-"- C FILETYPE-------------------------------------------------------------- {{{
-
-augroup filetype_c
-	autocmd!
-	"PUT THE 42HEADING if at school
-	if ( $USER == "charmstr" )
-	autocmd BufNewFile *.c :exe "normal \<f1>"
-	endif
-
-	"SET cindent
-	autocmd BufNewFile,BufRead *.c setlocal cindent foldmethod=indent foldnestmax=3 foldlevelstart=0
-
-	"CLEAN FILE FROM TRAILING SPACES AND TABS BEFORE WRITING
-	autocmd BufWritePre *.c %s/\(\s\|\t\)\+$//ge
-
-	"COMENT INLINE WITH ]c  adds "//"
-	autocmd FileType c nnoremap <buffer> <localleader>c I//<esc>
-
-	"UNCOMENT INLINE WITH ]u removes "//"
-	autocmd FileType c nnoremap <buffer> <localleader>u ^2x
-
-	"COMENT MULTIPLE LINES WITH 'C'
-	autocmd FileType c nnoremap <buffer> <localleader>C o/*<cr><esc>i**<cr>*/<esc>kA<space>
-	"o<esc>kkA<space>
-
-	"ABBREVIATIONS FOR C
-	autocmd FileType c :inoreabbrev <buffer> <silent> if if ()<Left><C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :inoreabbrev <buffer> <silent> while while ()<Left><C-R>=Eatchar('\s')<cr>
-	"for --> you can shut the fuck up
-	"autocmd FileType c :inoreabbrev <buffer> <silent> for for ()<Left><C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :inoreabbrev <buffer> <silent> main int<tab>main(int argc __attribute__((unused)), char **argv __attribute__((unused)))<cr>{<cr>return (0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
-	
-	autocmd Filetype c :inoremap {<CR> {<CR>}<Esc>ko
-	"}
-	autocmd Filetype c :inoremap { {<CR>}<Esc>ko<C-R>=Eatchar('\s')<cr>
-	"}
-	autocmd Filetype c :inoremap {[ {
-	"}}
-	autocmd Filetype c :inoremap ( ()<Esc>i
-	")
-	autocmd Filetype c :inoremap (9 (
-	"))
-	autocmd Filetype c :inoreabbrev void* void *<C-R>=Eatchar('\s')<cr>
-	autocmd Filetype c :inoreabbrev char* char *<C-R>=Eatchar('\s')<cr>
-	autocmd Filetype c :inoreabbrev int* int *<C-R>=Eatchar('\s')<cr>
-	autocmd Filetype c :inoreabbrev t_list* t_list *<C-R>=Eatchar('\s')<cr>
-
-	autocmd FileType c :inoreabbrev <buffer> #i #include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :inoreabbrev <buffer> #" #include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :inoreabbrev <buffer> #d #define
-	autocmd FileType c :inoreabbrev <buffer> ret return<space>();<esc>hi<C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :inoreabbrev <buffer> printf printf("\n");<esc>4hi<C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :inoreabbrev <buffer> open if ((fd1 = open("", O_CREAT \| O_RDWR \| O_TRUNC, 0644)) == -1)<esc>10Bbe<C-R>=Eatchar('\s')<cr>
-	autocmd FileType c :inoreabbrev <buffer> read read(fd1, BUFFER_PTR, BUFFER_SIZE)<esc>5be<C-R>=Eatchar('\s')<cr>
-
-	"SEE PLUGIN SEGFAULT_HUNTER.VIM
-	autocmd FileType c nnoremap <buffer> <localleader>d :call InsertDebugPrintf()<cr>
-	autocmd FileType c nnoremap <buffer> <localleader>D :call RemoveDebugPrintf()<cr>
-
-	"CHEATPROOF
-	autocmd FileType c :inoreabbrev <buffer> return NOPENOPENOPE
-augroup END
-" }}}
-"------------------------------------------------------------------------------
-
-"------------------------------------------------------------------------------
-"- CPP FILETYPE------------------------------------------------------------ {{{
-
-augroup filetype_cpp
-	autocmd!
-	"PUT THE 42HEADING if at school
-	if ( $USER == "charmstr" )
-	autocmd BufNewFile *.cpp :exe "normal \<f1>"
-	endif
-
-	"SET cindent
-	autocmd BufNewFile,BufRead *.cpp setlocal cindent foldmethod=indent foldnestmax=3 foldlevelstart=0
-
-	"CLEAN FILE FROM TRAILING SPACES AND TABS BEFORE WRITING
-	autocmd BufWritePre *.cpp %s/\(\s\|\t\)\+$//ge
-
-	"COMENT INLINE WITH ]c  adds "//"
-	autocmd FileType cpp nnoremap <buffer> <localleader>c I//<esc>
-
-	"UNCOMENT INLINE WITH ]u removes "//"
-	autocmd FileType cpp nnoremap <buffer> <localleader>u ^2x
-
-	"COMENT MULTIPLE LINES WITH 'C'
-	autocmd FileType cpp nnoremap <buffer> <localleader>C o/*<cr><esc>i**<cr>*/<esc>kA<space>
-
-	"ABBREVIATIONS FOR C
-	autocmd FileType cpp :inoreabbrev <buffer> <silent> if if ()<Left><C-R>=Eatchar('\s')<cr>
-	autocmd FileType cpp :inoreabbrev <buffer> <silent> while while ()<Left><C-R>=Eatchar('\s')<cr>
-	"for --> you can shut the fuck up
-	"autocmd FileType c :inoreabbrev <buffer> <silent> for for ()<Left><C-R>=Eatchar('\s')<cr>
-	autocmd FileType cpp :inoreabbrev <buffer> <silent> main int<tab>main(int argc __attribute__((unused)), char **argv __attribute__((unused)))<cr>{<cr>return (0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
-	
-	autocmd Filetype cpp :inoremap {<CR> {<CR>}<Esc>ko
-	"}
-	autocmd Filetype cpp :inoremap { {<CR>}<Esc>ko<C-R>=Eatchar('\s')<cr>
-	"}
-	autocmd Filetype cpp :inoremap {[ {
-	"}}
-	autocmd Filetype cpp :inoremap ( ()<Esc>i
-	")
-	autocmd Filetype cpp :inoremap (9 (
-	"))
-	autocmd Filetype cpp :inoreabbrev void* void *<C-R>=Eatchar('\s')<cr>
-	autocmd Filetype cpp :inoreabbrev char* char *<C-R>=Eatchar('\s')<cr>
-	autocmd Filetype cpp :inoreabbrev int* int *<C-R>=Eatchar('\s')<cr>
-
-	autocmd FileType cpp :inoreabbrev <buffer> #i #include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
-	autocmd FileType cpp :inoreabbrev <buffer> #" #include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
-	autocmd FileType cpp :inoreabbrev <buffer> #d #define
-	autocmd FileType cpp :inoreabbrev <buffer> ret return<space>();<esc>hi<C-R>=Eatchar('\s')<cr>
-	autocmd FileType cpp :inoreabbrev <buffer> printf printf("\n");<esc>4hi<C-R>=Eatchar('\s')<cr>
-
-	"CHEATPROOF
-	autocmd FileType cpp :inoreabbrev <buffer> return NOPENOPENOPE
-augroup END
-" }}}
-"------------------------------------------------------------------------------
-
-"------------------------------------------------------------------------------
-"- .HPP FILETYPE----------------------------------------------------------- {{{
-
-"CREAT A .HPP FILE AUTOMATICALLY
-augroup filetype_hpp
-	autocmd!
-
-	"CLEAN FILE FROM TRAILING SPACES AND TABS BEFORE WRITING
-	autocmd BufWritePre *.hpp %s/\(\s\|\t\)\+$//ge
-
-	"INSERT THE 42 HEADER AT THE TOP OF THE FILE if at school
-	"INSERT THE ROOTNAME OF THE FILE '%:R' + '_' +
-	"THE EXTENSION OF THE FILE 'H' ==> ALL IN UPPER CASE
-	if ( $USER == "charmstr")
-	autocmd BufNewfile *.hpp :exe "normal \<f1>" | exe "normal! i" . toupper(substitute(expand('%:t'), "\\.", "_", "g")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
-	else
-	autocmd BufNewfile *.hpp :exe "normal! i" . toupper(substitute(expand('%:t'), "\\.", "_", "g")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
-	endif
-
-	"SET cindent
-	autocmd BufNewFile,BufRead *.hpp setlocal cindent foldmethod=indent foldnestmax=3 foldlevelstart=0
-
-	"ABBREVIATIONS
-	"INCLUDES <
-	autocmd BufNewFile,BufRead *.hpp :ia <buffer> #i # include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
-	"INCLUDES "
-	autocmd BufNewFile,BufRead *.hpp :ia <buffer> #" # include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
-	"DEFINE
-	autocmd BufNewFile,BufRead *.hpp :ia <buffer> #d # define
-	"IFNDEF
-    	autocmd BufNewFile,BufRead *.hpp :ia <buffer> ifndef # ifndef <esc>o# endif<esc>k3o<esc>3kA<C-R>=Eatchar('\s')<cr>
-	"IFDEF
-    	autocmd BufNewFile,BufRead *.hpp :ia <buffer> ifdef # ifdef <esc>o# endif<esc>k3o<esc>3kA<C-R>=Eatchar('\s')<cr>
-	"CLASS
-	autocmd BufNewFile,BufRead *.hpp :inoreabbrev <buffer> <silent> class class<cr>{<cr>public:<cr>private:<cr>};<esc>4kA<space><C-R>=Eatchar('\s')<cr>
-
-	"TYPEDEF: typedefs -> typedef struct ... etc.
-	autocmd BufNewFile,BufRead *.hpp :inoreabbrev <buffer> <silent> typedefs typedef struct<tab>s_<cr>{<cr>}<tab><tab><tab><tab>t_;<esc>2kA<C-R>=Eatchar('\s')<cr>
-
-	"TYPEDEF: typedefe -> typedef enum ... etc.
-	autocmd BufNewFile,BufRead *.hpp :inoreabbrev <buffer> <silent> typedefe typedef enum<tab>e_<cr>{<cr>//<tab>coma, separated, without, trailing, semicolumn<cr>}<tab><tab><tab><tab>t_;<esc>3kA<C-R>=Eatchar('\s')<cr>
-
-augroup END
-" }}}
-"------------------------------------------------------------------------------
-
-"------------------------------------------------------------------------------
 "- JAVASCRIPT FILETYPE----------------------------------------------------- {{{
 
 "COMMENT IN LINE
 augroup filetype_js
 	autocmd!
 	autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
-augroup END
-" }}}
-"------------------------------------------------------------------------------
-
-"------------------------------------------------------------------------------
-"- YAML FILETYPE----------------------------------------------------------- {{{
-
-"COMMENT IN LINE
-augroup filetype_yaml
-	autocmd!
-	"SET TWO NICE TABS WHEN I PRESS ENTER
-	autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-
-	"COMENT INLINE WITH ]c  adds "#"
-	autocmd FileType yaml nnoremap <buffer> <localleader>c I#<esc>
-
-	"UNCOMENT INLINE WITH ]u removes "#"
-	autocmd FileType yaml nnoremap <buffer> <localleader>u ^x
 augroup END
 " }}}
 "------------------------------------------------------------------------------

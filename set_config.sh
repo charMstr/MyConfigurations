@@ -4,7 +4,15 @@ cd
 
 #create the folder where we place the vim plugins
 [ -d .vim/plugin ] || mkdir -p .vim/plugin
-cp MyConfigurations/plugin/* .vim/plugin/
+cp MyConfigurations/.vim/plugin/* .vim/plugin/
+
+#create the folder where we place the filetype recognition files.
+[ -d .vim/ftdetect ] || mkdir -p .vim/ftdetect
+cp MyConfigurations/.vim/ftdetect/* .vim/ftdetect/
+
+#create the folder where i place the filetype plugin files.
+[ -d .vim/ftplugin ] || mkdir -p .vim/ftplugin
+cp MyConfigurations/.vim/ftplugin/* .vim/ftplugin/
 
 #place the .vimrc
 ln -sf MyConfigurations/.vimrc .vimrc
