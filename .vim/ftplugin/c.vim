@@ -66,11 +66,42 @@ unlet s:cpo_save
 "------------------------------------------------------------------------------
 "- MY C FILETYPE----------------------------------------------------------- {{{
 
-"PUT THE 42HEADING if at school
-if ( $USER == "charmstr" )
-	if !filereadable(expand('%'))
+"PUT THE 42HEADING IF AT SCHOOL. ONLY IF THE FILE HAS NOT BEEN CREATED YET
+if !filereadable(expand('%'))
+	"IF WE HAVE A .H OR .HPP FILE
+	if (expand('%:e') == "h") || (expand('%:e') == "hpp")
+		exe "normal \<f1>" | exe "normal! i" . toupper(substitute(expand('%:t'), "\\.", "_", "g")) | exe "normal! yyPI#ifndef \<esc>jI# define \<esc>3o\<esc>o#endif\<esc>kki"
+	else
+		"IF WE HAVE A .C OR .CPP FILE
 		exe "normal \<f1>"
 	endif	
+endif
+
+"ONLY FOR H_FILES
+if expand('%:e') == "h" || expand('%:e') == "hpp"
+	"ABBREVIATIONS
+	"INCLUDES <
+	inoreabbrev <buffer> #i # include <><esc>i<C-R>=Eatchar('\s')<cr>
+	"INCLUDES "
+	inoreabbrev <buffer> #" # include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
+	"DEFINE
+	inoreabbrev <buffer> #d # define
+	"IFNDEF
+	inoreabbrev <buffer> ifndef # ifndef <esc>o# endif<esc>k3o<esc>3kA<C-R>=Eatchar('\s')<cr>
+	"IFDEF
+	inoreabbrev <buffer> ifdef # ifdef <esc>o# endif<esc>k3o<esc>3kA<C-R>=Eatchar('\s')<cr>
+	"CLASS
+	inoreabbrev <buffer> <silent> typedefs typedef struct<tab>s_<cr>{<cr>}<tab><tab><tab><tab>t_;<esc>2kA<C-R>=Eatchar('\s')<cr>
+	"TYPEDEF: typedefe -> typedef enum ... etc.
+	inoreabbrev <buffer> <silent> typedefe typedef enum<tab>e_<cr>{<cr>//<tab>coma, separated, without, trailing, semicolumn<cr>}<tab><tab><tab><tab>t_;<esc>3kA<C-R>=Eatchar('\s')<cr>
+else
+	"INCLUDE <.h>
+	inoreabbrev <buffer> #i #include <><esc>i<C-R>=Eatchar('\s')<cr>
+	"INCLUDE ".h"
+	inoreabbrev <buffer> #" #include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
+	"DEFINE
+	inoreabbrev <buffer> #d #define
+	"RETURN
 endif
 
 "SET cindent
@@ -105,16 +136,14 @@ inoreabbrev <buffer> <silent> while while ()<Left><C-R>=Eatchar('\s')<cr>
 inoreabbrev <buffer> <silent> mainn int<tab>main(int argc __attribute__((unused)), char **argv __attribute__((unused)))<cr>{<cr>return (0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
 
 "BRACES PAIRS
-autocmd Filetype c :inoremap {<CR> {<CR>}<Esc>ko
-"}
-autocmd Filetype c :inoremap { {<CR>}<Esc>ko<C-R>=Eatchar('\s')<cr>
-"}
-autocmd Filetype c :inoremap {[ {
-"}}
-autocmd Filetype c :inoremap ( ()<Esc>i
-")
-autocmd Filetype c :inoremap (9 (
-"))
+"{ TWICE
+inoremap {{ {<CR>}<Esc>ko<C-R>=Eatchar('\s')<cr>
+"IN CASE WE MISS THE SECOND UPERCASE
+inoremap {[ {<CR>}<Esc>ko<C-R>=Eatchar('\s')<cr>
+"( twice
+inoremap (( ()<Esc>i
+"IN CASE WE MISS THE SECOND UPERCASE
+inoremap (9 ()<Esc>i
 
 "CORRECTIONS
 inoreabbrev void* void *<C-R>=Eatchar('\s')<cr>
@@ -122,13 +151,6 @@ inoreabbrev char* char *<C-R>=Eatchar('\s')<cr>
 inoreabbrev int* int *<C-R>=Eatchar('\s')<cr>
 inoreabbrev t_list* t_list *<C-R>=Eatchar('\s')<cr>
 
-"INCLUDE <.h>
-inoreabbrev <buffer> #i #include <.h><esc>hhi<C-R>=Eatchar('\s')<cr>
-"INCLUDE ".h"
-inoreabbrev <buffer> #" #include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
-"DEFINE
-inoreabbrev <buffer> #d #define
-"RETURN
 inoreabbrev <buffer> ret return<space>();<esc>hi<C-R>=Eatchar('\s')<cr>
 "PRINTF
 inoreabbrev <buffer> printf printf("\n");<esc>4hi<C-R>=Eatchar('\s')<cr>
@@ -141,14 +163,20 @@ inoreabbrev <buffer> readd read(fd1, BUFFER_PTR, BUFFER_SIZE)<esc>5be<C-R>=Eatch
 nnoremap <buffer> <localleader>d :call InsertDebugPrintf()<cr>
 nnoremap <buffer> <localleader>D :call RemoveDebugPrintf()<cr>
 
-"CHEATPROOF
-inoreabbrev <buffer> return NOPENOPENOPE
+"LEARN THE HARD WAY
+"inoreabbrev <buffer> return NOPENOPENOPE
 " }}}
 "------------------------------------------------------------------------------
 
 "------------------------------------------------------------------------------
 "- MY CPP FILETYPE--------------------------------------------------------- {{{
 
+"ABREVIATIONS FOR CPP
+if expand('%:e') == "hpp"
+	"CLASS
+	inoreabbrev <buffer> <silent> class class<cr>{<cr>public:<cr>private:<cr>};<esc>4kA<space><C-R>=Eatchar('\s')<cr>
+	"TYPEDEF: typedefs -> typedef struct ... etc.
+endif
 "CIN
 inoreabbrev <buffer> cinn std::cin >> ;<esc>i<C-R>=Eatchar('\s')<cr>
 

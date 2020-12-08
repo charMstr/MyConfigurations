@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2020/12/07 20:04:57 by charmstr         ###   ########.fr        #
+#    Updated: 2020/12/08 10:25:13 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ unsetopt BEEP
 # IF AT 42
 if [ `basename ${HOME}` = "charmstr" ]
 then
-	export PATH=$HOME/.brew/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/munk
+	export PATH=$HOME/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munk
 
 	#SOURCES SHELL FUNCTIONS IN .SHELL_LIB
 	source ~/.shell_lib/display_colors.lib
@@ -225,9 +225,6 @@ change_extension()
 # IF AT 42
 if [ `basename ${HOME}` = "charmstr" ]
 then
-	#add miniconda script...
-	export PATH=~/goinfre/miniconda3/bin:$PATH
-
 	#IT SAVES IN THE PASTEBIN MY CURRETN POSITION
 	function here
 	{
