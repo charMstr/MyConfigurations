@@ -76,17 +76,23 @@ endif
 "SET cindent
 setlocal cindent foldmethod=indent foldnestmax=3 foldlevelstart=0
 
+"SETING MY COMMENTS SPECIALLY
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s:/*,mb:**,ex:*/,f://
+
 "CLEAN FILE FROM TRAILING SPACES AND TABS BEFORE WRITING
 autocmd BufWritePre *.c %s/\(\s\|\t\)\+$//ge
 
 "COMENT INLINE WITH ]c  adds "//"
 nnoremap <buffer> <localleader>c I//<esc>
+inoremap <buffer> <localleader>c <esc>I//<esc>
 
 "UNCOMENT INLINE WITH ]u removes "//"
 nnoremap <buffer> <localleader>u ^2x
+inoremap <buffer> <localleader>u <esc>^2x
 
 "COMENT MULTIPLE LINES WITH 'C'
-nnoremap <buffer> <localleader>C o/*<cr><esc>i**<cr>*/<esc>kA<space>
+nnoremap <buffer> <localleader>C o/*<cr><cr>/<esc>kA<space>
+inoremap <buffer> <localleader>C <esc>o/*<cr><cr>/<esc>kA<space>
 
 "ABBREVIATIONS FOR C
 "IF
@@ -96,7 +102,7 @@ inoreabbrev <buffer> <silent> while while ()<Left><C-R>=Eatchar('\s')<cr>
 "FOR --> YOU CAN SHUT THE FUCK UP
 "autocmd FileType c :inoreabbrev <buffer> <silent> for for ()<Left><C-R>=Eatchar('\s')<cr>
 "MAIN
-inoreabbrev <buffer> <silent> main int<tab>main(int argc __attribute__((unused)), char **argv __attribute__((unused)))<cr>{<cr>return (0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
+inoreabbrev <buffer> <silent> mainn int<tab>main(int argc __attribute__((unused)), char **argv __attribute__((unused)))<cr>{<cr>return (0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
 
 "BRACES PAIRS
 autocmd Filetype c :inoremap {<CR> {<CR>}<Esc>ko
@@ -127,9 +133,9 @@ inoreabbrev <buffer> ret return<space>();<esc>hi<C-R>=Eatchar('\s')<cr>
 "PRINTF
 inoreabbrev <buffer> printf printf("\n");<esc>4hi<C-R>=Eatchar('\s')<cr>
 "OPEN
-inoreabbrev <buffer> open if ((fd1 = open("", O_CREAT \| O_RDWR \| O_TRUNC, 0644)) == -1)<esc>10Bbe<C-R>=Eatchar('\s')<cr>
+inoreabbrev <buffer> openn if ((fd1 = open("", O_CREAT \| O_RDWR \| O_TRUNC, 0644)) == -1)<esc>10Bbe<C-R>=Eatchar('\s')<cr>
 "READ
-inoreabbrev <buffer> read read(fd1, BUFFER_PTR, BUFFER_SIZE)<esc>5be<C-R>=Eatchar('\s')<cr>
+inoreabbrev <buffer> readd read(fd1, BUFFER_PTR, BUFFER_SIZE)<esc>5be<C-R>=Eatchar('\s')<cr>
 
 "SEE PLUGIN SEGFAULT_HUNTER.VIM
 nnoremap <buffer> <localleader>d :call InsertDebugPrintf()<cr>
@@ -137,5 +143,17 @@ nnoremap <buffer> <localleader>D :call RemoveDebugPrintf()<cr>
 
 "CHEATPROOF
 inoreabbrev <buffer> return NOPENOPENOPE
+" }}}
+"------------------------------------------------------------------------------
+
+"------------------------------------------------------------------------------
+"- MY CPP FILETYPE--------------------------------------------------------- {{{
+
+"CIN
+inoreabbrev <buffer> cinn std::cin >> ;<esc>i<C-R>=Eatchar('\s')<cr>
+
+"COUT
+inoreabbrev <buffer> coutt std::cout << "" << std::endl;<esc>5ba<C-R>=Eatchar('\s')<cr>
+
 " }}}
 "------------------------------------------------------------------------------
