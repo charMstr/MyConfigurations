@@ -55,7 +55,7 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-"use escape when done selecting: add enter to the list = no newline insertion
+"USED ESCAPE WHEN DONE SELECTING: ADD ENTER TO THE LIST = NO NEWLINE INSERTION
 let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>', '<ENTER>']
 
 " }}}

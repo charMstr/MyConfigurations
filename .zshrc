@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2020/12/08 10:25:13 by charmstr         ###   ########.fr        #
+#    Updated: 2020/12/08 19:06:34 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,8 @@ function CDLS
 	    /bin/ls
 	fi
 }
+# for intercept-build to work.
+alias intercept='intercept-build --override-compiler make CC=intercept-cc CXX=intercept-c++ all'
 
 # COMMON
 alias la='ls -la'
