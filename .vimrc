@@ -382,10 +382,10 @@ endfunction
 
 "THIS FUNCTION WILL FLASH THE CURRENT LINE FOR A TENTH OF A SEC
 function! Flash()
-    set cursorline
-    redraw
-    sleep 100m
-    set nocursorline
+	set cursorline
+	redraw
+	sleep 100m
+	set nocursorline
 endfunction
 
 
@@ -405,7 +405,7 @@ func! PreviewWord()
 	if &previewwindow			" don't do this in the preview window
 		return
 	endif
-    "MAKE SURE THE WORD WE FOUND WILL BE CENTERED UPWISE IN WINDOW
+	"MAKE SURE THE WORD WE FOUND WILL BE CENTERED UPWISE IN WINDOW
 	let saved_scrolloff=&scrolloff
 	set scrolloff=6
 	let word_to_be_ptaged = expand("<cword>")		" get the word under cursor
@@ -418,16 +418,16 @@ func! PreviewWord()
 			return
 		endif
 
-    "DELETE ANY EXISTING HIGHLIGHT BEFORE SHOWING ANOTHER TAG
-    "AND WILL CLOSE THE EXISTING WINDOW AND RETURN 
+		"DELETE ANY EXISTING HIGHLIGHT BEFORE SHOWING ANOTHER TAG
+		"AND WILL CLOSE THE EXISTING WINDOW AND RETURN 
 		silent! wincmd P			" jump to preview window
 		if &previewwindow			" if we really get there...
 			match none			" delete existing highlight
 			wincmd p			" back to old window
 		endif
 
-    "TRY DISPLAYING A MATCHING TAG FOR THE WORD UNDER THE CURSOR
-    "OPENS THE WINDOW AT THE VERY TOP
+		"TRY DISPLAYING A MATCHING TAG FOR THE WORD UNDER THE CURSOR
+		"OPENS THE WINDOW AT THE VERY TOP
 		try
 			exe "topleft ptag " . word_to_be_ptaged
 		catch
@@ -436,18 +436,18 @@ func! PreviewWord()
 
 		silent wincmd P			" jump to preview window
 		if &previewwindow		" if we really get there...
-		    if has("folding")		" first we don't want a closed fold
-			    :silent execute "normal zR"
-		    endif
-		    call search("$", "b")		" to end of previous line
-		    let t:ptag_window_word = substitute(word_to_be_ptaged, '\\', '\\\\', "")
-    "CHECK THAT TEH PREVIOUS TIME WE CALLED THE FUNCTION IT WAS NOT THE EXACT SAME WORD
-    "IF YES THEN CLOSE
-		    call search('\<\V' . t:ptag_window_word . '\>') "position cursor on match
-	    				" Add a match highlight to the word at this position
-		    hi previewWord term=bold ctermbg=green ctermfg=black guibg=green
-		    exe 'match previewWord "\%' . line(".") . 'l\%' . col(".") . 'c\k*"'
-		    wincmd p			" back to old window
+			if has("folding")		" first we don't want a closed fold
+				:silent execute "normal zR"
+			endif
+			call search("$", "b")		" to end of previous line
+			let t:ptag_window_word = substitute(word_to_be_ptaged, '\\', '\\\\', "")
+			"CHECK THAT TEH PREVIOUS TIME WE CALLED THE FUNCTION IT WAS NOT THE EXACT SAME WORD
+			"IF YES THEN CLOSE
+			call search('\<\V' . t:ptag_window_word . '\>') "position cursor on match
+			" Add a match highlight to the word at this position
+			hi previewWord term=bold ctermbg=green ctermfg=black guibg=green
+			exe 'match previewWord "\%' . line(".") . 'l\%' . col(".") . 'c\k*"'
+			wincmd p			" back to old window
 		endif
 	endif
 	"let scrolloff=&saved_scrolloff
@@ -472,7 +472,7 @@ endfunction
 
 "TODO WILL PRINT TODO AND DATE AND TIME
 function! ToDoFunc()
-	
+
 	normal! k
 	call DateAndTime()
 	normal! I //TODO(

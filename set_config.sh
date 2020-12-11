@@ -59,5 +59,9 @@ vim -c PluginInstall -c qall
 cd ~/.vim/bundle/YouCompleteMe
 #python3 install.py --all
 
+#note:	need to install scan-build so that we can use its subfunction
+#		intercept-build. (aliased in the vimrc) Just use "intercept" next to
+#		the location of your makefile.
+# pip install scan-build
 ### VIM END ################################################################### 
 ###############################################################################
