@@ -178,42 +178,8 @@ inoremap <buffer> cinn std::cin >> ;<esc>i<C-R>=Eatchar('\s')<cr>
 "COUT
 inoremap <buffer> coutt std::cout << "" << std::endl;<esc>5ba<C-R>=Eatchar('\s')<cr>
 
-"ALIASING THE COMMAND ClassNew: just type: ClassNew nameOfClass
-command! -nargs=1 ClassNew call ClassNew(<f-args>) 
-
-"C++ CLASS GENERATOR: OPENING 2 NEW FILES
-function! ClassNew(ClassName)
-	"==================  editing source file =================================
-	execute "vsp %:h/" . a:ClassName . ".class.cpp"
-	"At this stage the autocomands for this filetype are done.
-	"	example: inserting the header, and the ifndef... Then:
-	:execute "normal! a#include \"" . a:ClassName . ".class.hpp\"\<cr>\<cr>"
-	:execute "normal! a" . a:ClassName . "::" . a:ClassName ."(void)\<cr>{\<cr>" 
-	:execute "normal! a\<tab>return ;\<cr>"
-	:execute "normal! a}\<cr>\<cr>"
-	:execute "normal! a" . a:ClassName . "::~" . a:ClassName ."(void)\<cr>{\<cr>" 
-	:execute "normal! a\<tab>return ;\<cr>"
-	:execute "normal! a}"
-	"Comment this line if you dont want to save files straight away.
-	":execute 'write'
-
-	"==================  editing header file =================================
-	execute "vsp %:h/" . a:ClassName . ".class.hpp"
-	"At this stage the autocomands for this filetype are done.
-	"	example: inserting the header, and the ifndef... Then:
-	:execute "normal! a" . "class " . a:ClassName ."\<cr>{\<cr>" 
-	:execute "normal! a\<tab>public:\<cr>"
-	:execute "normal! a\<tab>\<tab>" . a:ClassName . "(void);\<cr>"
-	:execute "normal! a\<tab>\<tab>~" . a:ClassName . "(void);\<cr>\<cr>"
-	:execute "normal! a\<tab>protected:\<cr>\<cr>"
-	:execute "normal! a\<tab>private:\<cr>\<cr>"
-	:execute "normal! a};"
-	:execute "normal! ka\<tab>\<tab>"
-	"Comment out this line if you dont want to start in insert mode
-	:startinsert!
-	"Comment this line if you dont want to save files straight away.
-	:execute 'write'
-endfunction    
+"ALIASING THE COMMAND ClassNewCpp: just type: ClassNewCpp nameOfClass
+command! -nargs=1 ClassNewCpp call ft#classNewCpp#ClassNewCpp(<f-args>) 
 
 " }}}
 "------------------------------------------------------------------------------

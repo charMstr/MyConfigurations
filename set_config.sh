@@ -28,17 +28,10 @@ ln -sf MyConfigurations/.lldbinit .lldbinit
 ###############################################################################
 ### VIM START ################################################################# 
 
-#create the folder where we place the vim plugins
-[ -d .vim/plugin ] || mkdir -p .vim/plugin
-cp MyConfigurations/.vim/plugin/* .vim/plugin/
-
-#create the folder where we place the filetype detection files. (ftdetect)
-[ -d .vim/ftdetect ] || mkdir -p .vim/ftdetect
-#cp MyConfigurations/.vim/ftdetect/* .vim/ftdetect/
-
-#create the folder where i place the vim filetype plugin files (ftplugin)
-[ -d .vim/ftplugin ] || mkdir -p .vim/ftplugin
-cp MyConfigurations/.vim/ftplugin/* .vim/ftplugin/
+#create the folder where we place the vim plugins, filetype detections,
+# autoloads, etc
+[ -d .vim ] || mkdir -p .vim
+cp -r MyConfigurations/.vim/* .vim/
 
 #place the .vimrc
 ln -sf MyConfigurations/.vimrc .vimrc
