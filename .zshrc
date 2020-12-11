@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2020/12/08 19:06:34 by charmstr         ###   ########.fr        #
+#    Updated: 2020/12/10 04:21:19 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -152,6 +152,10 @@ alias MINI='cd ~/Projects/minishell'
 alias PHIL='cd ~/Projects/philosophers'
 alias SAN='cd ~/Sandbox'
 alias CPP0='cd ~/Projects/piscine_cpp42/cpp00'
+alias CPP1='cd ~/Projects/piscine_cpp42/cpp01'
+alias CPP2='cd ~/Projects/piscine_cpp42/cpp02'
+alias CPP3='cd ~/Projects/piscine_cpp42/cpp03'
+alias CPP4='cd ~/Projects/piscine_cpp42/cpp04'
 
 
 # IF AT HOME

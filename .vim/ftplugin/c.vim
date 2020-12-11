@@ -83,7 +83,7 @@ if expand('%:e') == "h" || expand('%:e') == "hpp"
 	"INCLUDES <
 	inoreabbrev <buffer> #i # include <><esc>i<C-R>=Eatchar('\s')<cr>
 	"INCLUDES "
-	inoreabbrev <buffer> #" # include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
+	inoreabbrev <buffer> #" # include ""<esc>i<C-R>=Eatchar('\s')<cr>
 	"DEFINE
 	inoreabbrev <buffer> #d # define
 	"IFNDEF

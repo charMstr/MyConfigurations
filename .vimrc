@@ -2,10 +2,6 @@
 silent echo ">^.^<"
 "silen echo ">^.^<"
 
-"KEEPS THE DEFAULTS.VIM SETTINGS
-" unlet! skip_defaults_vim
-" source $VIMRUNTIME/defaults.vim
-
 "note: vundle needs to be a the start.
 "------------------------------------------------------------------------------
 "- VUNDLE PLUGINS MANAGER ------------------------------------------------- {{{
@@ -54,10 +50,8 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-
-"USED ESCAPE WHEN DONE SELECTING: ADD ENTER TO THE LIST = NO NEWLINE INSERTION
-let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>', '<ENTER>']
-
+"
+" NOTE: see the YCM section in this .vimrc file for completion mapings.
 " }}}
 "------------------------------------------------------------------------------
 
@@ -133,6 +127,14 @@ set colorcolumn=80
 "SET ERRORBELLS OFF , ESPECIALLY FLASHING SCREEN
 set noerrorbells visualbell t_vb=
 
+
+"INSERTING DATE AND TIME
+nnoremap <leader>D k:call DateAndTime()<cr>
+inoremap <leader>D <esc>k:call DateAndTime()<cr>
+
+"TODO:
+inoremap TODO <esc>:call ToDoFunc()<cr>
+
 "SPOT CURRENT LINE
 nnoremap <leader><space> :call Flash()<cr>
 
@@ -141,6 +143,37 @@ set statusline=\ 							"space
 set statusline+=%.25F						"path to file
 set statusline+=%=							"align to the right of the window
 set statusline+=Line:\ %l\ /\ %L\ \ \ 		"Line: number / total 
+
+" }}}
+"------------------------------------------------------------------------------
+
+"------------------------------------------------------------------------------
+"- YOU COMPLETE ME - YCM -------------------------------------------------- {{{
+
+"AUTOCOMPLETION:
+"FIRST REMOVE THE TERMINAL MAPIN FOR CTRL + J = <CR>
+let g:BASH_Ctrl_j = 'off'
+"MOVING DOWN IN THE AUTO-COMPLETION: CTRL + J
+let g:ycm_key_list_select_completion = ['<C-J>', '<Down>']
+"MOVING UP IN THE AUTO-COMPLETION: CTRL + K
+let g:ycm_key_list_previous_completion = ['<C-K>', '<Up>']
+"TRIGGER AUTOCOMPLETION WHEN IN INSERT MODE (default but just for the record.
+let g:ycm_key_invoke_completion = '<C-Space>'
+
+"POPUP WINDOW
+"deactivate the time delay (empty string instead of Cursorhold)
+let g:ycm_auto_hover = ""
+"TRIGER IT WITH <SPACE>
+nmap <space> <plug>(YCMHover)
+
+"GET DOCUMENTATION
+nnoremap <leader>gd :YcmCompleter GetDoc<cr>
+"GOTO INCLUDE => DO IT ON THE SAME LINE AS IN INCLUDE COMMANDE
+nnoremap <leader>in :YcmCompleter GoToInclude<cr>
+"GOTO DECLARATION
+nnoremap <leader>dc :YcmCompleter GoToDeclaration<cr>
+"GOTO DEFINITION
+nnoremap <leader>df :YcmCompleter GoToDefinition<cr>
 
 " }}}
 "------------------------------------------------------------------------------
@@ -335,9 +368,7 @@ augroup END
 "------------------------------------------------------------------------------
 "- FUNCTIONS -------------------------------------------------------------- {{{
 
-"INSERTING DATE AND TIME
-nnoremap <leader>D :call DateAndTime()<cr>
-inoremap <leader>D :call DateAndTime()<cr>
+"FUNCTION TO INSERT IN PLACE THE DATE AND TIME
 function! DateAndTime()
 	:put =expand(strftime('%a %d/%m/%Y at %T'))
 endfunction
@@ -357,11 +388,14 @@ function! Flash()
     set nocursorline
 endfunction
 
+
 "THIS CUSTOMED FUNCTION ORIGINALLY COMES FROM THE CURSORHOLD-EXAMPLE IN VIM HELP
 "IT WILL OPEN A PREVIEW WINDOW ON A TAGGED NAME AND HIGHLIGHT THAT WORD
 "USAGE: HIT SPACE WHILE OVERING A NAME
 "IF WE CALL THE FUNCTION ON THE EXACT SAME NAME IT WILL CLOSE THE PREVIEW WINDOW
-nnoremap <space> :call PreviewWord()<cr>
+
+" NOT IN USE ANYMORE ..
+"nnoremap <space> :call PreviewWord()<cr>
 
 "DECLARATION OF A VARIABLE FOR THE WHOLE TAB:
 "SO THAT WE CAN KNOW IF WE NEED TO CLOSE THE PREVIEW WINDOW (SAME WORD AGAIN)
@@ -436,13 +470,20 @@ function! Display_panel_colors()
 
 endfunction
 
+"TODO WILL PRINT TODO AND DATE AND TIME
+function! ToDoFunc()
+	
+	normal! k
+	call DateAndTime()
+	normal! I //TODO(
+	normal! A) 
+
+endfunction
+
 
 " }}}
 "------------------------------------------------------------------------------
 
 "TO BE FINISHED
-"EXEC A SCRIPT FILE AFTER SAVING WITHIN THE VIM COMSOL USING F5
-"nnoremap <F5> <esc>:w<cr>:!%:p<cr>
-"inoremap <F5> <esc>:w<cr>:!%:p<cr>
 
 "make sure the functions in plugin are indexed with the SID THINGY
