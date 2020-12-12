@@ -174,6 +174,8 @@ nnoremap <leader>in :YcmCompleter GoToInclude<cr>
 nnoremap <leader>dc :YcmCompleter GoToDeclaration<cr>
 "GOTO DEFINITION
 nnoremap <leader>df :YcmCompleter GoToDefinition<cr>
+"FIX IT
+nnoremap <leader>f :YcmCompleter FixIt<cr>
 
 " }}}
 "------------------------------------------------------------------------------

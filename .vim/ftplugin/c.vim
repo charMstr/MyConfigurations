@@ -98,7 +98,7 @@ else
 	"INCLUDE <.h>
 	inoreabbrev <buffer> #i #include <><esc>i<C-R>=Eatchar('\s')<cr>
 	"INCLUDE ".h"
-	inoreabbrev <buffer> #" #include ".h"<esc>hhi<C-R>=Eatchar('\s')<cr>
+	inoreabbrev <buffer> #" #include ""<esc>i<C-R>=Eatchar('\s')<cr>
 	"DEFINE
 	inoreabbrev <buffer> #d #define
 	"RETURN
@@ -133,7 +133,7 @@ inoreabbrev <buffer> <silent> while while ()<Left><C-R>=Eatchar('\s')<cr>
 "FOR --> YOU CAN SHUT THE FUCK UP
 "autocmd FileType c :inoreabbrev <buffer> <silent> for for ()<Left><C-R>=Eatchar('\s')<cr>
 "MAIN
-inoreabbrev <buffer> <silent> mainn int<tab>main(int argc __attribute__((unused)), char **argv __attribute__((unused)))<cr>{<cr>return (0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
+inoremap <buffer> <silent> mainn int<tab>main(int argc __attribute__((unused)), char **argv __attribute__((unused)))<cr>{<cr>return (0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
 
 "BRACES PAIRS
 "{ TWICE
