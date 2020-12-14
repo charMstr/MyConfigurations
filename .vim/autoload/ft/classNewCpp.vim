@@ -30,7 +30,7 @@ function! ft#classNewCpp#ClassNewCpp(ClassName)
 	:execute "normal! a\<tab>public:\<cr>"
 	:execute "normal! a\<tab>\<tab>" . a:ClassName . "(void);\<cr>"
 	:execute "normal! a\<tab>\<tab>" . a:ClassName . "(" . a:ClassName . " const &src);\<cr>"
-	:execute "normal! a\<tab>\<tab>~" . a:ClassName . "(void);\<cr>\<cr>"
+	:execute "normal! avirtual\<tab>~" . a:ClassName . "(void);\<cr>\<cr>"
 	:execute "normal! a\<tab>\<tab>" . a:ClassName . " &\<tab>operator=(" . a:ClassName . " const &rhs);\<cr>\<cr>"
 	:execute "normal! a\<tab>protected:\<cr>\<cr>"
 	:execute "normal! a\<tab>private:\<cr>\<cr>"
