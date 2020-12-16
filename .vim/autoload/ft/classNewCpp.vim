@@ -16,8 +16,10 @@ function! ft#classNewCpp#ClassNewCpp(ClassName)
 	:execute "normal! a\<tab>if (this != &rhs)\<cr>{\<cr>;//put code here\<cr>}\<cr>"
 	:execute "normal! a\<tab>return *this;\<cr>}\<cr>\<cr>"
 	:execute "normal! a//std::ostream\<tab>&\<cr>//operator<<(std::ostream &o, " . a:ClassName . " const &rhs)\<cr>//{\<cr>"
-	:execute "normal! a//\<tab>o << rhs.getValue();\<cr>"
-	:execute "normal! a//\<tab>return o;\<cr>//}\<cr>\<cr>"
+	:execute "normal! a//\<tab>return rhs.Serialize(o);\<cr>//}\<cr>\<cr>"
+	:execute "normal! a//std::ostream\<tab>&\<cr>//" . a:ClassName . "::Serialize(std::ostream &o) const\<cr>"
+	:execute "normal! a//{\<cr>//\<tab>o << getName();//or something else\<cr>"
+	:execute "normal! a//\<tab>return o;\<cr>//\<tab>//return BASE::Serialize(o) << getName()...;\<cr>//}\<cr>"
 	"Comment this line if you dont want to save files straight away.
 	":execute 'write'
 
@@ -32,6 +34,8 @@ function! ft#classNewCpp#ClassNewCpp(ClassName)
 	:execute "normal! avirtual\<tab>~" . a:ClassName . "(void);\<cr>"
 	:execute "normal! a\<tab>\<tab>" . a:ClassName . "(" . a:ClassName . " const &src);\<cr>"
 	:execute "normal! a\<tab>\<tab>" . a:ClassName . " &\<tab>operator=(" . a:ClassName . " const &rhs);\<cr>\<cr>"
+	:execute "normal! a\<tab>//function to serialize my output from the << overload\<cr>"
+	:execute "normal! a\<tab>\<tab>//virtual std::ostream & Serialize(std::ostream &o) const;\<cr>\<cr>"
 	:execute "normal! a\<tab>protected:\<cr>\<cr>"
 	:execute "normal! a\<tab>private:\<cr>\<cr>"
 	:execute "normal! a};\<cr>\<cr>"
