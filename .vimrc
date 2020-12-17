@@ -198,6 +198,15 @@ onoremap on( :<c-u>exe "normal! /(\\{1}\r:nohlsearch\rhv^"<cr>
 onoremap il( :<c-u>exe "normal! ?(\\{1}\r:nohlsearch\rvi("<cr>
 onoremap ol( :<c-u>exe "normal! ?(\\{1}\r:nohlsearch\rhv^"<cr>
 
+"INSIDE '<'
+onoremap < :<c-u>normal! vi<<cr>
+"NEXT '<'
+onoremap in< :<c-u>exe "normal! /<\\{1}\r:nohlsearch\rvi<"<cr>
+onoremap on< :<c-u>exe "normal! /<\\{1}\r:nohlsearch\rhv^"<cr>
+"LAST '<'
+onoremap il< :<c-u>exe "normal! ?<\\{1}\r:nohlsearch\rvi<"<cr>
+onoremap ol< :<c-u>exe "normal! ?<\\{1}\r:nohlsearch\rhv^"<cr>
+
 "INSIDE '"'
 onoremap " :<c-u>normal! vi"<cr>
 "NEXT '"'

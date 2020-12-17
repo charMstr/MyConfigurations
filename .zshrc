@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2020/12/10 04:21:19 by charmstr         ###   ########.fr        #
+#    Updated: 2020/12/17 06:39:42 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -156,6 +156,10 @@ alias CPP1='cd ~/Projects/piscine_cpp42/cpp01'
 alias CPP2='cd ~/Projects/piscine_cpp42/cpp02'
 alias CPP3='cd ~/Projects/piscine_cpp42/cpp03'
 alias CPP4='cd ~/Projects/piscine_cpp42/cpp04'
+alias CPP5='cd ~/Projects/piscine_cpp42/cpp05'
+alias CPP6='cd ~/Projects/piscine_cpp42/cpp06'
+alias CPP7='cd ~/Projects/piscine_cpp42/cpp07'
+alias CPP8='cd ~/Projects/piscine_cpp42/cpp08'
 
 
 # IF AT HOME
