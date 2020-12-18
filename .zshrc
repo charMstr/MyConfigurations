@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2020/12/17 06:39:42 by charmstr         ###   ########.fr        #
+#    Updated: 2020/12/17 21:09:40 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -121,9 +121,10 @@ _RESET_COLOR="\033[m"
 
 
 #PROMPT
-PROMPT="%{$_GREY%} 🕓  %t  %{$_GREEN%}DIR% --> %d  %{$_RESET_COLOR%}"
+#PROMPT="%{$_GREY%} 🕓  %t  %{$_GREEN%}DIR% --> %d  %{$_RESET_COLOR%}"
+#export PS1=`echo ${PROMPT}`
+PROMPT="%{$_GREY%}%t %{$_GREEN%}%d ➜ %{$_RESET_COLOR%}"
 export PS1=`echo ${PROMPT}`
-#export PS1='%d $ '
 
 
 #export PS1=$'\n\e[48;5;237m\e[38;5;242m%t \e[m\e[m\e[38;5;159m • \e[m %d\e[38;5;159m -->\e[m'

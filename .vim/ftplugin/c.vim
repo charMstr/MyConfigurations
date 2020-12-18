@@ -129,23 +129,24 @@ inoremap <buffer> <localleader>C <esc>o/*<cr><cr>/<esc>kA<space>
 "IF
 inoremap <buffer> <silent> iff if ()<Left><C-R>=Eatchar('\s')<cr>
 "WHILE
-inoremap <buffer> <silent> whilee while ()<Left><C-R>=Eatchar('\s')<cr>
+inoremap <buffer> <silent> whii while ()<Left><C-R>=Eatchar('\s')<cr>
 "FOR --> YOU CAN SHUT THE FUCK UP
-"autocmd FileType c :inoreabbrev <buffer> <silent> for for ()<Left><C-R>=Eatchar('\s')<cr>
+inoremap <buffer> <silent> forr for (int i = 0; i < ; i++)<esc>3bi<C-R>=Eatchar('\s')<cr>
 "MAIN
-inoremap <buffer> <silent> mainn int<tab>main(int argc __attribute__((unused)), char **argv __attribute__((unused)))<cr>{<cr>return (0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
+inoremap <buffer> <silent> maii int<tab>main(int argc __attribute__((unused)), char **argv __attribute__((unused)))<cr>{<cr>return (0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
+nnoremap <buffer> <silent> maii iint<tab>main(int argc __attribute__((unused)), char **argv __attribute__((unused)))<cr>{<cr>return (0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
 
 "BRACES PAIRS
 "{ TWICE
-inoremap {{ {<CR>}<Esc>ko<C-R>=Eatchar('\s')<cr>
+inoremap {{ <esc>o{<CR>}<Esc>ko<C-R>=Eatchar('\s')<cr>
 "IN CASE WE MISS THE SECOND UPERCASE
-inoremap {[ {<CR>}<Esc>ko<C-R>=Eatchar('\s')<cr>
+inoremap {[ <esc>o{<CR>}<Esc>ko<C-R>=Eatchar('\s')<cr>
 "( twice
 inoremap (( ()<Esc>i
 "IN CASE WE MISS THE SECOND UPERCASE
 inoremap (9 ()<Esc>i
 "< TWICE
-inoremap <> <><Esc>i
+inoremap <> <  ><Esc>hi
 "< "
 inoremap "" ""<Esc>i
 
@@ -180,16 +181,24 @@ nnoremap <buffer> <localleader>D :call RemoveDebugPrintf()<cr>
 inoremap <buffer> cinn std::cin >> ;<esc>i<C-R>=Eatchar('\s')<cr>
 
 "COUT
-inoremap <buffer> coutt std::cout << <C-R>=Eatchar('\s')<cr>
+inoremap <buffer> couu std::cout << <C-R>=Eatchar('\s')<cr>
 
 "ENDL
-inoremap <buffer> endll <esc>A<space><<<space>std::endl;<esc> 
+inoremap <buffer> endd <esc>A<space><<<space>std::endl;<esc> 
 "<C-R>=Eatchar('\s')<cr>
 nnoremap <buffer> endll A<space><<<space>std::endl;<esc>
 "<C-R>=Eatchar('\s')<cr>
 
-"ALIASING THE COMMAND ClassNewCpp: just type: ClassNewCpp nameOfClass
-command! -nargs=1 ClassNewCpp call ft#classNewCpp#ClassNewCpp(<f-args>) 
+"TEMPLATE go in insert mode at the bottom
+inoremap <buffer> temm template< typename T ><esc>o
 
+"correct my common mistake for the scope resolution operator
+inoremap <buffer> ;: ::
+
+"ALIASING THE COMMAND CppClassNew: just type: CppClassNew nameOfClass
+command! -nargs=1 CppClassNew call ft#cppClassNew#CppClassNew(<f-args>) 
+
+"ALIASING THE COMMAND CppTemplateClassNew: CppTemplateClassNew nameOfClass
+command! -nargs=1 CppTemplateClassNew call ft#cppTemplateClassNew#CppTemplateClassNew(<f-args>) 
 " }}}
 "------------------------------------------------------------------------------
