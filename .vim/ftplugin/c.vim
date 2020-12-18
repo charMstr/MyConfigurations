@@ -136,11 +136,22 @@ inoremap <buffer> <silent> forr for (int i = 0; i < ; i++)<esc>3bi<C-R>=Eatchar(
 inoremap <buffer> <silent> maii int<tab>main(int argc __attribute__((unused)), char **argv __attribute__((unused)))<cr>{<cr>return (0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
 nnoremap <buffer> <silent> maii iint<tab>main(int argc __attribute__((unused)), char **argv __attribute__((unused)))<cr>{<cr>return (0);<cr>}<esc>kko<C-R>=Eatchar('\s')<cr>
 
+"THIS FUNCTION WILL INSERT CURLY BRACES, IF LINE IN NON EMPTY WE GO DOWN
+function InsertCurlyBraces()
+	if ! (getline('.') =~ "[^ \t\n\r\f\v]" .'$')
+		"if line is empty we go up one line to get the current indent
+		:execute "normal! kJ"
+	endif
+	let indents = indent('.')/shiftwidth() "get the number of tabs to insert
+	:execute "normal! o{\<cr>}\<esc>ko"
+	"insert this many tabs
+	:exe ":normal! a" . repeat("\<tab>", l:indents + 1)
+	:startinsert!
+endfunction
 "BRACES PAIRS
 "{ TWICE
-inoremap {{ <esc>o{<CR>}<Esc>ko<C-R>=Eatchar('\s')<cr>
-"IN CASE WE MISS THE SECOND UPERCASE
-inoremap {[ <esc>o{<CR>}<Esc>ko<C-R>=Eatchar('\s')<cr>
+inoremap {{ <esc>:call InsertCurlyBraces()<cr>
+nnoremap {{ :call InsertCurlyBraces()<cr>
 "( twice
 inoremap (( ()<Esc>i
 "IN CASE WE MISS THE SECOND UPERCASE

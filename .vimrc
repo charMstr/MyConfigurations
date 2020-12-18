@@ -298,8 +298,8 @@ nnoremap <leader>;; <esc>mq$x<esc>`q
 
 "FUNCTIONS FOR ABBREVIATIONS
 func! Eatchar(pat)
-	let c = nr2char(getchar(0))
-	return (c =~ a:pat) ? '' : c
+let c = nr2char(getchar(0))
+return (c =~ a:pat) ? '' : c
 endfunc
 "exemple
 "iabbr <silent> if if ()<Left><C-R>=Eatchar('\s')<cr>
@@ -338,15 +338,15 @@ nnoremap <leader>to :tabo<cr>
 "- HTML FILETYPE----------------------------------------------------------- {{{
 
 augroup filetype_html
-	autocmd!
-	"REARANGES A .HTML FILE BEFORE WRITING
-	autocmd BufWritePre *.html :normal gg=G
+autocmd!
+"REARANGES A .HTML FILE BEFORE WRITING
+autocmd BufWritePre *.html :normal gg=G
 
-	"PAIRING RED AND NEWFILE AUTOCOMMANDS FOR A .HTML
-	autocmd BufNewFile,BufRead *.html setlocal nowrap
+"PAIRING RED AND NEWFILE AUTOCOMMANDS FOR A .HTML
+autocmd BufNewFile,BufRead *.html setlocal nowrap
 
-	"FINDS THE MATCHING TAGS AND DOES
-	autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
+"FINDS THE MATCHING TAGS AND DOES
+autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
 augroup END
 " }}}
 "------------------------------------------------------------------------------
@@ -356,8 +356,8 @@ augroup END
 
 "COMMENT IN LINE
 augroup filetype_js
-	autocmd!
-	autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
+autocmd!
+autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
 augroup END
 " }}}
 "------------------------------------------------------------------------------
@@ -367,8 +367,8 @@ augroup END
 
 "COMMENT INLINE
 augroup filetype_py
-	autocmd!
-	autocmd FileType python     nnoremap <buffer> <localleader>c I#<esc>
+autocmd!
+autocmd FileType python     nnoremap <buffer> <localleader>c I#<esc>
 augroup END
 " }}}
 "------------------------------------------------------------------------------
@@ -381,12 +381,12 @@ augroup END
 
 "FUNCTION TO INSERT IN PLACE THE DATE AND TIME
 function! DateAndTime()
-	:put =expand(strftime('%a %d/%m/%Y at %T'))
+:put =expand(strftime('%a %d/%m/%Y at %T'))
 endfunction
 
 "IF TEXTWIDTH IS MORE THAN 80
 function! TextWidthIsTooWide()
-	if &l:textwidth ># 80
+if &l:textwidth ># 80
 		return 1
 	endif
 endfunction
@@ -498,3 +498,4 @@ endfunction
 "TO BE FINISHED
 
 "make sure the functions in plugin are indexed with the SID THINGY
+
