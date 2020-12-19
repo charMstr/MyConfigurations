@@ -247,12 +247,12 @@ noremap in@ :<c-u>exe "normal! /@\\{1}\r:nohlsearch\rhviw"<cr>
 "------------------------------------------------------------------------------
 "- MAPPINGS/ABBREVIATION -------------------------------------------------- {{{
 
-"REMAP THE TAB KEY, ESPECIALLY FOR INSERTING TAB WHILE IN AUTOCOMPLETION
-inoremap <Leader><Tab> <Tab>
-
 "REMAP THE ESCAPE KEY
 noremap dk <esc>
 noremap! dk <esc>
+
+"REMAP DD BECAUSE IT IS LOW OTHERWISE TO DELETE CURRENT LINE
+nnoremap dl :<C-U>execute "normal! dd"<cr>
 
 "EDITING ('e') .VIMRC FILE ('v') AT THE TOP OF THE WINDOW (30 LINES)
 "SOURCING ('s') .VIMRC FILE ('v')
@@ -260,7 +260,7 @@ nnoremap <leader>ev :rightbelow vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :so $MYVIMRC<cr>
 
 "OPENING LAST('l') BUFFER
-nnoremap <leader>l :execute "vsplit " . bufname("#")<cr>
+nnoremap <leader>l :<C-U>execute "vsplit " . bufname("#")<cr>
 
 "MOVE A LINE DOWNWARD / UPWARD
 nnoremap <leader>- ddp
@@ -316,8 +316,11 @@ inoremap <buffer> <leader>fg  \033[38;5;\033[m<esc>6ha
 inoremap <buffer> <leader>bg  \033[48;5;\033[m<esc>6ha
 
 "CONTROL OF TABULATIONS
+"Close
 nnoremap <leader>tc :tabc<cr>
+"Next
 nnoremap <leader>tj :tabp<cr>
+"Previous
 nnoremap <leader>tk :tabn<cr>
 "CLOSE ALL EXCEPT FOR THE CURRETN ONE
 nnoremap <leader>to :tabo<cr>
