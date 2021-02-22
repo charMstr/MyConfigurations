@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2020/12/17 21:09:40 by charmstr         ###   ########.fr        #
+#    Updated: 2021/02/22 17:05:25 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -151,7 +151,11 @@ alias FTSS='cd ~/Projects/ft_services'
 alias ASM='cd ~/Projects/libasm'
 alias MINI='cd ~/Projects/minishell'
 alias PHIL='cd ~/Projects/philosophers'
+alias CONT='cd ~/Projects/ft_containers'
+alias WEBS='cd ~/Projects/webserver'
+
 alias SAN='cd ~/Sandbox'
+
 alias CPP0='cd ~/Projects/piscine_cpp42/cpp00'
 alias CPP1='cd ~/Projects/piscine_cpp42/cpp01'
 alias CPP2='cd ~/Projects/piscine_cpp42/cpp02'

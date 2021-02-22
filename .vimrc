@@ -252,7 +252,7 @@ noremap dk <esc>
 noremap! dk <esc>
 
 "REMAP DD BECAUSE IT IS LOW OTHERWISE TO DELETE CURRENT LINE
-nnoremap dl :<C-U>execute "normal! dd"<cr>
+nnoremap dl dd
 
 "EDITING ('e') .VIMRC FILE ('v') AT THE TOP OF THE WINDOW (30 LINES)
 "SOURCING ('s') .VIMRC FILE ('v')
