@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2021/02/22 17:05:25 by charmstr         ###   ########.fr        #
+#    Updated: 2021/03/17 16:50:24 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,7 @@ function CDLS
 	    /bin/ls
 	fi
 }
+
 # for intercept-build to work.
 alias intercept='intercept-build --override-compiler make CC=intercept-cc CXX=intercept-c++ all'
 
@@ -144,7 +145,7 @@ export LSCOLORS="ExHxcxdxbxegedabagacad"
 
 alias GNL='cd ~/Projects/get_next_line_git/get_next_line_binary'
 alias LIB='cd ~/Projects/libft_git/libft'
-alias PRF='cd ~/Projects/ft_printf_42cursus'
+alias PRF='cd ~/Projects/ft_printf_git'
 alias C3D='cd ~/Projects/cube3d'
 alias FTS='cd ~/Projects/ft_server'
 alias FTSS='cd ~/Projects/ft_services'
@@ -152,7 +153,7 @@ alias ASM='cd ~/Projects/libasm'
 alias MINI='cd ~/Projects/minishell'
 alias PHIL='cd ~/Projects/philosophers'
 alias CONT='cd ~/Projects/ft_containers'
-alias WEBS='cd ~/Projects/webserver'
+alias WEBS='cd ~/Projects/webserver_git'
 
 alias SAN='cd ~/Sandbox'
 
@@ -177,6 +178,7 @@ fi
 alias intra='${XDG_PREFIX}open https://profile.intra.42.fr/'
 alias miam='${XDG_PREFIX}open https://steakoverflow.42.fr/'
 alias github='${XDG_PREFIX}open https://github.com/'
+alias gitlab='${XDG_PREFIX}open https://gitlab.com/'
 alias youtube='`${XDG_PREFIX}open https://www.youtube.com`'
 alias charlie='`${XDG_PREFIX}open https://mail.google.com/mail/u/0/#inbox`'
 alias karlos='`${XDG_PREFIX}open https://mail.google.com/mail/u/2/#inbox`'
