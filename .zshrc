@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2021/03/17 16:50:24 by charmstr         ###   ########.fr        #
+#    Updated: 2021/04/02 15:57:58 by Remercill        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -167,6 +167,12 @@ alias CPP6='cd ~/Projects/piscine_cpp42/cpp06'
 alias CPP7='cd ~/Projects/piscine_cpp42/cpp07'
 alias CPP8='cd ~/Projects/piscine_cpp42/cpp08'
 
+
+# IF AT Remercille
+if [ `basename ${HOME}` = "Remercille" ]
+then
+alias WEBS='cd ~/Charlie/webserver_git'
+fi
 
 # IF AT HOME
 if [ `basename ${HOME}` = "user42" ]
