@@ -342,13 +342,13 @@ nnoremap <leader>to :tabo<cr>
 
 augroup filetype_html
 autocmd!
-"REARANGES A .HTML FILE BEFORE WRITING
-autocmd BufWritePre *.html :normal gg=G
+"REARANGES A .HTML FILE (INDENTATION FIXED!)
+autocmd BufRead,BufWritePre *.html :normal gg=G
 
-"PAIRING RED AND NEWFILE AUTOCOMMANDS FOR A .HTML
+"PAIRING READ AND NEWFILE AUTOCOMMANDS FOR A .HTML
 autocmd BufNewFile,BufRead *.html setlocal nowrap
 
-"FINDS THE MATCHING TAGS AND DOES
+"FINDS THE MATCHING TAGS AND DOES A FOLDING ON THE PARAGRAPH
 autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
 augroup END
 " }}}
