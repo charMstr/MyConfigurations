@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2021/04/02 15:57:58 by Remercill        ###   ########.fr        #
+#    Updated: 2021/04/21 08:33:46 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,7 @@ function CDLS
 }
 
 # for intercept-build to work.
-alias intercept='intercept-build --override-compiler make CC=intercept-cc CXX=intercept-c++ all'
+alias intercept='intercept-build --override-compiler make re CC=intercept-cc CXX=intercept-c++ all'
 
 # COMMON
 alias la='ls -la'
@@ -84,6 +84,22 @@ alias leaks='leaks -atExit --'
 
 #ENV VARIABLE
 export MAIL=$USER'@student.42.fr'
+###############################################################################
+
+###############################################################################
+#TO ADD DEFAULT INCLUDE AND LIBRARY SEARCH PATHS
+###############################################################################
+#source: https://gcc.gnu.org/onlinedocs/gcc/Environment-Variables.html
+
+#FOR INCLUDE PATHS:
+# note: for Cpp includes, for Cppunit (installed with brew) found easily
+export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/usr/local/Cellar/cppunit/1.15.1/include/
+#export CPATH=$CPATH:... #to affect any langage
+#export C_INCLUDE_PATH=$C_INCLUDE_PATH:...
+#export OBJC_INCLUDE_PATH=$C_INCLUDE_PATH:...
+
+#FOR LIBRARY PATHS
+#export LIBRARY_PATH=...
 ###############################################################################
 
 ###############################################################################

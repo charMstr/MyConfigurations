@@ -78,6 +78,26 @@ syntax enable
 set mouse=a
 set ruler
 
+"MAKE SURE THE COLORSCHEME IS DEFAULT (colorscheme)
+colorscheme default
+
+"COLOR and highlighting FOR COMMENTS (comments color)
+hi Comment term=bold cterm=italic ctermfg=lightcyan ctermbg=0 guifg=#80a0ff
+
+"toggle the color and highlighting for comments with the '|' (pipe) key
+nnoremap \| :call CommentHighlightToggle()<cr>
+let g:commentHighlightToggle = 0
+function! CommentHighlightToggle()
+	if g:commentHighlightToggle
+        let g:commentHighlightToggle = 0
+		hi Comment term=bold cterm=italic ctermfg=lightcyan ctermbg=0 guifg=#80a0ff
+    else
+        let g:commentHighlightToggle = 1
+		hi Comment term=bold cterm=italic ctermfg=236 ctermbg=233 guifg=#80a0ff
+	endif
+endfunction
+
+
 "MAKE SURE THE FILETYPE DETECTION IS ONE, AND THE PLUGINS ARE LOADED
 filetype on
 filetype plugin on
@@ -108,9 +128,6 @@ nnoremap * * :nohlsearch<cr>
 
 "HILIGHT MATCHING PARENTHESIS
 hi MatchParen ctermbg=green ctermfg=black
-
-"COLOR FOR COMMENTS
-highlight comment cterm=italic ctermbg=lightcyan ctermfg=0
 
 "NUMBERS-WISE / RELATIVENUMBER ON-OFF ...
 set number
