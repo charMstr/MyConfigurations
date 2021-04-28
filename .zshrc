@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2021/04/21 08:33:46 by charmstr         ###   ########.fr        #
+#    Updated: 2021/04/28 03:04:05 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ then
 	#SOURCES SHELL FUNCTIONS IN .SHELL_LIB
 	source ~/.shell_lib/display_colors.lib
 	source ~/.shell_lib/install_python_42ai.lib
+	source ~/.shell_lib/grepvim.lib
 	#SOURCES SHELL SCRIPTS IN .SHELL_SCRIPT
 	source ~/.shell_scripts/keep_lock_files_in_tmp_for_brew.sh
 fi

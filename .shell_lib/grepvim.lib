@@ -1,0 +1,34 @@
+# This function will grep a patern (first argument) in some files (second
+# argument and more) and then open vim if some match were found.
+# Each files is opened in a separate tabulation, the search patern is already
+# highlighted
+
+function vgrep()
+{
+	if [ $# -lt 2 ]
+	then
+		echo "\033[31mWARNING: grepvim: not enough argumenst \033[m" 
+		echo "\tusage:\033[m ./grepvim patern file(s)"
+		exit
+	fi
+	#STORE FIRST ARG IN PATERN
+	PATERN=$1
+	#SHIFT THE FIRST ARG, IT DOESNT BELONG TO $@ LIST ANYMORE
+	shift
+
+# EXPLANATIONS OF COMMAND
+#[grep in subshell] --> makes sure we dont use any alias
+#[+/"PATERN"] --> allows us to hightlight the research in vim editor just use
+#	'n' and 'N' in "normal mode" to jump to different locations
+#[-O] --> opens all the fils at once
+#[-p] --> open them in differnet tabs
+
+	(grep -l "$PATERN" $@) > /dev/null
+	if [ $? -ne 0 ]
+	then 
+		echo "\033[31mERROR: no match found for \"\033[38;5;9m$PATERN\033[31m\" in the folowing files:"
+		echo "\033[38;5;9m$@\033[m"
+		exit
+	fi
+	vim +/"$PATERN" $(grep -l "$PATERN" $@) -O -p
+}
