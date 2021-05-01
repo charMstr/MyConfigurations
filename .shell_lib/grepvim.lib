@@ -3,7 +3,7 @@
 # Each files is opened in a separate tabulation, the search patern is already
 # highlighted
 
-function vgrep()
+function grepvim()
 {
 	if [ $# -lt 2 ]
 	then
