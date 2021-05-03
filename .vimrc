@@ -82,7 +82,7 @@ set ruler
 colorscheme default
 
 "COLOR and highlighting FOR COMMENTS (comments color)
-hi Comment term=bold cterm=italic ctermfg=lightcyan ctermbg=0 guifg=#80a0ff
+hi Comment term=bold cterm=italic ctermbg=14 ctermfg=0 guifg=#80a0ff
 
 "toggle the color and highlighting for comments with the '|' (pipe) key
 nnoremap \| :call CommentHighlightToggle()<cr>
@@ -90,7 +90,7 @@ let g:commentHighlightToggle = 0
 function! CommentHighlightToggle()
 	if g:commentHighlightToggle
         let g:commentHighlightToggle = 0
-		hi Comment term=bold cterm=italic ctermfg=lightcyan ctermbg=0 guifg=#80a0ff
+		hi Comment term=bold cterm=italic ctermbg=14 ctermfg=0 guifg=#80a0ff
     else
         let g:commentHighlightToggle = 1
 		hi Comment term=bold cterm=italic ctermfg=236 ctermbg=233 guifg=#80a0ff
@@ -157,7 +157,7 @@ nnoremap <leader><space> :call Flash()<cr>
 
 "STATUS LINE
 set statusline=\ 							"space
-set statusline+=%.25F						"path to file
+set statusline+=%.50F						"path to file
 set statusline+=%=							"align to the right of the window
 set statusline+=Line:\ %l\ /\ %L\ \ \ 		"Line: number / total 
 
