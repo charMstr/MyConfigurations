@@ -194,6 +194,13 @@ nnoremap <leader>df :YcmCompleter GoToDefinition<cr>
 "FIX IT
 nnoremap <leader>f :YcmCompleter FixIt<cr>
 
+"PUPULATE VIM'S LOCATION LIST WITH NEW DIAGNOSTIC DATA (ERRORS IN RED)
+let g:ycm_always_populate_location_list = 1
+"JUMP TO NEXT DIAGNOSTIC DATA (NEXT ERROR)
+nnoremap <leader>j :lnext<CR>
+"JUMP TO PREVIOUS DIAGNOSTIC DATA (PREVIOUS ERROR)
+nnoremap <leader>k :lprevious<CR>
+
 " }}}
 "------------------------------------------------------------------------------
 

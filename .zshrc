@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2021/05/03 08:48:53 by Remercill        ###   ########.fr        #
+#    Updated: 2021/05/04 10:39:18 by Remercill        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -245,9 +245,18 @@ function spy
 	${XDG_PREFIX}open https://profile.intra.42.fr/users/$1
 }
 
+#count the extensions of the files in the current directory and displays result
 function count_extensions
 {
-	for j in *;do echo ${j##*.}; done | uniq -c
+	for j in *;
+	do echo ${j##*.};
+	done | sort | uniq -c
+}
+
+#copies the absolute path in printboard
+function cpwd
+{
+	echo -n `pwd` | pbcopy
 }
 
 # USAGE:example -->  change_extension .c .cpp
