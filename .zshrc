@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2021/04/28 03:04:05 by charmstr         ###   ########.fr        #
+#    Updated: 2021/05/04 10:39:18 by Remercill        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,12 +34,13 @@ then
 	export PATH=$HOME/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munk
 
 	#SOURCES SHELL FUNCTIONS IN .SHELL_LIB
-	source ~/.shell_lib/display_colors.lib
 	source ~/.shell_lib/install_python_42ai.lib
-	source ~/.shell_lib/grepvim.lib
 	#SOURCES SHELL SCRIPTS IN .SHELL_SCRIPT
 	source ~/.shell_scripts/keep_lock_files_in_tmp_for_brew.sh
 fi
+#SOURCES SHELL FUNCTIONS IN .SHELL_LIB
+source ~/.shell_lib/display_colors.lib
+source ~/.shell_lib/grepvim.lib
 
 ###############################################################################
 
@@ -244,9 +245,18 @@ function spy
 	${XDG_PREFIX}open https://profile.intra.42.fr/users/$1
 }
 
+#count the extensions of the files in the current directory and displays result
 function count_extensions
 {
-	for j in *;do echo ${j##*.}; done | uniq -c
+	for j in *;
+	do echo ${j##*.};
+	done | sort | uniq -c
+}
+
+#copies the absolute path in printboard
+function cpwd
+{
+	echo -n `pwd` | pbcopy
 }
 
 # USAGE:example -->  change_extension .c .cpp
