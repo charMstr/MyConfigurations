@@ -268,7 +268,7 @@ noremap in@ :<c-u>exe "normal! /@\\{1}\r:nohlsearch\rhviw"<cr>
 noremap dk <esc>
 noremap! dk <esc>
 
-"REMAP DD BECAUSE IT IS LOW OTHERWISE TO DELETE CURRENT LINE
+"REMAP DD BECAUSE IT IS SLOW OTHERWISE TO DELETE CURRENT LINE
 nnoremap dl dd
 
 "EDITING ('e') .VIMRC FILE ('v') AT THE TOP OF THE WINDOW (30 LINES)
