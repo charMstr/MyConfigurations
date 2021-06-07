@@ -146,11 +146,12 @@ set noerrorbells visualbell t_vb=
 
 
 "INSERTING DATE AND TIME
-nnoremap <leader>D k:call DateAndTime()<cr>
-inoremap <leader>D <esc>k:call DateAndTime()<cr>
+nnoremap <leader>D :call DateAndTime()<cr>
+inoremap <leader>D <esc>:call DateAndTime()<cr>
 
 "TODO:
 inoremap TODO <esc>:call ToDoFunc()<cr>
+nnoremap TODO <esc>O<esc>:call ToDoFunc()<cr>
 
 "SPOT CURRENT LINE
 nnoremap <leader><space> :call Flash()<cr>
@@ -408,7 +409,7 @@ augroup END
 
 "FUNCTION TO INSERT IN PLACE THE DATE AND TIME
 function! DateAndTime()
-:put =expand(strftime('%a %d/%m/%Y at %T'))
+:put! =expand(strftime('%a %d/%m/%Y at %T'))
 endfunction
 
 "IF TEXTWIDTH IS MORE THAN 80
@@ -511,10 +512,11 @@ endfunction
 "TODO WILL PRINT TODO AND DATE AND TIME
 function! ToDoFunc()
 
-	normal! k
 	call DateAndTime()
-	normal! I //TODO(
-	normal! A) 
+	normal! JO// [
+	normal! JxA]
+	normal! o//TODO (charmstr): 
+	startinsert!
 
 endfunction
 
