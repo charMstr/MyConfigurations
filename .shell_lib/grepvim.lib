@@ -3,13 +3,13 @@
 # Each files is opened in a separate tabulation, the search patern is already
 # highlighted
 
-function grepvim()
+grepvim()
 {
 	if [ $# -lt 2 ]
 	then
 		echo "\033[31mWARNING: grepvim: not enough argumenst \033[m" 
 		echo "\tusage:\033[m ./grepvim patern file(s)"
-		exit
+        return
 	fi
 	#STORE FIRST ARG IN PATERN
 	PATERN=$1
@@ -28,7 +28,7 @@ function grepvim()
 	then 
 		echo "\033[31mERROR: no match found for \"\033[38;5;9m$PATERN\033[31m\" in the folowing files:"
 		echo "\033[38;5;9m$@\033[m"
-		exit
+        return
 	fi
 	vim +/"$PATERN" $(grep -l "$PATERN" $@) -O -p
 }
