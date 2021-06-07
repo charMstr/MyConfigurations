@@ -195,7 +195,7 @@ inoremap <buffer> cinn std::cin >> ;<esc>i<C-R>=Eatchar('\s')<cr>
 inoremap <buffer> couu std::cout << <C-R>=Eatchar('\s')<cr>
 
 "ENDL
-inoremap <buffer> endd <<<space>std::endl;<esc> 
+inoremap <buffer> endd <esc>A<space><<<space>std::endl;<esc>
 "<C-R>=Eatchar('\s')<cr>
 nnoremap <buffer> endd A<space><<<space>std::endl;<esc>
 "<C-R>=Eatchar('\s')<cr>
