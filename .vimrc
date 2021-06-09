@@ -81,6 +81,10 @@ set ruler
 "MAKE SURE THE COLORSCHEME IS DEFAULT (colorscheme)
 colorscheme default
 
+"COLOR and highlighting FOR speliing error (avoids having pink string with red
+"background).
+hi SpellBad term=reverse ctermbg=9 ctermfg=8 gui=undercurl guisp=Red
+
 "COLOR and highlighting FOR COMMENTS (comments color)
 hi Comment term=bold cterm=italic ctermfg=14 ctermbg=0 guifg=#80a0ff
 
