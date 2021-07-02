@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2021/06/07 22:23:26 by charmstr         ###   ########.fr        #
+#    Updated: 2021/07/02 13:36:52 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -172,6 +172,8 @@ alias MINI='cd ~/Projects/minishell'
 alias PHIL='cd ~/Projects/philosophers'
 alias CONT='cd ~/Projects/ft_containers'
 alias WEBS='cd ~/Projects/webserver_git'
+alias PUSH='cd ~/Projects/push_swap'
+alias TRAN='cd ~/Projects/ft_transcendence'
 
 alias SAN='cd ~/Sandbox'
 
