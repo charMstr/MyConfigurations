@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2021/07/08 19:38:47 by charmstr         ###   ########.fr        #
+#    Updated: 2021/07/08 19:43:23 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,9 +34,11 @@ then
 	export PATH=$HOME/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munk
 
 	#SOURCES SHELL FUNCTIONS IN .SHELL_LIB
-	source ~/.shell_lib/*
+	source ~/.shell_lib/display_colors.lib
+	source ~/.shell_lib/grepvim.lib
+	source ~/.shell_lib/install_python_42ai.lib
 	#SOURCES SHELL SCRIPTS IN .SHELL_SCRIPT
-	source ~/.shell_scripts/*
+	source ~/.shell_scripts/keep_lock_files_in_tmp_for_brew.sh
 fi
 #SOURCES SHELL FUNCTIONS IN .SHELL_LIB
 source ~/.shell_lib/display_colors.lib
