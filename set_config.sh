@@ -71,22 +71,50 @@ else
 	echo "\033[32mbrew is installed.\033[m"
 fi
 
-brew install cmake python mono go nodejs
+brew install cmake 
 if [ $? != 0 ]
 then
-	echo "\033[31mfailed to \"brew install cmake python mono go nodejs\"\033[m"
+	echo "\033[31mfailed to \"brew install cmake\"\033[m"
 	exit 1
 fi
 
-brew install vim
-if [ $? != 0 ]
-then
-	echo "\033[31mfailed to \"brew install vim\"\033[m"
-	exit 1
-fi
+#brew install python 
+#if [ $? != 0 ]
+#then
+#	echo "\033[31mfailed to \"brew install python\"\033[m"
+#	exit 1
+#fi
+
+#brew install mono
+#if [ $? != 0 ]
+#then
+#	echo "\033[31mfailed to \"brew install mono\"\033[m"
+#	exit 1
+#fi
+#
+#brew install go 
+#if [ $? != 0 ]
+#then
+#	echo "\033[31mfailed to \"brew install go\"\033[m"
+#	exit 1
+#fi
+#
+#brew install nodejs
+#if [ $? != 0 ]
+#then
+#	echo "\033[31mfailed to \"brew install nodejs\"\033[m"
+#	exit 1
+#fi
+#
+#brew install vim
+#if [ $? != 0 ]
+#then
+#	echo "\033[31mfailed to \"brew install vim\"\033[m"
+#	exit 1
+#fi
 
 cd ~/.vim/bundle/YouCompleteMe
-python3 install.py --all
+python3 install.py
 if [ $? != 0 ]
 then
 	echo "\033[31mfailed to compile YCM with all our options.\033[m"
