@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2021/07/02 13:36:52 by charmstr         ###   ########.fr        #
+#    Updated: 2021/07/08 19:38:47 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -322,7 +322,7 @@ then
 
 	set_docker()
 	{
-		sh  ~/.shell_scripts/move_docker_to_goinfre.sh
+		sh  ~/.shell_scripts/init_docker.sh
 	}
 
 	#MAKE SPACE
