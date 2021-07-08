@@ -81,8 +81,12 @@ set ruler
 "MAKE SURE THE COLORSCHEME IS DEFAULT (colorscheme)
 colorscheme default
 
+"COLOR and highlighting FOR speliing error (avoids having pink string with red
+"background).
+hi SpellBad term=reverse ctermbg=9 ctermfg=8 gui=undercurl guisp=Red
+
 "COLOR and highlighting FOR COMMENTS (comments color)
-hi Comment term=bold cterm=italic ctermbg=14 ctermfg=0 guifg=#80a0ff
+hi Comment term=bold cterm=italic ctermfg=14 ctermbg=0 guifg=#80a0ff
 
 "toggle the color and highlighting for comments with the '|' (pipe) key
 nnoremap \| :call CommentHighlightToggle()<cr>
@@ -90,7 +94,7 @@ let g:commentHighlightToggle = 0
 function! CommentHighlightToggle()
 	if g:commentHighlightToggle
         let g:commentHighlightToggle = 0
-		hi Comment term=bold cterm=italic ctermbg=14 ctermfg=0 guifg=#80a0ff
+		hi Comment term=bold cterm=italic ctermfg=14 ctermbg=0 guifg=#80a0ff
     else
         let g:commentHighlightToggle = 1
 		hi Comment term=bold cterm=italic ctermfg=236 ctermbg=233 guifg=#80a0ff
@@ -146,11 +150,12 @@ set noerrorbells visualbell t_vb=
 
 
 "INSERTING DATE AND TIME
-nnoremap <leader>D k:call DateAndTime()<cr>
-inoremap <leader>D <esc>k:call DateAndTime()<cr>
+nnoremap <leader>D :call DateAndTime()<cr>
+inoremap <leader>D <esc>:call DateAndTime()<cr>
 
 "TODO:
 inoremap TODO <esc>:call ToDoFunc()<cr>
+nnoremap TODO <esc>O<esc>:call ToDoFunc()<cr>
 
 "SPOT CURRENT LINE
 nnoremap <leader><space> :call Flash()<cr>
@@ -275,7 +280,7 @@ noremap in@ :<c-u>exe "normal! /@\\{1}\r:nohlsearch\rhviw"<cr>
 noremap dk <esc>
 noremap! dk <esc>
 
-"REMAP DD BECAUSE IT IS LOW OTHERWISE TO DELETE CURRENT LINE
+"REMAP DD BECAUSE IT IS SLOW OTHERWISE TO DELETE CURRENT LINE
 nnoremap dl dd
 
 "EDITING ('e') .VIMRC FILE ('v') AT THE TOP OF THE WINDOW (30 LINES)
@@ -408,7 +413,7 @@ augroup END
 
 "FUNCTION TO INSERT IN PLACE THE DATE AND TIME
 function! DateAndTime()
-:put =expand(strftime('%a %d/%m/%Y at %T'))
+:put! =expand(strftime('%a %d/%m/%Y at %T'))
 endfunction
 
 "IF TEXTWIDTH IS MORE THAN 80
@@ -511,10 +516,11 @@ endfunction
 "TODO WILL PRINT TODO AND DATE AND TIME
 function! ToDoFunc()
 
-	normal! k
 	call DateAndTime()
-	normal! I //TODO(
-	normal! A) 
+	normal! JO// [
+	normal! JxA]
+	normal! o//TODO (charmstr): 
+	startinsert!
 
 endfunction
 
