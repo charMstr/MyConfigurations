@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2021/07/07 15:14:39 by charmstr         ###   ########.fr        #
+#    Updated: 2021/07/14 01:13:51 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,9 +34,11 @@ then
 	export PATH=$HOME/.brew/var:$HOME/.brew/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munk
 
 	#SOURCES SHELL FUNCTIONS IN .SHELL_LIB
-	source ~/.shell_lib/*
+	source ~/.shell_lib/display_colors.lib
+	source ~/.shell_lib/grepvim.lib
+	source ~/.shell_lib/install_python_42ai.lib
 	#SOURCES SHELL SCRIPTS IN .SHELL_SCRIPT
-	source ~/.shell_scripts/*
+	source ~/.shell_scripts/keep_lock_files_in_tmp_for_brew.sh
 fi
 #SOURCES SHELL FUNCTIONS IN .SHELL_LIB
 source ~/.shell_lib/display_colors.lib
@@ -322,7 +324,7 @@ then
 
 	set_docker()
 	{
-		sh  ~/.shell_scripts/move_docker_to_goinfre.sh
+		sh  ~/.shell_scripts/init_docker.sh
 	}
 
 	#MAKE SPACE
@@ -334,3 +336,4 @@ then
 	}
 fi
 ###############################################################################
+export PATH=$HOME/.brew/bin:$PATH
