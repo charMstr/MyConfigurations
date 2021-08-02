@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2021/08/02 19:20:57 by charmstr         ###   ########.fr        #
+#    Updated: 2021/08/02 19:23:06 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ unsetopt BEEP
 # IF AT 42
 if [ `basename ${HOME}` = "charmstr" ]
 then
-	export PATH=$HOME/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munk
+	export PATH=$HOME/.brew/var:$HOME/.brew/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munk
 
 	#SOURCES SHELL FUNCTIONS IN .SHELL_LIB
 	source ~/.shell_lib/display_colors.lib
