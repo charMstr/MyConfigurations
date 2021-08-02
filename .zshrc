@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2021/07/08 19:43:23 by charmstr         ###   ########.fr        #
+#    Updated: 2021/08/02 19:20:57 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -328,11 +328,9 @@ then
 	}
 
 	#MAKE SPACE
-	function clean_caches
+	function free_space
 	{
-		rm -rf ~/Library/**.42_cache_bak_**
-		rm -rf ~/**.42_cache_bak_**
-		brew cleanup
+		sh ~/.shell_scripts/free_space.sh
 	}
 fi
 ###############################################################################
