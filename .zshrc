@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2021/08/02 19:23:06 by charmstr         ###   ########.fr        #
+#    Updated: 2022/03/13 13:56:53 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -176,6 +176,7 @@ alias CONT='cd ~/Projects/ft_containers'
 alias WEBS='cd ~/Projects/webserver_git'
 alias PUSH='cd ~/Projects/push_swap'
 alias TRAN='cd ~/Projects/ft_transcendence'
+alias RUST='cd ~/Projects/rust_training'
 
 alias SAN='cd ~/Sandbox'
 
@@ -335,3 +336,4 @@ then
 fi
 ###############################################################################
 export PATH=$HOME/.brew/bin:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
