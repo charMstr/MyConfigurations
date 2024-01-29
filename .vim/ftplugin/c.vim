@@ -91,6 +91,7 @@ if expand('%:e') == "h" || expand('%:e') == "hpp"
 	"IFDEF
 	inoreabbrev <buffer> ifdef # ifdef <esc>o# endif<esc>k3o<esc>3kA<C-R>=Eatchar('\s')<cr>
 	"CLASS
+	"USEMORE
 	inoreabbrev <buffer> <silent> typedefs typedef struct<tab>s_<cr>{<cr>}<tab><tab><tab><tab>t_;<esc>2kA<C-R>=Eatchar('\s')<cr>
 	"TYPEDEF: typedefe -> typedef enum ... etc.
 	inoreabbrev <buffer> <silent> typedefe typedef enum<tab>e_<cr>{<cr>//<tab>coma, separated, without, trailing, semicolumn<cr>}<tab><tab><tab><tab>t_;<esc>3kA<C-R>=Eatchar('\s')<cr>
@@ -113,6 +114,7 @@ setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s:/*,mb:**,ex:*/,f://
 "CLEAN FILE FROM TRAILING SPACES AND TABS BEFORE WRITING
 autocmd BufWritePre *.c %s/\(\s\|\t\)\+$//ge
 
+"USEMORE
 "COMENT INLINE WITH ]c  adds "//"
 nnoremap <buffer> <localleader>c I//<esc>
 inoremap <buffer> <localleader>c <esc>I//<esc>
@@ -128,6 +130,7 @@ inoremap <buffer> <localleader>C <esc>o/*<cr><cr>/<esc>kA<space>
 "ABBREVIATIONS FOR C
 "IF
 inoremap <buffer> <silent> iff if ()<Left><C-R>=Eatchar('\s')<cr>
+"USEMORE
 "WHILE
 inoremap <buffer> <silent> whii while ()<Left><C-R>=Eatchar('\s')<cr>
 "FOR --> YOU CAN SHUT THE FUCK UP

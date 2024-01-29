@@ -1,3 +1,7 @@
+"this file is used by the grep-operator plugin, is it used to navigate in the
+"quickfix window opened when a word is found
+
+
 "GLOBAL VARIABLE TO KEEP TRACK OF THE WINDOW OPENED (TARGET) BY THE QUICKFIX
 let g:quickfix_target_window = 0
 "TWO GLOBAL VARIABLES TO SAVE CURRENT WORKING WINDOW BEFORE THE QUICKFIX CALL

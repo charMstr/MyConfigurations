@@ -6,7 +6,7 @@
 #    By: charmstr <charmstr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 19:21:18 by charmstr          #+#    #+#              #
-#    Updated: 2022/03/13 13:56:53 by charmstr         ###   ########.fr        #
+#    Updated: 2022/04/25 15:27:48 by charmstr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -177,6 +177,7 @@ alias WEBS='cd ~/Projects/webserver_git'
 alias PUSH='cd ~/Projects/push_swap'
 alias TRAN='cd ~/Projects/ft_transcendence'
 alias RUST='cd ~/Projects/rust_training'
+alias COMP='cd ~/Projects/rust_training/computer_v1'
 
 alias SAN='cd ~/Sandbox'
 
